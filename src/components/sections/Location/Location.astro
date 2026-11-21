@@ -1,0 +1,90 @@
+---
+import type { Location, LocationLabels } from "@/types/location";
+import ActionButton from "@/components/ui/ActionButton/ActionButton.astro";
+import Embed from "@/components/ui/Embed/Embed.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import SectionShell from "../SectionShell.astro";
+import "./Location.css";
+
+type Props = Location & { id?: string; labels: LocationLabels };
+
+const location = Astro.props;
+const {
+  id = "location",
+  variant,
+  eyebrow,
+  title,
+  description,
+  address,
+  hours = [],
+  directions,
+  action,
+  labels,
+} = location;
+
+const cityLine = [address.postalCode, address.city, address.region]
+  .filter(Boolean)
+  .join(", ");
+---
+
+<SectionShell
+  id={id}
+  class={`location location--${variant}`}
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+  action={action}
+>
+  <div class="location__body">
+    <div class="location__details">
+      <div class="location__block">
+        <h3 class="location__heading">
+          <Icon name="map-pin" />
+          {labels.address}
+        </h3>
+        <address class="location__address">
+          {address.street}
+          <br />
+          {cityLine}
+          <br />
+          {address.country}
+        </address>
+      </div>
+
+      {hours.length > 0 && (
+        <div class="location__block">
+          <h3 class="location__heading">
+            <Icon name="clock" />
+            {labels.hours}
+          </h3>
+          <dl class="location__hours">
+            {hours.map((entry) => (
+              <div class="location__hours-row">
+                <dt>{entry.day}</dt>
+                <dd>{entry.hours}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+
+      {directions && (
+        <div>
+          <ActionButton action={directions} variant="outline" />
+        </div>
+      )}
+    </div>
+
+    {location.variant === "map" && (
+      <Embed
+        src={location.map.embedUrl}
+        href={location.map.embedUrl}
+        title={labels.mapTitle}
+        label={labels.loadMap}
+        icon="map-pin"
+        preview={location.map.preview}
+        ratio="4/3"
+      />
+    )}
+  </div>
+</SectionShell>

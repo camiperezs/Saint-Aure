@@ -1,0 +1,50 @@
+---
+import type { Service, ServiceLabels } from "@/types/services";
+import Badge from "@/components/ui/Badge/Badge.astro";
+import ActionButton from "@/components/ui/ActionButton/ActionButton.astro";
+import Card from "@/components/ui/Card/Card.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import Media from "@/components/ui/Media/Media.astro";
+import { imageSizes } from "@/utils/image-sizes";
+import { formatPrice } from "@/utils/price";
+
+interface Props {
+  service: Service;
+  labels: ServiceLabels;
+  locale: string;
+}
+
+const { service, labels, locale } = Astro.props;
+const { title, description, visual, price, featured, label, action } = service;
+---
+
+<Card as="li" featured={featured} class="service-card">
+  {visual?.type === "image" && (
+    <Media
+      image={visual.image}
+      class="service-card__image"
+      sizes={imageSizes.column}
+    />
+  )}
+  {visual?.type === "icon" && <Icon name={visual.name} class="feature-icon" />}
+  <div class="service-card__body">
+    {(featured || label) && (
+      <div class="cluster service-card__badges">
+        {featured && <Badge tone="primary">{labels.featured}</Badge>}
+        {label && <Badge>{label}</Badge>}
+      </div>
+    )}
+    <h3 class="service-card__title">{title}</h3>
+    <p class="service-card__description">{description}</p>
+    {price && (
+      <p class="service-card__price">{formatPrice(price, locale, labels)}</p>
+    )}
+  </div>
+  {action && (
+    <ActionButton
+      class="service-card__action"
+      action={action}
+      variant="outline"
+    />
+  )}
+</Card>

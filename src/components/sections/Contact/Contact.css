@@ -1,0 +1,52 @@
+@layer components {
+  .contact__body {
+    display: grid;
+    gap: var(--space-fluid-md);
+  }
+
+  .contact--form .contact__details {
+    order: 1;
+  }
+
+  .contact__details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .contact__channels {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: 0;
+    list-style: none;
+  }
+
+  .contact__channel {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-block-size: 2.75rem;
+    color: var(--color-text-primary);
+  }
+
+  .contact__channel .icon {
+    font-size: 1.25rem;
+    color: var(--color-action-primary);
+  }
+
+  .contact__form {
+    padding: var(--preset-card-padding);
+    background-color: var(--preset-card-background);
+    border: var(--preset-card-border-width) solid var(--color-border-default);
+    border-radius: var(--preset-card-radius);
+    box-shadow: var(--preset-card-shadow);
+  }
+
+  @media (min-width: 64rem) {
+    .contact__body--split {
+      grid-template-columns: 2fr 3fr;
+      align-items: start;
+    }
+  }
+}

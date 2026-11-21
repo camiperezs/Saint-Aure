@@ -1,0 +1,46 @@
+---
+import type { AnalyticsConfig, ConsentLabels } from "@/types/analytics";
+import "@/components/ui/Button/Button.css";
+import "./CookieConsent.css";
+
+interface Props {
+  config: AnalyticsConfig;
+  labels: ConsentLabels;
+}
+
+const { config, labels } = Astro.props;
+---
+
+<section
+  class="cookie-consent"
+  aria-label={labels.region}
+  data-cookie-consent
+  data-provider={config.provider}
+  data-measurement-id={config.measurementId}
+  hidden
+>
+  <p class="cookie-consent__message">
+    {labels.message}
+    {config.privacyPolicyUrl && (
+      <a href={config.privacyPolicyUrl}>{labels.privacyPolicy}</a>
+    )}
+  </p>
+  <div class="cookie-consent__actions">
+    <button class="button button--primary" type="button" data-consent-accept>
+      {labels.accept}
+    </button>
+    <button class="button button--primary" type="button" data-consent-reject>
+      {labels.reject}
+    </button>
+  </div>
+</section>
+
+<script>
+  import { initConsent } from "@/scripts/consent";
+
+  const banner = document.querySelector<HTMLElement>("[data-cookie-consent]");
+
+  if (banner) {
+    initConsent(banner);
+  }
+</script>

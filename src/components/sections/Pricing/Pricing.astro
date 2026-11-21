@@ -1,0 +1,84 @@
+---
+import type { PricingLabels, Pricing } from "@/types/pricing";
+import type { ServiceLabels } from "@/types/services";
+import Badge from "@/components/ui/Badge/Badge.astro";
+import ActionButton from "@/components/ui/ActionButton/ActionButton.astro";
+import Card from "@/components/ui/Card/Card.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import { formatPrice } from "@/utils/price";
+import SectionShell from "../SectionShell.astro";
+import "./Pricing.css";
+
+type Props = Pricing & {
+  id?: string;
+  labels: PricingLabels;
+  priceLabels: ServiceLabels;
+  locale: string;
+};
+
+const {
+  id = "pricing",
+  eyebrow,
+  title,
+  description,
+  plans,
+  note,
+  labels,
+  priceLabels,
+  locale,
+} = Astro.props;
+---
+
+<SectionShell
+  id={id}
+  class="pricing"
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+>
+  <ul class="grid grid--3 pricing__plans" role="list">
+    {plans.map((plan) => (
+      <Card as="li" featured={plan.featured} class="pricing__plan">
+        <div class="pricing__header">
+          {plan.featured && <Badge tone="primary">{labels.featured}</Badge>}
+          <h3 class="pricing__name">{plan.name}</h3>
+          {plan.description && (
+            <p class="pricing__description">{plan.description}</p>
+          )}
+        </div>
+
+        <p class="pricing__price">
+          <span
+            class:list={[
+              "pricing__amount",
+              {
+                "pricing__amount--text":
+                  plan.price.type === "quote" || plan.price.type === "custom",
+              },
+            ]}
+          >
+            {formatPrice(plan.price, locale, priceLabels)}
+          </span>
+          {plan.period && <span class="pricing__period">{plan.period}</span>}
+        </p>
+
+        <ul class="pricing__features" role="list" aria-label={labels.features}>
+          {plan.features.map((feature) => (
+            <li class="pricing__feature">
+              <Icon name="check" />
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        <ActionButton
+          class="pricing__action"
+          action={plan.action}
+          variant={plan.featured ? "primary" : "outline"}
+        />
+      </Card>
+    ))}
+  </ul>
+
+  {note && <p class="pricing__note">{note}</p>}
+</SectionShell>

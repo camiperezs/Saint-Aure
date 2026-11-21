@@ -1,0 +1,90 @@
+---
+import type { FooterConfig, NavigationLink } from "@/types/navigation";
+import Container from "@/components/ui/Container/Container.astro";
+import SocialLinks from "@/components/ui/SocialLinks/SocialLinks.astro";
+import "./Footer.css";
+
+interface Props extends FooterConfig {
+  brand: string;
+  links?: NavigationLink[];
+  social?: NavigationLink[];
+  navigationLabel: string;
+  socialLabel: string;
+  legalLabel: string;
+}
+
+const {
+  variant,
+  brand,
+  description,
+  channels = [],
+  legal = [],
+  links = [],
+  social = [],
+  navigationLabel,
+  socialLabel,
+  legalLabel,
+} = Astro.props;
+
+const year = new Date().getFullYear();
+---
+
+<footer class:list={["footer", `footer--${variant}`]}>
+  <Container size="wide" class="footer__inner">
+    {variant === "expanded" && (
+      <div class="footer__columns">
+        <div class="footer__brand">
+          <p class="footer__name">{brand}</p>
+          {description && <p class="footer__description">{description}</p>}
+        </div>
+
+        {links.length > 0 && (
+          <nav aria-label={navigationLabel}>
+            <ul class="footer__list">
+              {links.map((link) => (
+                <li>
+                  <a class="footer__link" href={link.href}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+
+        {channels.length > 0 && (
+          <ul class="footer__list">
+            {channels.map((channel) => (
+              <li>
+                <a class="footer__link" href={channel.href}>
+                  {channel.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    )}
+
+    <div class="footer__bottom">
+      <p class="footer__copyright">
+        © {year} {brand}
+      </p>
+      {legal.length > 0 && (
+        <nav aria-label={legalLabel}>
+          <ul class="footer__legal">
+            {legal.map((link) => (
+              <li>
+                <a class="footer__link" href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+      <SocialLinks links={social} label={socialLabel} />
+      <slot name="bottom" />
+    </div>
+  </Container>
+</footer>

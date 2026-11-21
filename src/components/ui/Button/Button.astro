@@ -1,0 +1,61 @@
+---
+import type { ActionVariant, LinkAction } from "@/types/action";
+import "./Button.css";
+
+interface CommonProps {
+  variant?: ActionVariant;
+  class?: string;
+}
+
+interface LinkProps extends CommonProps {
+  href: string;
+  target?: LinkAction["target"];
+  rel?: string;
+  type?: never;
+  disabled?: never;
+  loading?: never;
+}
+
+interface NativeProps extends CommonProps {
+  href?: never;
+  target?: never;
+  rel?: never;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  loading?: boolean;
+}
+
+type Props = LinkProps | NativeProps;
+
+const { variant = "primary", class: className, ...props } = Astro.props;
+const classes = ["button", `button--${variant}`, className];
+
+function linkRel(rel: string | undefined, target: string | undefined) {
+  if (target !== "_blank") return rel;
+  if (rel === undefined) return "noopener noreferrer";
+  const tokens = new Set(rel.split(/\s+/).filter(Boolean));
+  tokens.add("noopener");
+  return [...tokens].join(" ");
+}
+---
+
+{props.href !== undefined ? (
+  <a
+    class:list={classes}
+    href={props.href}
+    target={props.target}
+    rel={linkRel(props.rel, props.target)}
+  >
+    <slot />
+  </a>
+) : (
+  <button
+    class:list={classes}
+    type={props.type ?? "button"}
+    disabled={props.disabled && !props.loading}
+    aria-disabled={props.loading ? "true" : undefined}
+    aria-busy={props.loading ? "true" : undefined}
+  >
+    <slot />
+  </button>
+)}

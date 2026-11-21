@@ -1,0 +1,49 @@
+---
+import type { Logos } from "@/types/logos";
+import Media from "@/components/ui/Media/Media.astro";
+import SectionShell from "../SectionShell.astro";
+import "./Logos.css";
+
+type Props = Logos & { id?: string };
+
+const {
+  id = "logos",
+  variant,
+  eyebrow,
+  title,
+  description,
+  items,
+} = Astro.props;
+---
+
+<SectionShell
+  id={id}
+  class={`logos logos--${variant}`}
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+>
+  <ul class="logos__items" role="list">
+    {items.map((item) => (
+      <li class="logos__item">
+        {item.href ? (
+          <a class="logos__link" href={item.href} aria-label={item.name}>
+            <Media
+              image={{ ...item.image, alt: "" }}
+              placeholder={false}
+              sizes="10rem"
+              class="logos__image"
+            />
+          </a>
+        ) : (
+          <Media
+            image={{ ...item.image, alt: item.image.alt || item.name }}
+            placeholder={false}
+            sizes="10rem"
+            class="logos__image"
+          />
+        )}
+      </li>
+    ))}
+  </ul>
+</SectionShell>

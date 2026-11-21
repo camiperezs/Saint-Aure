@@ -1,0 +1,46 @@
+---
+import type { CTA } from "@/types/cta";
+import Actions from "@/components/ui/Actions/Actions.astro";
+import Container from "@/components/ui/Container/Container.astro";
+import Media from "@/components/ui/Media/Media.astro";
+import { imageSizes } from "@/utils/image-sizes";
+import SectionTitle from "@/components/ui/SectionTitle/SectionTitle.astro";
+import "./CallToAction.css";
+
+type Props = CTA & { id?: string };
+
+const {
+  id = "cta",
+  variant,
+  eyebrow,
+  title,
+  description,
+  image,
+  primaryAction,
+  secondaryAction,
+} = Astro.props;
+
+const actions = secondaryAction
+  ? [primaryAction, secondaryAction]
+  : [primaryAction];
+const showImage = variant === "split" && image;
+---
+
+<section id={id} class:list={["section", "cta", `cta--${variant}`]}>
+  <Container>
+    <div class:list={["cta__panel", { "cta__panel--with-image": showImage }]}>
+      <div class="cta__content">
+        <SectionTitle
+          eyebrow={eyebrow}
+          title={title}
+          description={description}
+          align={variant === "split" ? "start" : "center"}
+        />
+        <Actions actions={actions} class="cta__actions" />
+      </div>
+      {showImage && (
+        <Media image={image} class="cta__image" sizes={imageSizes.half} />
+      )}
+    </div>
+  </Container>
+</section>

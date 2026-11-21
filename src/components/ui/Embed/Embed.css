@@ -1,0 +1,62 @@
+@layer components {
+  .embed {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    overflow: hidden;
+    background-color: var(--color-surface-sunken);
+    border: var(--border-width-default) solid var(--color-border-default);
+    border-radius: var(--preset-card-radius);
+  }
+
+  .embed--ratio-4-3 {
+    aspect-ratio: 4 / 3;
+  }
+
+  .embed--ratio-16-9 {
+    aspect-ratio: 16 / 9;
+  }
+
+  .embed__preview,
+  .embed__frame {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    border: 0;
+  }
+
+  .embed__placeholder {
+    display: grid;
+    place-items: center;
+    font-size: 3rem;
+    color: var(--color-border-strong);
+  }
+
+  .embed__load {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-block-size: 2.75rem;
+    padding: var(--space-3) var(--space-6);
+
+    font-size: var(--text-ui);
+    font-weight: var(--font-semibold);
+    text-decoration: none;
+
+    color: var(--color-text-on-primary);
+    background-color: var(--color-action-primary);
+    border-radius: var(--preset-button-radius);
+    box-shadow: var(--shadow-default);
+  }
+
+  .embed__load:hover {
+    color: var(--color-text-on-primary);
+    background-color: var(--color-action-primary-hover);
+  }
+}

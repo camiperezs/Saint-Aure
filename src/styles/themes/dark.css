@@ -1,0 +1,71 @@
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Backgrounds */
+  --color-background: var(--color-neutral-950);
+  --color-background-alt: var(--color-neutral-900);
+  --color-surface: var(--color-neutral-900);
+  --color-surface-raised: var(--color-neutral-800);
+  --color-surface-sunken: var(--color-neutral-800);
+
+  /* Text */
+  --color-text-primary: var(--color-neutral-50);
+  --color-text-secondary: var(--color-neutral-300);
+  --color-text-muted: var(--color-neutral-400);
+  --color-text-inverse: var(--color-neutral-950);
+
+  /* Borders */
+  --color-border-subtle: var(--color-neutral-800);
+  --color-border-default: var(--color-neutral-700);
+  --color-border-strong: var(--color-neutral-400);
+
+  /* Actions */
+  --color-action-primary: var(--color-brand-300);
+  --color-action-primary-hover: var(--color-brand-200);
+  --color-action-primary-active: var(--color-brand-100);
+  --color-text-on-primary: var(--color-brand-950);
+
+  --color-action-secondary: var(--color-secondary-400);
+  --color-action-secondary-hover: var(--color-secondary-300);
+  --color-action-secondary-active: var(--color-secondary-200);
+  --color-text-on-secondary: var(--color-secondary-950);
+
+  /* Links */
+  --color-link: var(--color-brand-300);
+  --color-link-hover: var(--color-brand-200);
+
+  /* Focus */
+  --color-focus: var(--color-brand-300);
+  --color-focus-on-primary: var(--color-text-on-primary);
+
+  /* Selection */
+  --color-selection-background: var(--color-brand-900);
+  --color-selection-text: var(--color-brand-50);
+
+  /* Overlay */
+  --color-overlay: color-mix(
+    in srgb,
+    var(--color-neutral-950) 70%,
+    transparent
+  );
+  --color-text-on-overlay: var(--color-neutral-0);
+
+  /* Shadows: darker so they still read on dark surfaces */
+  --shadow-subtle:
+    0 0.0625rem 0.125rem rgb(0 0 0 / 30%), 0 0.125rem 0.5rem rgb(0 0 0 / 25%);
+  --shadow-default:
+    0 0.0625rem 0.125rem rgb(0 0 0 / 35%), 0 0.25rem 1rem rgb(0 0 0 / 35%);
+  --shadow-elevated:
+    0 0.125rem 0.25rem rgb(0 0 0 / 40%), 0 0.75rem 2rem rgb(0 0 0 / 50%);
+
+  /* Status */
+  --color-status-success: var(--color-success-400);
+  --color-status-warning: var(--color-warning-400);
+  --color-status-danger: var(--color-danger-400);
+  --color-status-info: var(--color-info-400);
+
+  --color-status-success-bg: var(--color-success-950);
+  --color-status-warning-bg: var(--color-warning-950);
+  --color-status-danger-bg: var(--color-danger-950);
+  --color-status-info-bg: var(--color-info-950);
+}

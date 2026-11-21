@@ -1,0 +1,20 @@
+[data-preset="elegant"] {
+  --preset-section-spacing: var(--section-spacing-airy);
+  --preset-grid-gap: var(--grid-gap-airy);
+
+  --preset-card-radius: var(--radius-md);
+  --preset-card-background: var(--color-surface);
+  --preset-card-border-width: var(--border-width-default);
+  --preset-card-shadow: var(--shadow-none);
+  --preset-card-padding: var(--space-8);
+
+  --preset-media-radius: var(--radius-md);
+  --preset-button-radius: var(--radius-sm);
+  --preset-badge-radius: var(--radius-sm);
+
+  --preset-icon-stroke: 1.5;
+
+  --text-heading-tracking: -0.02em;
+  --eyebrow-transform: none;
+  --eyebrow-tracking: normal;
+}

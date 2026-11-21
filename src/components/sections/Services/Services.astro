@@ -1,0 +1,46 @@
+---
+import type { ServiceLabels, Services } from "@/types/services";
+import SectionShell from "../SectionShell.astro";
+import ServiceCard from "./ServiceCard.astro";
+import "./Services.css";
+
+type Props = Services & {
+  id?: string;
+  labels: ServiceLabels;
+  locale: string;
+};
+
+const {
+  id = "services",
+  variant,
+  eyebrow,
+  title,
+  description,
+  services,
+  action,
+  labels,
+  locale,
+} = Astro.props;
+
+const items =
+  variant === "featured"
+    ? [...services].sort(
+        (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)),
+      )
+    : services;
+---
+
+<SectionShell
+  id={id}
+  class={`services services--${variant}`}
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+  action={action}
+>
+  <ul class:list={["services__items", { "grid grid--3": variant !== "list" }]}>
+    {items.map((service) => (
+      <ServiceCard service={service} labels={labels} locale={locale} />
+    ))}
+  </ul>
+</SectionShell>

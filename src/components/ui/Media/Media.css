@@ -1,0 +1,9 @@
+@layer components {
+  .media {
+    border-radius: var(--preset-media-radius);
+  }
+
+  .media--placeholder {
+    background-color: var(--color-surface-sunken);
+  }
+}

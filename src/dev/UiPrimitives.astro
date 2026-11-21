@@ -1,0 +1,146 @@
+---
+import type { IconName } from "@/icons";
+import type { Action, ActionVariant } from "@/types/action";
+import Actions from "@/components/ui/Actions/Actions.astro";
+import Badge from "@/components/ui/Badge/Badge.astro";
+import Button from "@/components/ui/Button/Button.astro";
+import Card from "@/components/ui/Card/Card.astro";
+import Container from "@/components/ui/Container/Container.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import SectionTitle from "@/components/ui/SectionTitle/SectionTitle.astro";
+
+const variants: ActionVariant[] = ["primary", "secondary", "outline", "ghost"];
+const tones = [
+  "neutral",
+  "primary",
+  "success",
+  "warning",
+  "danger",
+  "info",
+] as const;
+const icons: IconName[] = ["check", "message", "phone", "star", "arrow-right"];
+const actions: Action[] = [
+  { label: "Pedir presupuesto", href: "#ui" },
+  { label: "Ver trabajos", href: "#ui" },
+];
+const whatsappActions: Action[] = [
+  {
+    label: "Escribinos por WhatsApp",
+    whatsapp: { message: "Hola, quiero pedir un presupuesto." },
+  },
+  { label: "Llamar", href: "tel:+5491100000000", icon: "phone" },
+];
+---
+
+<div id="ui" class="catalog__entry">
+  <Container size="wide">
+    <p class="catalog__label">ui · primitivos</p>
+  </Container>
+
+  <Container size="wide" class="catalog__ui">
+    <section class="catalog__group" aria-label="Button">
+      <p class="catalog__group-label">Button</p>
+      <div class="cluster">
+        {variants.map((variant) => (
+          <Button variant={variant}>{variant}</Button>
+        ))}
+      </div>
+      <div class="cluster">
+        {variants.map((variant) => (
+          <Button variant={variant} href="#ui">
+            {variant} · enlace
+          </Button>
+        ))}
+      </div>
+      <div class="cluster">
+        <Button loading>Enviando</Button>
+        <Button disabled>Deshabilitado</Button>
+        <Button variant="outline" disabled>
+          Deshabilitado
+        </Button>
+      </div>
+    </section>
+
+    <section class="catalog__group" aria-label="Badge">
+      <p class="catalog__group-label">Badge</p>
+      <div class="cluster">
+        {tones.map((tone) => (
+          <Badge tone={tone}>{tone}</Badge>
+        ))}
+      </div>
+    </section>
+
+    <section class="catalog__group" aria-label="Icon">
+      <p class="catalog__group-label">Icon</p>
+      <div class="cluster">
+        {icons.map((name) => (
+          <Icon name={name} />
+        ))}
+        <Icon name="shield" label="Garantía" />
+      </div>
+    </section>
+
+    <section class="catalog__group" aria-label="Actions">
+      <p class="catalog__group-label">Actions</p>
+      <Actions actions={actions} />
+      <Actions actions={whatsappActions} />
+    </section>
+
+    <section class="catalog__group" aria-label="Card">
+      <p class="catalog__group-label">Card</p>
+      <div class="catalog__cards">
+        <Card>
+          <strong>Card base</strong>
+          <p>Contenedor con el padding, borde, radio y sombra del preset.</p>
+        </Card>
+        <Card as="article">
+          <Badge tone="primary">Nuevo</Badge>
+          <strong>Card con Badge y acción</strong>
+          <p>Como la usan servicios y precios.</p>
+          <Button variant="outline" href="#ui">
+            Ver más
+          </Button>
+          <Button variant="ghost" href="#ui">
+            Detalles
+          </Button>
+        </Card>
+        <Card featured>
+          <Badge tone="primary">Destacado</Badge>
+          <strong>Card destacada</strong>
+          <p>
+            Resaltada con la prop <code>featured</code> de Card (D21).
+          </p>
+        </Card>
+      </div>
+    </section>
+
+    <section class="catalog__group" aria-label="SectionTitle">
+      <p class="catalog__group-label">SectionTitle · palabra larga</p>
+      <div class="catalog__narrow">
+        <SectionTitle
+          eyebrow="Servicios"
+          title="Impermeabilizaciones"
+          description="Título de una sola palabra larga para probar el reflow a 375px."
+          level={3}
+        />
+      </div>
+    </section>
+
+    <section class="catalog__group" aria-label="Foco sobre panel">
+      <p class="catalog__group-label">Foco con Tab sobre panel CTA highlight</p>
+      <div class="cta cta--highlight">
+        <div class="cta__panel">
+          <div class="cta__content">
+            <SectionTitle
+              title="Panel highlight"
+              description="Recorrer los botones con Tab para ver el anillo de foco."
+              align="center"
+              level={3}
+            />
+            <Actions actions={actions} class="cta__actions" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </Container>
+</div>

@@ -1,0 +1,27 @@
+---
+import type { MessagePageLabels } from "@/types/site";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Button from "@/components/ui/Button/Button.astro";
+import Container from "@/components/ui/Container/Container.astro";
+import SectionTitle from "@/components/ui/SectionTitle/SectionTitle.astro";
+import { site } from "@/config/site";
+
+interface Props {
+  labels: MessagePageLabels;
+}
+
+const { labels } = Astro.props;
+---
+
+<BaseLayout title={`${labels.title} | ${site.name}`} robots="noindex, nofollow">
+  <Container size="narrow" class="section stack">
+    <SectionTitle
+      level={1}
+      title={labels.title}
+      description={labels.description}
+    />
+    <div>
+      <Button href="/">{labels.back}</Button>
+    </div>
+  </Container>
+</BaseLayout>

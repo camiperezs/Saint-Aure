@@ -1,0 +1,20 @@
+---
+import { icons, type IconName } from "@/icons";
+import "./Icon.css";
+
+interface Props {
+  name: IconName;
+  label?: string;
+  class?: string;
+}
+
+const { name, label, class: className } = Astro.props;
+---
+
+<span
+  class:list={["icon", className]}
+  role={label ? "img" : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : "true"}
+  set:html={icons[name]}
+/>

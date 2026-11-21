@@ -1,0 +1,84 @@
+---
+import type { IconName } from "@/icons";
+import type { Contact, ContactChannel, ContactLabels } from "@/types/contact";
+import ContactForm from "@/components/forms/ContactForm/ContactForm.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import WhatsAppButton from "@/components/ui/WhatsAppButton/WhatsAppButton.astro";
+import { getFormIntegration } from "@/integrations/forms";
+import SectionShell from "../SectionShell.astro";
+import "./Contact.css";
+
+type Props = Contact & { id?: string; labels: ContactLabels };
+
+const {
+  id = "contact",
+  variant,
+  eyebrow,
+  title,
+  description,
+  channels = [],
+  whatsapp,
+  form,
+  action,
+  labels,
+} = Astro.props;
+
+const channelIcons: Record<ContactChannel["type"], IconName> = {
+  whatsapp: "message",
+  email: "mail",
+  phone: "phone",
+  social: "link",
+  other: "link",
+};
+
+const hasDetails = channels.length > 0 || whatsapp;
+---
+
+<SectionShell
+  id={id}
+  class={`contact contact--${variant}`}
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+  action={action}
+  size={variant === "split" ? "standard" : "narrow"}
+>
+  <div
+    class:list={[
+      "contact__body",
+      { "contact__body--split": variant === "split" && form },
+    ]}
+  >
+    {hasDetails && (
+      <div class="contact__details">
+        {channels.length > 0 && (
+          <ul class="contact__channels" role="list">
+            {channels.map((channel) => (
+              <li>
+                <a class="contact__channel" href={channel.href}>
+                  <Icon name={channelIcons[channel.type]} />
+                  {channel.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+        {whatsapp && (
+          <div>
+            <WhatsAppButton whatsapp={whatsapp} label={labels.whatsapp} />
+          </div>
+        )}
+      </div>
+    )}
+
+    {form && (
+      <div class="contact__form">
+        <ContactForm
+          form={form}
+          integration={getFormIntegration(form)}
+          labels={labels}
+        />
+      </div>
+    )}
+  </div>
+</SectionShell>

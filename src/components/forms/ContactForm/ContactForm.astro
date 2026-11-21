@@ -1,0 +1,94 @@
+---
+import type { ContactForm, ContactLabels } from "@/types/contact";
+import type { FormIntegration } from "@/integrations/forms";
+import Button from "@/components/ui/Button/Button.astro";
+import "./ContactForm.css";
+
+interface Props {
+  form: ContactForm;
+  integration: FormIntegration;
+  labels: Pick<ContactLabels, "required" | "sending">;
+}
+
+const { form, integration, labels } = Astro.props;
+const fieldId = (name: string) => `${form.name}-${name}`;
+---
+
+<form
+  class="contact-form"
+  name={form.name}
+  action={form.action}
+  method={form.method ?? "POST"}
+  data-contact-form
+  data-sending-label={labels.sending}
+  {...integration.attributes}
+>
+  {integration.hiddenFields.map((field) => (
+    <input type="hidden" name={field.name} value={field.value} />
+  ))}
+
+  {integration.honeypotField && (
+    <p class="visually-hidden" aria-hidden="true">
+      <label>
+        {integration.honeypotField}
+        <input
+          name={integration.honeypotField}
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </label>
+    </p>
+  )}
+
+  {form.fields.map((field) => {
+    const id = fieldId(field.name);
+    const errorId = `${id}-error`;
+    const common = {
+      id,
+      name: field.name,
+      required: field.required,
+      placeholder: field.placeholder,
+      autocomplete: field.autocomplete,
+      "aria-describedby": errorId,
+      class: "contact-form__control",
+    };
+
+    return (
+      <div class="contact-form__field">
+        <label class="contact-form__label" for={id}>
+          {field.label}
+          {field.required && (
+            <span class="contact-form__required"> {labels.required}</span>
+          )}
+        </label>
+
+        {field.type === "textarea" ? (
+          <textarea {...common} rows="5" />
+        ) : field.type === "select" ? (
+          <select {...common}>
+            <option value="">{field.placeholder ?? ""}</option>
+            {field.options?.map((option) => (
+              <option value={option}>{option}</option>
+            ))}
+          </select>
+        ) : (
+          <input {...common} type={field.type} />
+        )}
+
+        <p class="contact-form__error" id={errorId} hidden />
+      </div>
+    );
+  })}
+
+  <div>
+    <Button type="submit">{form.submitLabel}</Button>
+  </div>
+</form>
+
+<script>
+  import { initContactForm } from "@/scripts/form";
+
+  document
+    .querySelectorAll<HTMLFormElement>("[data-contact-form]")
+    .forEach((form) => initContactForm(form));
+</script>

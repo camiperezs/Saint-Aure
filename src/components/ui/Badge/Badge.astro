@@ -1,0 +1,14 @@
+---
+import "./Badge.css";
+
+interface Props {
+  tone?: "neutral" | "primary" | "success" | "warning" | "danger" | "info";
+  class?: string;
+}
+
+const { tone = "neutral", class: className } = Astro.props;
+---
+
+<span class:list={["badge", `badge--${tone}`, className]}>
+  <slot />
+</span>

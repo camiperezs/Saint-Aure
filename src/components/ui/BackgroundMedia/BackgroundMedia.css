@@ -1,0 +1,49 @@
+@layer components {
+  .background-media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .background-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-overlay);
+  }
+
+  .background-media[data-overlay="none"]::after {
+    opacity: 0;
+  }
+
+  .background-media[data-overlay="subtle"]::after {
+    opacity: 0.5;
+  }
+
+  .background-media[data-overlay="medium"]::after {
+    opacity: 0.75;
+  }
+
+  .background-media__image {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .background-media--focal-top .background-media__image {
+    object-position: top;
+  }
+
+  .background-media--focal-bottom .background-media__image {
+    object-position: bottom;
+  }
+
+  .background-media--focal-left .background-media__image {
+    object-position: left;
+  }
+
+  .background-media--focal-right .background-media__image {
+    object-position: right;
+  }
+}

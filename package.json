@@ -1,0 +1,52 @@
+{
+  "name": "chamdev-landing-template",
+  "version": "1.0.0",
+  "description": "Plantilla técnica reutilizable para desarrollar landing pages profesionales para clientes de ChamDev.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "sync": "astro sync",
+    "check": "astro check",
+    "check:contrast": "node scripts/check-contrast.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "test:e2e": "playwright test",
+    "check:launch": "node scripts/check-launch.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camiperezs/chamdev-landing-template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/camiperezs/chamdev-landing-template/issues"
+  },
+  "homepage": "https://github.com/camiperezs/chamdev-landing-template#readme",
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.6",
+    "astro": "^7.4.13"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@axe-core/playwright": "^4.14.0",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^24.19.2",
+    "eslint": "^10.15.0",
+    "eslint-plugin-astro": "^3.2.1",
+    "prettier": "^3.10.1",
+    "prettier-plugin-astro": "^1.1.2",
+    "sharp": "^0.35.5",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.73.0"
+  }
+}

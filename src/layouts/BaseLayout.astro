@@ -1,0 +1,128 @@
+---
+// Global styles must be imported first: they declare the cascade layer order.
+import "@/styles/global.css";
+
+import type { SiteSEO } from "@/types/site";
+import { site } from "@/config/site";
+import Footer from "@/components/layout/Footer/Footer.astro";
+import Header from "@/components/layout/Header/Header.astro";
+import Seo from "@/components/layout/Seo.astro";
+import CookieConsent from "@/components/ui/CookieConsent/CookieConsent.astro";
+import ThemeToggle from "@/components/ui/ThemeToggle/ThemeToggle.astro";
+import { validateAnalytics } from "@/integrations/analytics";
+import WhatsAppButton from "@/components/ui/WhatsAppButton/WhatsAppButton.astro";
+import { THEME_STORAGE_KEY } from "@/scripts/theme";
+import { getHeadStyles } from "@/utils/appearance";
+import themeColorScript from "@/scripts/inline/theme-color.js?raw";
+import themeInitScript from "@/scripts/inline/theme-init.js?raw";
+
+interface Props {
+  title?: string;
+  description?: string;
+  headerOverlay?: boolean;
+  robots?: SiteSEO["robots"];
+}
+
+const {
+  title = site.seo.title,
+  description = site.seo.description,
+  headerOverlay = false,
+  robots = site.seo.robots,
+} = Astro.props;
+
+const { appearance, labels } = site;
+const headStyles = getHeadStyles(appearance);
+
+if (site.analytics) {
+  validateAnalytics(site.analytics);
+}
+---
+
+<!doctype html>
+<html
+  lang={site.locale}
+  data-theme={appearance.defaultTheme}
+  data-preset={appearance.preset}
+  data-theme-key={THEME_STORAGE_KEY}
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Seo
+      title={title}
+      description={description}
+      robots={robots}
+      siteName={site.name}
+      locale={site.locale}
+      image={site.seo.image}
+    />
+    <meta name="theme-color" content="" />
+
+    <style is:inline set:html={headStyles} />
+
+    <script is:inline set:html={themeInitScript} />
+    <slot name="head" />
+  </head>
+
+  <body>
+    {/* Runs after the head stylesheet so the theme tokens are available. */}
+    <script is:inline set:html={themeColorScript} />
+    <a class="skip-link" href="#main">
+      {labels.skipToContent}
+    </a>
+
+    <Header
+      variant={site.header.variant}
+      overlay={headerOverlay}
+      brand={site.name}
+      links={site.navigation}
+      action={site.header.action}
+      navigationLabel={labels.mainNavigation}
+      menuLabel={labels.menu}
+    >
+      <ThemeToggle
+        slot="actions"
+        label={labels.themeToggle}
+        showLabel={false}
+      />
+    </Header>
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer
+      {...site.footer}
+      brand={site.name}
+      links={site.navigation}
+      social={site.social}
+      navigationLabel={labels.footerNavigation}
+      socialLabel={labels.socialLinks}
+      legalLabel={labels.legal.navigation}
+    >
+      {site.analytics && (
+        <button
+          slot="bottom"
+          class="footer__consent"
+          type="button"
+          data-consent-open
+          hidden
+        >
+          {labels.consent.manage}
+        </button>
+      )}
+    </Footer>
+
+    {site.floatingWhatsApp && (
+      <WhatsAppButton
+        whatsapp={site.floatingWhatsApp}
+        label={labels.contact.whatsapp}
+        floating
+      />
+    )}
+
+    {site.analytics && (
+      <CookieConsent config={site.analytics} labels={labels.consent} />
+    )}
+  </body>
+</html>

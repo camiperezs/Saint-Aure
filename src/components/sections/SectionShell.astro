@@ -1,0 +1,42 @@
+---
+import type { Action } from "@/types/action";
+import Actions from "@/components/ui/Actions/Actions.astro";
+import Container from "@/components/ui/Container/Container.astro";
+import SectionTitle from "@/components/ui/SectionTitle/SectionTitle.astro";
+import "./SectionShell.css";
+
+interface Props {
+  id: string;
+  class?: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  action?: Action;
+  size?: "narrow" | "standard" | "wide";
+}
+
+const {
+  id,
+  class: className,
+  eyebrow,
+  title,
+  description,
+  action,
+  size = "standard",
+} = Astro.props;
+
+const titleId = `${id}-title`;
+---
+
+<section id={id} aria-labelledby={titleId} class:list={["section", className]}>
+  <Container size={size} class="section-shell">
+    <SectionTitle
+      id={titleId}
+      eyebrow={eyebrow}
+      title={title}
+      description={description}
+    />
+    <slot />
+    {action && <Actions actions={[action]} />}
+  </Container>
+</section>

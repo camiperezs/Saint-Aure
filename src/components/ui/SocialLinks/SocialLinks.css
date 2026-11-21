@@ -1,0 +1,19 @@
+@layer components {
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  .social-links__link {
+    font-size: var(--text-ui);
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+  }
+
+  .social-links__link:hover {
+    color: var(--color-text-primary);
+  }
+}

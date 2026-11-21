@@ -1,0 +1,73 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/ui/Container/Container.astro";
+import Hero from "@/components/sections/Hero/Hero.astro";
+import PageSections from "@/components/sections/PageSections.astro";
+import { site } from "@/config/site";
+import { catalog } from "./catalog";
+import UiPrimitives from "./UiPrimitives.astro";
+import "./catalog.css";
+
+const presets = ["editorial", "modern", "elegant"];
+---
+
+<BaseLayout title="Catálogo de componentes" robots="noindex, nofollow">
+  <Container size="wide" class="catalog__toolbar">
+    <p class="catalog__title">
+      Catálogo de componentes · solo en desarrollo · {catalog.length} variantes
+    </p>
+    <div class="cluster" role="group" aria-label="Preset visual">
+      {presets.map((preset) => (
+        <button
+          class="catalog__preset"
+          type="button"
+          data-catalog-preset={preset}
+        >
+          {preset}
+        </button>
+      ))}
+    </div>
+  </Container>
+
+  <UiPrimitives />
+
+  {catalog.map((entry) => (
+    <div class="catalog__entry">
+      <Container size="wide">
+        <p class="catalog__label">{entry.label}</p>
+      </Container>
+      {entry.hero && <Hero {...entry.hero} />}
+      {entry.section && (
+        <PageSections
+          sections={[entry.section]}
+          labels={site.labels}
+          locale={site.locale}
+        />
+      )}
+    </div>
+  ))}
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    "[data-catalog-preset]",
+  );
+
+  const select = (preset: string) => {
+    document.documentElement.dataset.preset = preset;
+    buttons.forEach((button) =>
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.catalogPreset === preset),
+      ),
+    );
+  };
+
+  buttons.forEach((button) =>
+    button.addEventListener("click", () =>
+      select(button.dataset.catalogPreset ?? "editorial"),
+    ),
+  );
+
+  select(document.documentElement.dataset.preset ?? "editorial");
+</script>

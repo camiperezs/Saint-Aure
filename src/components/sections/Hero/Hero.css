@@ -1,0 +1,110 @@
+@layer components {
+  .hero {
+    padding-block: var(--space-fluid-lg);
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .hero__eyebrow {
+    font-size: var(--text-ui);
+    font-weight: var(--font-semibold);
+    letter-spacing: var(--eyebrow-tracking);
+    text-transform: var(--eyebrow-transform);
+    color: var(--color-text-secondary);
+  }
+
+  .hero__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-display);
+    font-weight: var(--text-display-weight);
+    line-height: var(--text-display-line-height);
+    letter-spacing: var(--text-heading-tracking);
+    text-wrap: balance;
+  }
+
+  .hero__description {
+    max-inline-size: 60ch;
+    color: var(--color-text-secondary);
+    text-wrap: pretty;
+  }
+
+  .hero__actions {
+    margin-block-start: var(--space-3);
+  }
+
+  .hero__image {
+    inline-size: 100%;
+    block-size: auto;
+    object-fit: cover;
+  }
+
+  /* Full screen */
+  .hero--fullscreen {
+    display: grid;
+    align-items: center;
+    min-block-size: 100svh;
+    padding-block: calc(4rem + var(--space-fluid-lg)) var(--space-fluid-lg);
+  }
+
+  .hero--fullscreen .hero__content {
+    max-inline-size: 48rem;
+  }
+
+  .hero--align-center .hero__content {
+    align-items: center;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .hero--align-center .hero__actions {
+    justify-content: center;
+  }
+
+  .hero--align-right .hero__content {
+    margin-inline-start: auto;
+  }
+
+  /* Compact */
+  .hero--compact .hero__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-fluid-md);
+  }
+
+  /* Split */
+  .hero--split .hero__inner {
+    display: grid;
+    align-items: center;
+    gap: var(--space-fluid-md);
+  }
+
+  @media (min-width: 64rem) {
+    .hero--ratio-balanced .hero__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero--ratio-content .hero__inner {
+      grid-template-columns: 3fr 2fr;
+    }
+
+    .hero--ratio-image .hero__inner {
+      grid-template-columns: 2fr 3fr;
+    }
+
+    .hero--image-left.hero--ratio-content .hero__inner {
+      grid-template-columns: 2fr 3fr;
+    }
+
+    .hero--image-left.hero--ratio-image .hero__inner {
+      grid-template-columns: 3fr 2fr;
+    }
+
+    .hero--image-left .hero__image {
+      order: -1;
+    }
+  }
+}

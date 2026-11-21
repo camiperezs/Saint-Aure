@@ -1,0 +1,66 @@
+/* Page baseline */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--text-body-weight);
+  line-height: var(--text-body-line-height);
+}
+
+/* Links */
+a {
+  color: var(--color-link);
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+/* Focus visibility: the offset keeps the ring over the page background for contrast. */
+:focus-visible {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: var(--focus-offset);
+}
+
+/* Disabled elements */
+:disabled {
+  cursor: not-allowed;
+  opacity: var(--disabled-opacity);
+}
+
+/* Text selection */
+::selection {
+  background: var(--color-selection-background);
+  color: var(--color-selection-text);
+}
+
+/* Interactive elements */
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Form validation states */
+[aria-invalid="true"] {
+  border-color: var(--color-status-danger);
+}
+
+[aria-invalid="true"]:focus-visible {
+  outline-color: var(--color-status-danger);
+}

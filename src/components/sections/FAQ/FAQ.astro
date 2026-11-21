@@ -1,0 +1,48 @@
+---
+import type { FAQ } from "@/types/faq";
+import SectionShell from "../SectionShell.astro";
+import "./FAQ.css";
+
+type Props = FAQ & { id?: string };
+
+const {
+  id = "faq",
+  variant,
+  eyebrow,
+  title,
+  description,
+  indicator = "arrow",
+  items,
+  action,
+} = Astro.props;
+---
+
+<SectionShell
+  id={id}
+  class="faq"
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+  action={action}
+  size={variant === "accordion" ? "narrow" : "standard"}
+>
+  {variant === "accordion" ? (
+    <div class="faq__accordion" data-indicator={indicator}>
+      {items.map((item) => (
+        <details class="faq__item">
+          <summary class="faq__question">{item.question}</summary>
+          <p class="faq__answer">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  ) : (
+    <dl class="grid grid--2 faq__grid">
+      {items.map((item) => (
+        <div class="faq__entry">
+          <dt class="faq__question">{item.question}</dt>
+          <dd class="faq__answer">{item.answer}</dd>
+        </div>
+      ))}
+    </dl>
+  )}
+</SectionShell>

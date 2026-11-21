@@ -1,0 +1,57 @@
+---
+import type { Process } from "@/types/process";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import Media from "@/components/ui/Media/Media.astro";
+import { imageSizes } from "@/utils/image-sizes";
+import SectionShell from "../SectionShell.astro";
+import "./Process.css";
+
+type Props = Process & { id?: string };
+
+const {
+  id = "process",
+  variant,
+  eyebrow,
+  title,
+  description,
+  steps,
+  action,
+} = Astro.props;
+---
+
+<SectionShell
+  id={id}
+  class={`process process--${variant}`}
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+  action={action}
+>
+  <ol
+    class:list={["process__steps", { "grid grid--3": variant === "steps" }]}
+    role="list"
+  >
+    {steps.map((step, index) => (
+      <li class="process__step">
+        <span class="process__number" aria-hidden="true">
+          {index + 1}
+        </span>
+        <div class="process__body">
+          {step.visual?.type === "image" && (
+            <Media
+              image={step.visual.image}
+              class="process__image"
+              sizes={imageSizes.column}
+            />
+          )}
+          {step.visual?.type === "icon" && (
+            <Icon name={step.visual.name} class="feature-icon" />
+          )}
+          {step.label && <p class="process__label">{step.label}</p>}
+          <h3 class="process__title">{step.title}</h3>
+          <p class="process__description">{step.description}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</SectionShell>

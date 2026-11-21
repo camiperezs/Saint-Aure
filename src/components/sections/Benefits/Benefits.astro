@@ -1,0 +1,36 @@
+---
+import type { Benefits } from "@/types/benefits";
+import SectionShell from "../SectionShell.astro";
+import BenefitCard from "./BenefitCard.astro";
+import "./Benefits.css";
+
+type Props = Benefits & { id?: string };
+
+const {
+  id = "benefits",
+  variant,
+  eyebrow,
+  title,
+  description,
+  items,
+  action,
+} = Astro.props;
+---
+
+<SectionShell
+  id={id}
+  class={`benefits benefits--${variant}`}
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+  action={action}
+>
+  <ul
+    class:list={["grid", variant === "grid" ? "grid--3" : "grid--2"]}
+    role="list"
+  >
+    {items.map((benefit) => (
+      <BenefitCard benefit={benefit} />
+    ))}
+  </ul>
+</SectionShell>

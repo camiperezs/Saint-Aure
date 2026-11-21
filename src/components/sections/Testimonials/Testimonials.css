@@ -1,0 +1,120 @@
+@layer components {
+  .testimonial-card {
+    justify-content: space-between;
+  }
+
+  .testimonial-card__rating {
+    color: var(--color-text-primary);
+    letter-spacing: 0.1em;
+  }
+
+  .testimonial-card__quote {
+    font-size: var(--text-body);
+    color: var(--color-text-primary);
+  }
+
+  .testimonial-card__author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .testimonial-card__avatar {
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    inline-size: 3rem;
+    block-size: 3rem;
+    object-fit: cover;
+
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-sunken);
+    border-radius: var(--radius-pill);
+  }
+
+  .testimonial-card__name {
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+  }
+
+  .testimonial-card__role {
+    font-size: var(--text-ui);
+    color: var(--color-text-secondary);
+  }
+
+  .testimonial-card__meta {
+    font-size: var(--text-ui);
+    color: var(--color-text-secondary);
+  }
+
+  .carousel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .carousel__track {
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 85%;
+    gap: var(--preset-grid-gap);
+    padding: var(--space-1);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--space-1);
+    scroll-behavior: smooth;
+    list-style: none;
+  }
+
+  .carousel__track > * {
+    scroll-snap-align: start;
+  }
+
+  .carousel__controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+  }
+
+  .carousel__controls[hidden] {
+    display: none;
+  }
+
+  .carousel__button {
+    display: inline-grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-raised);
+    border: var(--border-width-default) solid var(--color-border-strong);
+    border-radius: var(--preset-button-radius);
+    cursor: pointer;
+    transition: var(--transition-colors);
+  }
+
+  .carousel__button:hover:not([aria-disabled="true"]) {
+    background-color: var(--color-surface-sunken);
+  }
+
+  .carousel__button[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: var(--disabled-opacity);
+  }
+
+  @media (min-width: 48rem) {
+    .carousel__track {
+      grid-auto-columns: calc((100% - var(--preset-grid-gap)) / 2);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .carousel__track {
+      grid-auto-columns: calc((100% - 2 * var(--preset-grid-gap)) / 3);
+    }
+  }
+}

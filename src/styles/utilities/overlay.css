@@ -1,0 +1,19 @@
+/* Re-scopes semantic tokens so any component reads well over an image overlay. */
+.on-overlay {
+  --color-text-primary: var(--color-text-on-overlay);
+  --color-text-secondary: var(--color-text-on-overlay);
+  --color-text-muted: var(--color-text-on-overlay);
+  --color-link: var(--color-text-on-overlay);
+  --color-link-hover: var(--color-text-on-overlay);
+  --color-border-strong: var(--color-text-on-overlay);
+  --color-focus: var(--color-text-on-overlay);
+  --color-surface-sunken: color-mix(
+    in srgb,
+    var(--color-text-on-overlay) 15%,
+    transparent
+  );
+
+  position: relative;
+  isolation: isolate;
+  color: var(--color-text-primary);
+}

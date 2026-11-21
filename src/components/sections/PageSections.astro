@@ -1,0 +1,101 @@
+---
+import type { Section } from "@/types/section";
+import type { SiteLabels } from "@/types/site";
+import About from "./About/About.astro";
+import Benefits from "./Benefits/Benefits.astro";
+import CallToAction from "./CallToAction/CallToAction.astro";
+import Contact from "./Contact/Contact.astro";
+import FAQ from "./FAQ/FAQ.astro";
+import Gallery from "./Gallery/Gallery.astro";
+import Location from "./Location/Location.astro";
+import Logos from "./Logos/Logos.astro";
+import Pricing from "./Pricing/Pricing.astro";
+import Stats from "./Stats/Stats.astro";
+import Video from "./Video/Video.astro";
+import Process from "./Process/Process.astro";
+import Services from "./Services/Services.astro";
+import Testimonials from "./Testimonials/Testimonials.astro";
+
+interface Props {
+  sections: Section[];
+  labels: Pick<
+    SiteLabels,
+    | "services"
+    | "testimonials"
+    | "contact"
+    | "gallery"
+    | "location"
+    | "pricing"
+    | "video"
+  >;
+  locale: string;
+}
+
+const { sections, labels, locale } = Astro.props;
+
+const counts = new Map<string, number>();
+const sectionId = (type: string) => {
+  const count = (counts.get(type) ?? 0) + 1;
+  counts.set(type, count);
+  return count === 1 ? type : `${type}-${count}`;
+};
+---
+
+{sections.map((section) => {
+  const id = sectionId(section.type);
+
+  switch (section.type) {
+    case "about":
+      return <About {...section} id={id} />;
+    case "services":
+      return (
+        <Services
+          {...section}
+          id={id}
+          labels={labels.services}
+          locale={locale}
+        />
+      );
+    case "benefits":
+      return <Benefits {...section} id={id} />;
+    case "process":
+      return <Process {...section} id={id} />;
+    case "testimonials":
+      return (
+        <Testimonials
+          {...section}
+          id={id}
+          labels={labels.testimonials}
+          locale={locale}
+        />
+      );
+    case "gallery":
+      return <Gallery {...section} id={id} labels={labels.gallery} />;
+    case "location":
+      return <Location {...section} id={id} labels={labels.location} />;
+    case "faq":
+      return <FAQ {...section} id={id} />;
+    case "contact":
+      return <Contact {...section} id={id} labels={labels.contact} />;
+    case "logos":
+      return <Logos {...section} id={id} />;
+    case "stats":
+      return <Stats {...section} id={id} />;
+    case "pricing":
+      return (
+        <Pricing
+          {...section}
+          id={id}
+          labels={labels.pricing}
+          priceLabels={labels.services}
+          locale={locale}
+        />
+      );
+    case "video":
+      return <Video {...section} id={id} labels={labels.video} />;
+    case "cta":
+      return <CallToAction {...section} id={id} />;
+    default:
+      return null;
+  }
+})}

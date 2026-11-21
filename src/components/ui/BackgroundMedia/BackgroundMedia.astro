@@ -1,0 +1,32 @@
+---
+import type { FocalPoint, Image, OverlayLevel } from "@/types/image";
+import Media from "@/components/ui/Media/Media.astro";
+import { imageSizes } from "@/utils/image-sizes";
+import "./BackgroundMedia.css";
+
+interface Props {
+  image: Image;
+  overlay?: OverlayLevel;
+  focalPoint?: FocalPoint;
+  priority?: boolean;
+}
+
+const {
+  image,
+  overlay = "strong",
+  focalPoint = "center",
+  priority = false,
+} = Astro.props;
+---
+
+<div
+  class:list={["background-media", `background-media--focal-${focalPoint}`]}
+  data-overlay={overlay}
+>
+  <Media
+    image={image}
+    priority={priority}
+    sizes={imageSizes.full}
+    class="background-media__image"
+  />
+</div>

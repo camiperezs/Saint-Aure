@@ -1,0 +1,32 @@
+---
+import type { WhatsAppLink } from "@/types/contact";
+import ActionButton from "@/components/ui/ActionButton/ActionButton.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import { getWhatsAppUrl } from "@/utils/whatsapp";
+import "./WhatsAppButton.css";
+
+interface Props {
+  whatsapp: WhatsAppLink;
+  label: string;
+  floating?: boolean;
+}
+
+const { whatsapp, label, floating = false } = Astro.props;
+const text = whatsapp.label ?? label;
+---
+
+{floating ? (
+  <a
+    class="whatsapp-floating"
+    href={getWhatsAppUrl(whatsapp.message)}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Icon name="message" />
+    <span class="visually-hidden">{text}</span>
+  </a>
+) : (
+  <ActionButton
+    action={{ label: text, whatsapp: { message: whatsapp.message } }}
+  />
+)}

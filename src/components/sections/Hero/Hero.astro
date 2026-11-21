@@ -1,0 +1,87 @@
+---
+import type { Hero } from "@/types/hero";
+import Actions from "@/components/ui/Actions/Actions.astro";
+import BackgroundMedia from "@/components/ui/BackgroundMedia/BackgroundMedia.astro";
+import Container from "@/components/ui/Container/Container.astro";
+import Media from "@/components/ui/Media/Media.astro";
+import { imageSizes } from "@/utils/image-sizes";
+import "./Hero.css";
+
+type Props = Hero;
+
+const hero = Astro.props;
+const { eyebrow, title, description, actions = [] } = hero;
+---
+
+{hero.variant === "fullscreen" && (
+  <section
+    class:list={[
+      "hero",
+      "hero--fullscreen",
+      "on-overlay",
+      `hero--align-${hero.alignment ?? "left"}`,
+    ]}
+  >
+    <BackgroundMedia
+      image={hero.image}
+      overlay={hero.overlay}
+      focalPoint={hero.focalPoint}
+      priority
+    />
+    <Container size="wide" class="hero__inner">
+      <div class="hero__content">
+        {eyebrow && <p class="hero__eyebrow">{eyebrow}</p>}
+        <h1 class="hero__title text-reflow">{title}</h1>
+        {description && <p class="hero__description">{description}</p>}
+        <Actions actions={actions} class="hero__actions" />
+      </div>
+    </Container>
+  </section>
+)}
+
+{hero.variant === "compact" && (
+  <section class="hero hero--compact">
+    <Container size={hero.contentWidth ?? "standard"} class="hero__inner">
+      <div class="hero__content">
+        {eyebrow && <p class="hero__eyebrow">{eyebrow}</p>}
+        <h1 class="hero__title text-reflow">{title}</h1>
+        {description && <p class="hero__description">{description}</p>}
+        <Actions actions={actions} class="hero__actions" />
+      </div>
+      {hero.image && (
+        <Media
+          image={hero.image}
+          priority
+          class="hero__image"
+          sizes={imageSizes.content}
+        />
+      )}
+    </Container>
+  </section>
+)}
+
+{hero.variant === "split" && (
+  <section
+    class:list={[
+      "hero",
+      "hero--split",
+      `hero--image-${hero.imagePosition ?? "right"}`,
+      `hero--ratio-${hero.ratio ?? "balanced"}`,
+    ]}
+  >
+    <Container size="wide" class="hero__inner">
+      <div class="hero__content">
+        {eyebrow && <p class="hero__eyebrow">{eyebrow}</p>}
+        <h1 class="hero__title text-reflow">{title}</h1>
+        {description && <p class="hero__description">{description}</p>}
+        <Actions actions={actions} class="hero__actions" />
+      </div>
+      <Media
+        image={hero.image}
+        priority
+        class="hero__image"
+        sizes={imageSizes.half}
+      />
+    </Container>
+  </section>
+)}

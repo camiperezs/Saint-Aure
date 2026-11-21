@@ -1,0 +1,15 @@
+---
+import "./Card.css";
+
+interface Props {
+  as?: "div" | "article" | "li";
+  featured?: boolean;
+  class?: string;
+}
+
+const { as: Tag = "div", featured = false, class: className } = Astro.props;
+---
+
+<Tag class:list={["card", featured && "card--featured", className]}>
+  <slot />
+</Tag>

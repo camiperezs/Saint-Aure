@@ -1,0 +1,100 @@
+---
+import type { Action } from "@/types/action";
+import type { HeaderConfig, NavigationLink } from "@/types/navigation";
+import ActionButton from "@/components/ui/ActionButton/ActionButton.astro";
+import Container from "@/components/ui/Container/Container.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import "./Header.css";
+
+interface Props {
+  variant: HeaderConfig["variant"];
+  brand: string;
+  brandHref?: string;
+  links?: NavigationLink[];
+  action?: Action;
+  navigationLabel: string;
+  menuLabel: string;
+  overlay?: boolean;
+}
+
+const {
+  variant,
+  overlay = false,
+  brand,
+  brandHref = "/",
+  links = [],
+  action,
+  navigationLabel,
+  menuLabel,
+} = Astro.props;
+
+const hasNavigation = variant === "standard" && links.length > 0;
+---
+
+<header
+  class:list={["header", `header--${variant}`, { "header--overlay": overlay }]}
+  data-header
+>
+  <Container size="wide" class="header__inner">
+    <a class="header__brand" href={brandHref}>
+      {brand}
+    </a>
+
+    {hasNavigation && (
+      <nav
+        class="header__nav"
+        id="header-menu"
+        aria-label={navigationLabel}
+        data-menu
+      >
+        <ul class="header__list">
+          {links.map((link) => (
+            <li>
+              <a class="header__link" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+          {action && (
+            <li class="header__menu-action">
+              <ActionButton action={action} />
+            </li>
+          )}
+        </ul>
+      </nav>
+    )}
+
+    <div class="header__actions">
+      {action && (
+        <ActionButton
+          class={hasNavigation ? "header__action" : undefined}
+          action={action}
+        />
+      )}
+
+      <slot name="actions" />
+
+      {hasNavigation && (
+        <button
+          class="header__menu-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="header-menu"
+          data-menu-button
+          hidden
+        >
+          <Icon name="menu" />
+          {menuLabel}
+        </button>
+      )}
+    </div>
+  </Container>
+</header>
+
+<script>
+  import { initMenu } from "@/scripts/menu";
+
+  document
+    .querySelectorAll<HTMLElement>("[data-header]")
+    .forEach((header) => initMenu(header));
+</script>

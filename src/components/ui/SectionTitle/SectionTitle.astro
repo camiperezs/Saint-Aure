@@ -1,0 +1,33 @@
+---
+import "./SectionTitle.css";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  id?: string;
+  level?: 1 | 2 | 3;
+  align?: "start" | "center";
+  class?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  id,
+  level = 2,
+  align = "start",
+  class: className,
+} = Astro.props;
+
+const Heading = `h${level}` as const;
+---
+
+<hgroup class:list={["section-title", `section-title--${align}`, className]}>
+  {eyebrow && <p class="section-title__eyebrow">{eyebrow}</p>}
+  <Heading id={id} class="section-title__heading text-reflow">
+    {title}
+  </Heading>
+  {description && <p class="section-title__description">{description}</p>}
+</hgroup>

@@ -1,0 +1,57 @@
+---
+import { Image as AstroImage } from "astro:assets";
+import type { Image } from "@/types/image";
+import { imageSizes, imageWidths } from "@/utils/image-sizes";
+import "./Media.css";
+
+interface Props {
+  image: Image;
+  priority?: boolean;
+  sizes?: string;
+  placeholder?: boolean;
+  class?: string;
+}
+
+const {
+  image,
+  priority = false,
+  sizes = imageSizes.full,
+  placeholder = true,
+  class: className,
+} = Astro.props;
+const classes = ["media", placeholder && "media--placeholder", className]
+  .filter(Boolean)
+  .join(" ");
+const loading = priority ? "eager" : "lazy";
+const fetchpriority = priority ? "high" : undefined;
+const remote = "width" in image ? image : undefined;
+const local = "width" in image ? undefined : image.src;
+---
+
+{remote ? (
+  <img
+    class={classes}
+    src={remote.src}
+    alt={remote.alt}
+    width={remote.width}
+    height={remote.height}
+    loading={loading}
+    decoding="async"
+    fetchpriority={fetchpriority}
+  />
+) : (
+  local && (
+    <AstroImage
+      class={classes}
+      src={local}
+      alt={image.alt}
+      widths={[
+        ...imageWidths.filter((width) => width < local.width),
+        local.width,
+      ]}
+      sizes={sizes}
+      loading={loading}
+      fetchpriority={fetchpriority}
+    />
+  )
+)}

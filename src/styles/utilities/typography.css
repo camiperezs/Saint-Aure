@@ -1,0 +1,90 @@
+/* Typography roles */
+
+.text-display {
+  font-family: var(--font-heading);
+  font-size: var(--text-display);
+  font-weight: var(--text-display-weight);
+  line-height: var(--text-display-line-height);
+}
+
+.text-heading {
+  font-family: var(--font-heading);
+  font-size: var(--text-heading);
+  font-weight: var(--text-heading-weight);
+  line-height: var(--text-heading-line-height);
+}
+
+.text-body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--text-body-weight);
+  line-height: var(--text-body-line-height);
+}
+
+.text-ui {
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: var(--text-ui-weight);
+  line-height: var(--text-ui-line-height);
+}
+
+/* Text alignment */
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Font weights */
+
+.font-regular {
+  font-weight: var(--font-regular);
+}
+
+.font-medium {
+  font-weight: var(--font-medium);
+}
+
+.font-semibold {
+  font-weight: var(--font-semibold);
+}
+
+.font-bold {
+  font-weight: var(--font-bold);
+}
+
+/* Reading widths */
+
+.text-narrow {
+  max-width: 45ch;
+}
+
+.text-standard {
+  max-width: 65ch;
+}
+
+.text-wide {
+  max-width: 80ch;
+}
+
+/* Text wrapping */
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.text-reflow {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}

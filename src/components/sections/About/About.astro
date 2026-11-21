@@ -1,0 +1,55 @@
+---
+import type { About } from "@/types/about";
+import BackgroundMedia from "@/components/ui/BackgroundMedia/BackgroundMedia.astro";
+import ActionButton from "@/components/ui/ActionButton/ActionButton.astro";
+import Container from "@/components/ui/Container/Container.astro";
+import Media from "@/components/ui/Media/Media.astro";
+import SectionTitle from "@/components/ui/SectionTitle/SectionTitle.astro";
+import { imageSizes } from "@/utils/image-sizes";
+import "./About.css";
+
+type Props = About & { id?: string };
+
+const about = Astro.props;
+const { id = "about", variant, eyebrow, title, description, action } = about;
+
+const isBackground = about.variant === "image-background";
+const position = isBackground ? (about.contentPosition ?? "start") : undefined;
+const centered = variant === "centered" || position === "center";
+---
+
+<section
+  id={id}
+  class:list={[
+    "section",
+    "about",
+    `about--${variant}`,
+    position && `about--position-${position}`,
+    { "about--with-image": about.image, "on-overlay": isBackground },
+  ]}
+>
+  {about.variant === "image-background" && (
+    <BackgroundMedia
+      image={about.image}
+      overlay={about.overlay}
+      focalPoint={about.focalPoint}
+    />
+  )}
+  <Container
+    size={variant === "centered" ? "narrow" : "standard"}
+    class="about__inner"
+  >
+    <div class="about__content">
+      <SectionTitle
+        eyebrow={eyebrow}
+        title={title}
+        description={description}
+        align={centered ? "center" : "start"}
+      />
+      {action && <ActionButton action={action} />}
+    </div>
+    {about.variant !== "image-background" && about.image && (
+      <Media image={about.image} class="about__image" sizes={imageSizes.half} />
+    )}
+  </Container>
+</section>

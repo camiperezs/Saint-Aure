@@ -1,0 +1,28 @@
+---
+import type { Benefit } from "@/types/benefits";
+import Card from "@/components/ui/Card/Card.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import Media from "@/components/ui/Media/Media.astro";
+import { imageSizes } from "@/utils/image-sizes";
+
+interface Props {
+  benefit: Benefit;
+}
+
+const { title, description, visual } = Astro.props.benefit;
+---
+
+<Card as="li" class="benefit-card">
+  {visual?.type === "image" && (
+    <Media
+      image={visual.image}
+      class="benefit-card__image"
+      sizes={imageSizes.column}
+    />
+  )}
+  {visual?.type === "icon" && <Icon name={visual.name} class="feature-icon" />}
+  <div class="benefit-card__body">
+    <h3 class="benefit-card__title">{title}</h3>
+    <p class="benefit-card__description">{description}</p>
+  </div>
+</Card>

@@ -1,0 +1,33 @@
+:root {
+  /* Container widths */
+  --container-narrow: 45rem;
+  --container-standard: 70rem;
+  --container-wide: 80rem;
+
+  /* Fluid gutters */
+  --layout-gutter: clamp(1rem, 4vw, 2.5rem);
+
+  --layout-gap: clamp(1rem, 2vw, 2rem);
+
+  /* Grid configuration */
+  --grid-columns: 4;
+
+  /* Section layout */
+  --section-padding-inline: var(--layout-gutter);
+}
+
+/* Breakpoints (media queries cannot read custom properties): 40rem, 48rem, 64rem, 80rem */
+
+/* Tablet */
+@media (min-width: 48rem) {
+  :root {
+    --grid-columns: 8;
+  }
+}
+
+/* Desktop */
+@media (min-width: 64rem) {
+  :root {
+    --grid-columns: 12;
+  }
+}

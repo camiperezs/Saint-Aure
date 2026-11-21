@@ -1,0 +1,24 @@
+---
+import type { NavigationLink } from "@/types/navigation";
+import "./SocialLinks.css";
+
+interface Props {
+  links: NavigationLink[];
+  label: string;
+  class?: string;
+}
+
+const { links, label, class: className } = Astro.props;
+---
+
+{links.length > 0 && (
+  <ul class:list={["social-links", className]} aria-label={label}>
+    {links.map((link) => (
+      <li>
+        <a class="social-links__link" href={link.href}>
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+)}

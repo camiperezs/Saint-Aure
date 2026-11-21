@@ -1,0 +1,49 @@
+---
+import "./ThemeToggle.css";
+
+interface Props {
+  label: string;
+  showLabel?: boolean;
+}
+
+const { label, showLabel = true } = Astro.props;
+---
+
+<button
+  class="theme-toggle"
+  type="button"
+  data-theme-toggle
+  aria-pressed="false"
+>
+  <span class="theme-toggle__icon" aria-hidden="true">
+    <span class="theme-toggle__sun">☀</span>
+    <span class="theme-toggle__moon">☾</span>
+  </span>
+
+  <span class:list={["theme-toggle__label", { "visually-hidden": !showLabel }]}>
+    {label}
+  </span>
+</button>
+
+<script>
+  import { toggleTheme } from "@/scripts/theme";
+
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    "[data-theme-toggle]",
+  );
+
+  function updateButton(button: HTMLButtonElement) {
+    const isDark = document.documentElement.dataset.theme === "dark";
+
+    button.setAttribute("aria-pressed", String(isDark));
+  }
+
+  buttons.forEach((button) => {
+    updateButton(button);
+
+    button.addEventListener("click", () => {
+      toggleTheme();
+      buttons.forEach(updateButton);
+    });
+  });
+</script>

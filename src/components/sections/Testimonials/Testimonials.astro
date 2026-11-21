@@ -1,0 +1,88 @@
+---
+import type { TestimonialLabels, Testimonials } from "@/types/testimonials";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import SectionShell from "../SectionShell.astro";
+import TestimonialCard from "./TestimonialCard.astro";
+import "./Testimonials.css";
+
+type Props = Testimonials & {
+  id?: string;
+  labels: TestimonialLabels;
+  locale: string;
+};
+
+const {
+  id = "testimonials",
+  variant,
+  eyebrow,
+  title,
+  description,
+  items,
+  labels,
+  locale,
+} = Astro.props;
+---
+
+<SectionShell
+  id={id}
+  class="testimonials"
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+>
+  {variant === "cards" ? (
+    <ul class="grid grid--3" role="list">
+      {items.map((testimonial) => (
+        <TestimonialCard
+          testimonial={testimonial}
+          labels={labels}
+          locale={locale}
+        />
+      ))}
+    </ul>
+  ) : (
+    <div class="carousel" data-carousel>
+      <ul
+        class="carousel__track"
+        role="list"
+        tabindex="0"
+        aria-label={title}
+        data-carousel-track
+      >
+        {items.map((testimonial) => (
+          <TestimonialCard
+            testimonial={testimonial}
+            labels={labels}
+            locale={locale}
+          />
+        ))}
+      </ul>
+      <div class="carousel__controls" data-carousel-controls hidden>
+        <button
+          class="carousel__button"
+          type="button"
+          aria-label={labels.previous}
+          data-carousel-prev
+        >
+          <Icon name="arrow-left" />
+        </button>
+        <button
+          class="carousel__button"
+          type="button"
+          aria-label={labels.next}
+          data-carousel-next
+        >
+          <Icon name="arrow-right" />
+        </button>
+      </div>
+    </div>
+  )}
+</SectionShell>
+
+<script>
+  import { initCarousel } from "@/scripts/carousel";
+
+  document
+    .querySelectorAll<HTMLElement>("[data-carousel]")
+    .forEach((carousel) => initCarousel(carousel));
+</script>

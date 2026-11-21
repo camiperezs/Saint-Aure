@@ -1,0 +1,19 @@
+:root {
+  /* Focus */
+  --focus-width: 0.1875rem;
+  --focus-offset: 0.1875rem;
+  --focus-radius: var(--radius-sm);
+
+  --color-state-hover: color-mix(in srgb, currentColor 8%, transparent);
+  --color-state-active: color-mix(in srgb, currentColor 14%, transparent);
+
+  /* Disabled */
+  --disabled-opacity: 0.55;
+
+  /* Interactive opacity */
+  --hover-opacity: 0.88;
+  --active-opacity: 0.76;
+
+  /* Form states */
+  --form-field-border-width: var(--border-width-default);
+}

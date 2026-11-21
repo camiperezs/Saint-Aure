@@ -1,0 +1,35 @@
+/* Cascade layers: import this file before any component to keep this order. */
+@layer reset, tokens, themes, base, utilities, presets, components;
+
+/* Reset */
+@import "./base/reset.css" layer(reset);
+
+/* Design Tokens */
+@import "./tokens/colors.css" layer(tokens);
+@import "./tokens/spacing.css" layer(tokens);
+@import "./tokens/layout.css" layer(tokens);
+@import "./tokens/typography.css" layer(tokens);
+@import "./tokens/borders.css" layer(tokens);
+@import "./tokens/motion.css" layer(tokens);
+@import "./tokens/interaction.css" layer(tokens);
+
+/* Themes */
+@import "./themes/light.css" layer(themes);
+@import "./themes/dark.css" layer(themes);
+
+/* Global Styles */
+@import "./base/global.css" layer(base);
+
+/* Utilities */
+@import "./utilities/containers.css" layer(utilities);
+@import "./utilities/grids.css" layer(utilities);
+@import "./utilities/spacing.css" layer(utilities);
+@import "./utilities/typography.css" layer(utilities);
+@import "./utilities/accessibility.css" layer(utilities);
+@import "./utilities/overlay.css" layer(utilities);
+@import "./utilities/prose.css" layer(utilities);
+
+/* Visual Presets */
+@import "./presets/editorial.css" layer(presets);
+@import "./presets/modern.css" layer(presets);
+@import "./presets/elegant.css" layer(presets);

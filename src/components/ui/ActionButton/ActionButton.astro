@@ -1,0 +1,26 @@
+---
+import type { Action, ActionVariant } from "@/types/action";
+import Button from "@/components/ui/Button/Button.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import { resolveAction } from "@/utils/action";
+
+interface Props {
+  action: Action;
+  variant?: ActionVariant;
+  class?: string;
+}
+
+const { action, variant, class: className } = Astro.props;
+const resolved = resolveAction(action);
+---
+
+<Button
+  class={className}
+  href={resolved.href}
+  variant={resolved.variant ?? variant}
+  target={resolved.target}
+  rel={resolved.rel}
+>
+  {resolved.icon && <Icon name={resolved.icon} />}
+  {resolved.label}
+</Button>

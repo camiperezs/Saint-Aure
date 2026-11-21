@@ -1,0 +1,66 @@
+---
+import type { IconName } from "@/icons";
+import type { Image } from "@/types/image";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import Media from "@/components/ui/Media/Media.astro";
+import { imageSizes } from "@/utils/image-sizes";
+import "./Embed.css";
+
+interface Props {
+  src: string;
+  href: string;
+  title: string;
+  label: string;
+  icon: IconName;
+  preview?: Image;
+  allow?: string;
+  ratio?: "4/3" | "16/9";
+  class?: string;
+}
+
+const {
+  src,
+  href,
+  title,
+  label,
+  icon,
+  preview,
+  allow,
+  ratio = "16/9",
+  class: className,
+} = Astro.props;
+---
+
+<div
+  class:list={["embed", `embed--ratio-${ratio.replace("/", "-")}`, className]}
+  data-embed
+  data-embed-src={src}
+  data-embed-title={title}
+  data-embed-allow={allow}
+>
+  {preview ? (
+    <Media image={preview} class="embed__preview" sizes={imageSizes.half} />
+  ) : (
+    <div class="embed__placeholder" aria-hidden="true">
+      <Icon name={icon} />
+    </div>
+  )}
+  <a
+    class="embed__load"
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-embed-load
+  >
+    <Icon name={icon} />
+    {label}
+  </a>
+</div>
+
+<script>
+  import { initEmbed } from "@/scripts/embed";
+
+  document
+    .querySelectorAll<HTMLElement>("[data-embed]")
+    .forEach((embed) => initEmbed(embed));
+</script>

@@ -1,0 +1,40 @@
+---
+import type { Video, VideoLabels } from "@/types/video";
+import Embed from "@/components/ui/Embed/Embed.astro";
+import { getVideoEmbed } from "@/utils/video";
+import SectionShell from "../SectionShell.astro";
+
+type Props = Video & { id?: string; labels: VideoLabels };
+
+const {
+  id = "video",
+  eyebrow,
+  title,
+  description,
+  video,
+  action,
+  labels,
+} = Astro.props;
+
+const { src, href } = getVideoEmbed(video);
+---
+
+<SectionShell
+  id={id}
+  class="video"
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+  action={action}
+>
+  <Embed
+    src={src}
+    href={href}
+    title={video.title}
+    label={labels.play}
+    icon="play"
+    preview={video.poster}
+    ratio="16/9"
+    allow="autoplay; fullscreen; picture-in-picture"
+  />
+</SectionShell>

@@ -1,0 +1,62 @@
+@layer components {
+  .services--list .services__items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--preset-grid-gap);
+    padding: 0;
+    list-style: none;
+  }
+
+  .service-card__image {
+    inline-size: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .service-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    flex-grow: 1;
+  }
+
+  .service-card__badges {
+    --cluster-gap: var(--space-2);
+  }
+
+  .service-card__title {
+    font-size: var(--text-title);
+    font-weight: var(--text-title-weight);
+    line-height: var(--text-title-line-height);
+  }
+
+  .service-card__description {
+    color: var(--color-text-secondary);
+  }
+
+  .service-card__price {
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+  }
+
+  .service-card__action {
+    align-self: flex-start;
+  }
+
+  @media (min-width: 48rem) {
+    .services--list .service-card:has(.service-card__image) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      align-items: start;
+    }
+
+    .services--list .service-card__action {
+      grid-column: 2;
+    }
+
+    .services--featured .service-card--featured {
+      grid-column: span 2;
+    }
+  }
+}

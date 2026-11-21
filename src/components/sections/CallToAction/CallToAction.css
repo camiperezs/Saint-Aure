@@ -1,0 +1,73 @@
+@layer components {
+  .cta__panel {
+    display: grid;
+    align-items: center;
+    gap: var(--space-fluid-md);
+    padding: var(--space-fluid-md);
+    background-color: var(--color-background-alt);
+    border: var(--border-width-default) solid var(--color-border-subtle);
+    border-radius: var(--preset-card-radius);
+  }
+
+  .cta__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .cta--simple .cta__actions,
+  .cta--highlight .cta__actions {
+    justify-content: center;
+  }
+
+  .cta__image {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .cta--highlight .cta__panel {
+    --color-focus: var(--color-focus-on-primary);
+
+    color: var(--color-text-on-primary);
+    background-color: var(--color-action-primary);
+    border-color: transparent;
+  }
+
+  .cta--highlight .section-title__eyebrow,
+  .cta--highlight .section-title__description {
+    color: var(--color-text-on-primary);
+  }
+
+  .cta--highlight .button--primary,
+  .cta--highlight .button--secondary {
+    --button-color: var(--color-action-primary);
+    --button-background: var(--color-text-on-primary);
+    --button-background-hover: var(--color-text-on-primary);
+    --button-background-active: var(--color-text-on-primary);
+  }
+
+  .cta--highlight .button--outline,
+  .cta--highlight .button--ghost {
+    --button-color: var(--color-text-on-primary);
+  }
+
+  .cta--highlight .button--outline {
+    --button-border: var(--color-text-on-primary);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .cta--highlight
+      .button--primary:hover:not(:disabled, [aria-disabled="true"]),
+    .cta--highlight
+      .button--secondary:hover:not(:disabled, [aria-disabled="true"]) {
+      text-decoration: underline;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .cta__panel--with-image {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}

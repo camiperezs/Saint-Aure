@@ -1,0 +1,130 @@
+---
+import type { Gallery, GalleryLabels } from "@/types/gallery";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import Media from "@/components/ui/Media/Media.astro";
+import { imageSizes } from "@/utils/image-sizes";
+import SectionShell from "../SectionShell.astro";
+import "./Gallery.css";
+
+type Props = Gallery & { id?: string; labels: GalleryLabels };
+
+const {
+  id = "gallery",
+  variant,
+  eyebrow,
+  title,
+  description,
+  images,
+  lightbox = true,
+  action,
+  labels,
+} = Astro.props;
+
+const imageClass = (ratio?: string) =>
+  ratio
+    ? `gallery__image gallery__image--ratio-${ratio.replace("/", "-")}`
+    : "gallery__image";
+
+const fullSource = (src: Gallery["images"][number]["image"]["src"]) =>
+  typeof src === "string" ? src : src.src;
+---
+
+<SectionShell
+  id={id}
+  class={`gallery gallery--${variant}`}
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+  action={action}
+>
+  <div data-gallery={lightbox ? "" : undefined}>
+    <ul class="gallery__items" role="list">
+      {images.map((item, index) => {
+        const caption = [item.title, item.description]
+          .filter(Boolean)
+          .join(" — ");
+
+        return (
+          <li>
+            <figure class="gallery__item">
+              {lightbox ? (
+                <a
+                  class="gallery__trigger"
+                  href={fullSource(item.image.src)}
+                  data-lightbox-index={index}
+                  data-caption={caption}
+                >
+                  <span class="visually-hidden">{labels.open}:</span>
+                  <Media
+                    image={item.image}
+                    class={imageClass(item.aspectRatio)}
+                    sizes={imageSizes.column}
+                  />
+                </a>
+              ) : (
+                <Media
+                  image={item.image}
+                  class={imageClass(item.aspectRatio)}
+                  sizes={imageSizes.column}
+                />
+              )}
+              {(item.title || item.description) && (
+                <figcaption class="gallery__caption">
+                  {item.title && (
+                    <span class="gallery__title">{item.title}</span>
+                  )}
+                  {item.description && <span>{item.description}</span>}
+                </figcaption>
+              )}
+            </figure>
+          </li>
+        );
+      })}
+    </ul>
+
+    {lightbox && (
+      <dialog class="lightbox" aria-label={title} data-lightbox>
+        <div class="lightbox__toolbar">
+          <button
+            class="lightbox__button"
+            type="button"
+            aria-label={labels.close}
+            data-lightbox-close
+          >
+            <Icon name="close" />
+          </button>
+        </div>
+        <figure class="lightbox__figure">
+          <img class="lightbox__image" alt="" data-lightbox-image />
+          <figcaption class="lightbox__caption" data-lightbox-caption hidden />
+        </figure>
+        <div class="lightbox__navigation">
+          <button
+            class="lightbox__button"
+            type="button"
+            aria-label={labels.previous}
+            data-lightbox-prev
+          >
+            <Icon name="arrow-left" />
+          </button>
+          <button
+            class="lightbox__button"
+            type="button"
+            aria-label={labels.next}
+            data-lightbox-next
+          >
+            <Icon name="arrow-right" />
+          </button>
+        </div>
+      </dialog>
+    )}
+  </div>
+</SectionShell>
+
+<script>
+  import { initLightbox } from "@/scripts/lightbox";
+
+  document
+    .querySelectorAll<HTMLElement>("[data-gallery]")
+    .forEach((gallery) => initLightbox(gallery));
+</script>

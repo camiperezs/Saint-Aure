@@ -1,0 +1,39 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/ui/Container/Container.astro";
+import { site } from "@/config/site";
+
+export const getStaticPaths = (async () => {
+  const pages = await getCollection("legal");
+
+  return pages.map((page) => ({ params: { slug: page.id }, props: { page } }));
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+
+const updated = new Intl.DateTimeFormat(site.locale, {
+  dateStyle: "long",
+  timeZone: "UTC",
+}).format(page.data.updated);
+---
+
+<BaseLayout
+  title={`${page.data.title} | ${site.name}`}
+  description={page.data.description}
+>
+  <Container size="narrow" class="section">
+    <article class="prose">
+      <h1>{page.data.title}</h1>
+      <p class="prose__meta">
+        {site.labels.legal.updated}:{" "}
+        <time datetime={page.data.updated.toISOString().slice(0, 10)}>
+          {updated}
+        </time>
+      </p>
+      <Content />
+    </article>
+  </Container>
+</BaseLayout>

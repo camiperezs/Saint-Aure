@@ -1,0 +1,86 @@
+---
+import type { Testimonial, TestimonialLabels } from "@/types/testimonials";
+import Card from "@/components/ui/Card/Card.astro";
+import Media from "@/components/ui/Media/Media.astro";
+import { imageSizes } from "@/utils/image-sizes";
+
+interface Props {
+  testimonial: Testimonial;
+  labels: TestimonialLabels;
+  locale: string;
+}
+
+const { testimonial, labels, locale } = Astro.props;
+const { name, quote, role, identity, rating, service, date, source } =
+  testimonial;
+
+const details = [role, service].filter(Boolean).join(" · ");
+
+const parsedDate = date ? new Date(date) : undefined;
+
+if (parsedDate && Number.isNaN(parsedDate.getTime())) {
+  throw new Error(`Invalid testimonial date "${date}": use YYYY-MM-DD.`);
+}
+
+const formattedDate = parsedDate
+  ? new Intl.DateTimeFormat(locale, {
+      year: "numeric",
+      month: "long",
+      timeZone: "UTC",
+    }).format(parsedDate)
+  : undefined;
+
+const stars =
+  rating === undefined
+    ? undefined
+    : Math.round(Math.min(5, Math.max(0, rating)));
+---
+
+<Card as="li" class="testimonial-card">
+  {stars !== undefined && (
+    <p class="testimonial-card__rating">
+      <span aria-hidden="true">
+        {"★".repeat(stars)}
+        {"☆".repeat(5 - stars)}
+      </span>
+      <span class="visually-hidden">
+        {labels.rating.replace("{rating}", String(stars))}
+      </span>
+    </p>
+  )}
+
+  <blockquote class="testimonial-card__quote">
+    <p>{quote}</p>
+  </blockquote>
+
+  <div class="testimonial-card__author">
+    {identity?.type === "photo" && (
+      <Media
+        image={identity.image}
+        class="testimonial-card__avatar"
+        sizes={imageSizes.avatar}
+      />
+    )}
+    {identity?.type === "initials" && (
+      <span class="testimonial-card__avatar" aria-hidden="true">
+        {identity.value}
+      </span>
+    )}
+    <div>
+      <p class="testimonial-card__name">{name}</p>
+      {details && <p class="testimonial-card__role">{details}</p>}
+      {(formattedDate || source) && (
+        <p class="testimonial-card__meta">
+          {formattedDate && <time datetime={date}>{formattedDate}</time>}
+          {formattedDate && source && " · "}
+          {source &&
+            (source.href ? (
+              <a href={source.href}>{source.label}</a>
+            ) : (
+              source.label
+            ))}
+        </p>
+      )}
+    </div>
+  </div>
+</Card>

@@ -1,0 +1,38 @@
+---
+import type { Stats } from "@/types/stats";
+import SectionShell from "../SectionShell.astro";
+import "./Stats.css";
+
+type Props = Stats & { id?: string };
+
+const {
+  id = "stats",
+  variant,
+  eyebrow,
+  title,
+  description,
+  items,
+  action,
+} = Astro.props;
+---
+
+<SectionShell
+  id={id}
+  class={`stats stats--${variant}`}
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+  action={action}
+>
+  <ul class="stats__items" role="list">
+    {items.map((item) => (
+      <li class="stats__item">
+        <p class="stats__value">{item.value}</p>
+        <p class="stats__label">{item.label}</p>
+        {item.description && (
+          <p class="stats__description">{item.description}</p>
+        )}
+      </li>
+    ))}
+  </ul>
+</SectionShell>
