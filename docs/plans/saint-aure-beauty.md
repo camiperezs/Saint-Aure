@@ -247,7 +247,13 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
     - CTA: banda oscura, un solo botón
     - Contact: canal WhatsApp visible + formulario simplificado
 - **Modelo sugerido**: Sonnet (sigue la estructura de los tipos existentes)
-- **Estado**: Pendiente
+- **Estado**: Implementada
+- _Desvíos de la implementación_ (los contratos no admiten lo que pedía el plan):
+  - Hero: `overlay: "strong"`, porque `OverlayLevel` no tiene `"heavy"`.
+  - About: `action` es una sola, así que quedó solo el botón ghost de WhatsApp, sin el secundario a `#contact`.
+  - Contact: sin `channels`, porque `ContactChannel` exige `href`. El número está como texto en `description` y el botón sale de `whatsapp`.
+  - Testimonios: nombre "Clienta de ejemplo", iniciales "CE" y quotes que empiezan con "Testimonio de ejemplo:".
+  - Las opciones del select de servicios salen de los títulos de `services`.
 
 ---
 
