@@ -30,7 +30,7 @@ export const site: SiteConfig = {
 
   appearance: {
     defaultTheme: "dark",
-    preset: "editorial",
+    preset: "elegant",
 
     colors: {
       primary: {

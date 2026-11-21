@@ -10,6 +10,7 @@ Referencia de diseño: `design/stitch-export/stitch_saint_aure_landing/stitch_sa
 
 **D1 — Preset base y overrides de apariencia**  
 Preset `elegant` como base (radios `md`, tarjetas con borde, íconos thin, densidad airy). Overrides:
+
 - `shape.buttons: "pill"` → botones en píldora (el DESIGN.md dice "Primary action buttons default to pill silhouettes")
 - `shape.cards: "md"` → 12 px, ya incluido en elegant pero se declara explícito
 - `shape.media: "md"` → imágenes con el mismo radio que las tarjetas
@@ -17,13 +18,13 @@ Preset `elegant` como base (radios `md`, tarjetas con borde, íconos thin, densi
 - `icons.stroke: "thin"` → ya en elegant, se confirma
 - `density: "airy"` → ya en elegant, se confirma
 
-**D2 — Tipografía**  
+**D2 — Tipografía**
+
 - `heading`: Playfair Display, weight 400, tracking `tighter` (−0.035 em, coincide con el DESIGN.md `display-lg`)
 - `body`: DM Sans (cubre body e interfaz)
 - `eyebrow`: uppercase (ya en editorial/elegant)
-- Fuentes: descargar WOFF2 desde Google Fonts y colocar en `public/fonts/`:
-  - Playfair Display: 400 (`playfair-400.woff2`), 500 (`playfair-500.woff2`)
-  - DM Sans: 300 (`dm-sans-300.woff2`), 400 (`dm-sans-400.woff2`), 500 (`dm-sans-500.woff2`)
+- Fuentes: WOFF2 variables de Google Fonts (subset latin) en `public/fonts/`: `playfair-display-variable.woff2` y `dm-sans-variable.woff2`. Un mismo archivo se declara para los pesos 400 y 500, así que se descarga una sola vez por familia.
+- _Implementación_: DM Sans 300 se descartó porque `FontWeight` solo acepta 400–700 y el peso del cuerpo no es configurable.
 
 **D3 — Escala de colores primaria (dorado, basada en #C5A477)**  
 Escala construida para que `brand-300` sea el dorado claro usado como acción en dark mode y `brand-700` sea el dorado oscuro con contraste en light mode.
@@ -82,7 +83,15 @@ neutral:
 
 Nota: después de configurar los colores, correr `npm run check:contrast` y ajustar los pasos que fallen. La corrección va siempre en la escala del cliente (site.ts), nunca en los componentes.
 
+_Ajustes de contraste en la etapa 1_ (los colores de estado fijos de la plantilla y el link fallaban sobre las superficies de light):
+
+- `neutral.50`: `#f2ede5` → `#faf7f2` (el canvas alabastro del DESIGN.md; también es el texto principal en dark)
+- `neutral.100`: `#e8e0d6` → `#f6f3ed`
+- `primary.600`: `#b08540` → `#a67c3a` (foco en light)
+- `primary.700`: `#8c6830` → `#85622c` (acción y link en light)
+
 **D6 — Secciones de la página (orden exacto)**
+
 1. Hero — `variant: "fullscreen"`, texto a la izquierda, overlay oscuro
 2. About — `variant: "split"`, foto trabajando, stat "16+ años" en la descripción
 3. Services — `variant: "featured"`, 5 servicios sin precio, con `visual.type: "image"` y placeholders externos (picsum.photos + dimensiones declaradas)
@@ -92,7 +101,8 @@ Nota: después de configurar los colores, correr `npm run check:contrast` y ajus
 7. CTA — `variant: "highlight"`, un solo botón primary WhatsApp
 8. Contact — `variant: "split"`, WhatsApp como canal principal, formulario con campos: nombre, servicio de interés (dropdown), mensaje. Sin dirección exacta ni horarios.
 
-**D7 — Datos del negocio**  
+**D7 — Datos del negocio**
+
 - `business.type: "ProfessionalService"` (atiende a domicilio y sin dirección exacta confirmada)
 - `address.street: "Rosario, Santa Fe"` (ciudad y provincia, sin número; el cliente confirmará la dirección completa)
 - `openingHours`: eliminar (sin horarios confirmados)
@@ -131,10 +141,10 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
 - **Acciones**:
   1. Descargar los WOFF2 listados en D2 y colocarlos en `public/fonts/`.
   2. Reescribir `src/config/site.ts` completo con los datos de D1–D9:
-     - `name: "Saint Aure Beauty House"` 
+     - `name: "Saint Aure Beauty House"`
      - `url: "https://saintaure.com.ar"` (placeholder; actualizar cuando se defina dominio)
      - `locale: "es-AR"`
-     - SEO: título y descripción reales, `robots: "noindex, nofollow"` 
+     - SEO: título y descripción reales, `robots: "noindex, nofollow"`
      - `business` con los datos de D7
      - `appearance`: preset `elegant`, colores D3–D5, tipografía D2, overrides D1
      - `defaultTheme: "dark"`
@@ -151,7 +161,12 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
   - `npm run check:contrast`
   - `npm run dev` → abrir catálogo `/dev/components` a 375 y 1280 px; revisar heading en Playfair Display, cuerpo en DM Sans, botones en píldora, tarjetas con borde sutil, fondos oscuros correctos en dark y champagne/hueso en light
 - **Modelo sugerido**: Opus (diseño visual, construcción de escalas de color y contraste)
-- **Estado**: Pendiente
+- **Estado**: Implementada
+- **Notas de implementación**:
+  - `header.variant` es `"standard"`: el contrato solo acepta `minimal | standard`, no existe `overlay`.
+  - `address.postalCode: "S2000"` (Rosario centro) porque el contrato lo pide; confirmar con la clienta junto con la dirección.
+  - Navegación: Servicios, Sobre mí, Trabajos (`#gallery`), Contacto.
+  - Verificado con build + preview de la home (el catálogo `/dev/components` no se pudo levantar porque había otro `astro dev` corriendo, el de la plantilla).
 
 ---
 
@@ -271,3 +286,5 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
 ## Retoques
 
 _Ajustes que aparezcan durante las etapas se anotan aquí y se aplican juntos al final._
+
+- `npm run format:check` falla en archivos ajenos al sitio: `.claude/skills/design-prompt/SKILL.md`, `.claude/skills/README.md` y el export de Stitch en `design/`. Formatearlos o agregar `design/stitch-export/` a `.prettierignore` (que no está en la lista de archivos del alcance cliente, así que hay que decidirlo).
