@@ -122,6 +122,39 @@ Cuando el cliente entregue las fotos reales, se reemplazan imagen por imagen sin
 **D10 — Favicon y logo**  
 Reemplazar `public/favicon.svg` con el logo de Saint Aure en SVG cuadrado. Mientras no se disponga del logo real, dejar el favicon de la plantilla (check:launch lo marcará como pendiente, lo cual es correcto para esta etapa).
 
+**D11 — Franja editorial en Hero**  
+Campo `editorial?: string` opcional en `HeroFullScreen`. Texto libre separado con ` / ` que se renderiza como tira decorativa en mayúsculas debajo del contenido del hero. Valor para Saint Aure: `"VOL. XVI / ATELIER ROSARIO / ROLDÁN / ALTA COIFFURE"` (tomado del DESIGN.md). Si el campo está ausente, no se renderiza nada.
+
+**D12 — Badge flotante en About**  
+Campo `badge?: { value: string; label?: string; icon?: IconName }` opcional en `AboutStandard`. Se posiciona en absolute sobre la fotografía (esquina inferior izquierda o según el CSS). Solo aplica cuando hay imagen y `variant: "split"`. Valor para Saint Aure: `{ value: "16+", label: "años de experiencia", icon: "check-circle" }` (ícono thin; verificar con `src/icons/index.ts` que exista el nombre exacto).
+
+**D13 — Campos extendidos en Service**  
+Tres campos opcionales nuevos en la interfaz `Service`:
+- `specs?: { icon: IconName; label: string; value: string }[]` — grilla de datos estructurados. Se renderiza **solo** en la card `featured: true`. Ejemplo para "Peinados para novias": `[{ icon: "clock", label: "Duración", value: "2–3 hs" }, { icon: "map-pin", label: "Modalidad", value: "Presencial o a domicilio" }]`. Los íconos deben existir en `src/icons/index.ts`; verificar antes de usar.
+- `availabilityBadges?: string[]` — chips de disponibilidad en la card destacada. Ejemplo: `["Agenda Novias Abierta", "Atención Privada"]`.
+- `footnote?: string` — línea de detalle al pie de las cards **no** destacadas. Ejemplo: "Diagnóstico previo incluido", "Duración: 60–90 min". No se muestra en la featured card.
+
+Los valores de `specs` y `footnote` para cada servicio son contenido a confirmar con la clienta; en la implementación se usan valores plausibles marcados como placeholder en un comentario.
+
+**D14 — Bloques de modalidad en Contact**  
+Campo `modalityBlocks?: { icon: IconName; title: string; description: string }[]` opcional en `Contact`. Cuando está presente y `variant: "split"`, se renderiza una grilla de tarjetas (ícono + título + descripción) encima del botón de WhatsApp, en lugar de la lista plana de `channels`. Valor para Saint Aure:
+```
+[
+  { icon: "building-2", title: "Atención Presencial", description: "En mi espacio de Rosario, con cita previa." },
+  { icon: "map-pin", title: "Servicio a Domicilio", description: "Me traslado a Rosario y Roldán para que estés cómoda en tu hogar." }
+]
+```
+Los íconos deben existir en `src/icons/index.ts`; verificar antes de usar. Si alguno no existe, elegir el disponible más cercano.
+
+**D15 — Efectos visuales del DESIGN.md**  
+Cambios de CSS puro (sin cambios de tipos ni contratos). Todos los valores deben usar custom properties del token del cliente (nunca hardcodear hex):
+- **`Button.css` (primary):** gradiente lineal `var(--color-primary-100) → var(--color-primary-500)` en background; hover añade `box-shadow: 0 0 20px rgba(var(--color-primary-500-rgb), 0.4)` si el token RGB existe, o un valor aproximado equivalente.
+- **`Card.css` (featured):** borde especular en la card con `featured` via un gradiente radial en el borde: `linear-gradient(135deg, rgba(229,209,173,0.45) 0%, rgba(197,164,119,0.1) 40%, rgba(197,164,119,0.3) 100%)` como `border-image` o como pseudo-elemento `::before` con `border-radius` heredado.
+- **`Hero.css` (fullscreen):** glow radial sutil sobre la zona de texto: pseudo-elemento `::before` con `radial-gradient` y `filter: blur(48px)` en `rgba(197,164,119,0.08)`, posicionado detrás del contenido.
+- **`ContactForm.css` / inputs:** `background: var(--color-neutral-900)` en light y `var(--color-neutral-900)` en dark; `border: 1px solid rgba(197,164,119,0.3)`; en `:focus-within` transición a `border-color: var(--color-primary-200)` con `box-shadow: 0 0 0 1px var(--color-primary-200)`.
+
+Verificar `npm run check:contrast` después de esta etapa. Si algún efecto rompe la accesibilidad, ajustar la opacidad del gradiente.
+
 ---
 
 ## Plan por etapas
@@ -297,6 +330,170 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
 
 ---
 
+### Etapa 4: Gaps de contenido
+
+- **Objetivo**: los campos opcionales ya disponibles en los tipos se usan en `page.ts`: subcategorías en servicios, títulos y descripciones en galería, descripciones en stats, imagen en CTA y segundo select en el formulario de contacto. La página se ve más cercana al mockup sin tocar componentes.
+- **Leer antes**:
+  - Este plan (D6, D9, D13 parcial)
+  - `src/content/page.ts` (estado actual)
+  - `src/types/services.ts`, `src/types/gallery.ts`, `src/types/stats.ts`, `src/types/cta.ts`, `src/types/contact.ts`
+- **Acciones** (solo `page.ts`):
+  1. Agregar `label` a cada servicio (subcategoría/overline). Usar los valores del DESIGN.md como referencia y adaptar: "Novia & Celebración", "Iluminación a Mano", "Gala & Celebraciones", "Color & Diagnóstico", "Tratamiento Capilar". Ajustar al criterio editorial del cliente si se prefiere otro texto.
+  2. Agregar `title` y `description` a cada `GalleryItem`. El `title` es una versión corta del alt text (máx. 4 palabras); la `description` es una breve frase editorial (máx. 12 palabras). Usar el alt text existente como base.
+  3. Agregar `description` a cada `StatItem`:
+     - "16+" → "Perfeccionamiento continuo desde 2008"
+     - "5" → "Peinado, color, tratamientos y más"
+     - "Rosario & Roldán" → "En tu espacio o en el nuestro"
+  4. Agregar `image` a la sección CTA: `{ src: "/placeholders/portrait.svg", alt: "Saint Aure Beauty House", width: 120, height: 120 }`. Reemplazar por el logo real cuando esté disponible.
+  5. Agregar segundo `FormField` al formulario de contacto (insertar después de "Servicio de interés"): `{ name: "modality", label: "Preferencia de atención", type: "select", placeholder: "Elegí una opción", options: ["Presencial en atelier", "A domicilio"] }`.
+- **Archivos**:
+  - `src/content/page.ts` — ediciones puntuales en las secciones listadas
+- **Verificación**:
+  - `npm run check && npm run lint`
+  - `npm run dev` → revisar a 375 y 1280 px:
+    - Galería: al hacer hover sobre una imagen aparece el overlay con título
+    - Stats: cada cifra tiene su texto de apoyo debajo
+    - CTA: se muestra la imagen/logo centrado sobre el título
+    - Formulario: tres campos en total, el select de preferencia funciona
+- **Modelo sugerido**: Sonnet (solo contenido, sin diseño nuevo)
+- **Estado**: Pendiente
+
+---
+
+### Etapa 5: Hero editorial + badge en About
+
+- **Objetivo**: el hero muestra la franja editorial "VOL. XVI / ATELIER ROSARIO / ROLDÁN / ALTA COIFFURE" y la sección About muestra el badge "16+" flotante sobre la fotografía.
+- **Leer antes**:
+  - Este plan (D11, D12)
+  - `src/types/hero.ts`
+  - `src/types/about.ts`
+  - `src/components/sections/Hero/Hero.astro` y `Hero.css`
+  - `src/components/sections/About/About.astro` y `About.css`
+  - `src/icons/index.ts` (verificar nombre del ícono para D12 antes de escribir el tipo)
+  - Skill `landing-design` si aplica para posicionamiento del badge
+- **Acciones**:
+  1. Agregar `editorial?: string` a `HeroFullScreen` en `hero.ts`.
+  2. En `Hero.astro` (variante `fullscreen`): renderizar `{hero.editorial && <p class="hero__editorial">{hero.editorial}</p>}` debajo de `.hero__content`.
+  3. En `Hero.css`: estilizar `.hero__editorial` como tira en mayúsculas, `overline` scale, opacidad reducida, con separadores ` / ` ya incluidos en el string.
+  4. Agregar `badge?: { value: string; label?: string; icon?: IconName }` a `AboutStandard` en `about.ts`. Importar `IconName` desde `@/icons`.
+  5. En `About.astro` (variante `split`): cuando hay `badge` e imagen, renderizar un elemento `.about__badge` dentro del contenedor de la imagen (position relative), con el valor, ícono y label.
+  6. En `About.css`: posicionar `.about__badge` en absolute sobre la foto (esquina inferior izquierda, margen `1rem`), con fondo de superficie, borde hairline dorado, `border-radius` pill o `md`.
+  7. En `page.ts`: agregar `editorial: "VOL. XVI / ATELIER ROSARIO / ROLDÁN / ALTA COIFFURE"` al hero y `badge: { value: "16+", label: "años de experiencia", icon: "<nombre-verificado>" }` al about.
+- **Archivos**:
+  - `src/types/hero.ts`
+  - `src/types/about.ts`
+  - `src/components/sections/Hero/Hero.astro`
+  - `src/components/sections/Hero/Hero.css`
+  - `src/components/sections/About/About.astro`
+  - `src/components/sections/About/About.css`
+  - `src/content/page.ts`
+- **Verificación**:
+  - `npm run check && npm run lint && npm run format:check`
+  - `npm run dev` → catálogo `/dev/components` a 375 y 1280 px, dark y light:
+    - Hero: la franja editorial aparece debajo del texto del hero, legible y no invasiva
+    - About: el badge "16+" es visible sobre la foto, no tapa el rostro, contraste correcto en ambos temas
+- **Modelo sugerido**: Opus (diseño visual, posicionamiento en absolute, dos componentes nuevos)
+- **Estado**: Pendiente
+
+---
+
+### Etapa 6: Services — specs, badges y footnote
+
+- **Objetivo**: la card destacada de "Peinados para novias" muestra la grilla duración/modalidad y los badges de disponibilidad; las cards secundarias muestran una línea de detalle al pie.
+- **Leer antes**:
+  - Este plan (D13)
+  - `src/types/services.ts`
+  - `src/components/sections/Services/ServiceCard.astro`
+  - `src/components/sections/Services/Services.css`
+  - `src/icons/index.ts` (verificar íconos para specs antes de escribir el tipo)
+- **Acciones**:
+  1. Agregar los tres campos opcionales a `Service` en `services.ts` (ver D13): `specs?`, `availabilityBadges?`, `footnote?`.
+  2. En `ServiceCard.astro`:
+     - Dentro del bloque `featured`, renderizar `availabilityBadges` como chips (usar componente `Badge` existente) y `specs` como una grilla de 2 columnas con ícono, label y valor.
+     - Al pie de la card (fuera del bloque featured), renderizar `footnote` si existe, como texto pequeño separado por una línea hairline.
+  3. En `Services.css`: estilizar `.service-card__specs` (grilla de 2 columnas, separador vertical entre columnas), `.service-card__availability` (fila de chips) y `.service-card__footnote` (texto `body-sm`, color muted, borde superior hairline).
+  4. En `page.ts`: actualizar el servicio "Peinados para novias" con `specs` y `availabilityBadges` (valores de D13 marcados como placeholder); agregar `footnote` plausible a las cuatro cards secundarias. Los valores son placeholders — confirmar con la clienta antes del deploy.
+- **Archivos**:
+  - `src/types/services.ts`
+  - `src/components/sections/Services/ServiceCard.astro`
+  - `src/components/sections/Services/Services.css`
+  - `src/content/page.ts`
+- **Verificación**:
+  - `npm run check && npm run lint`
+  - `npm run dev` → catálogo a 375 y 1280 px, dark y light:
+    - Card destacada: grilla specs visible, chips de disponibilidad, sin desbordes
+    - Cards secundarias: footnote visible al pie con separador, sin romper la grilla
+- **Modelo sugerido**: Opus (layout dentro de card, dos variantes de renderizado condicional)
+- **Estado**: Pendiente
+
+---
+
+### Etapa 7: Contact — bloques de modalidad
+
+- **Objetivo**: la sección Contact muestra dos tarjetas de modalidad (Presencial / Domicilio) como bloque visual rico, en lugar de los links planos del estado actual.
+- **Leer antes**:
+  - Este plan (D14)
+  - `src/types/contact.ts`
+  - `src/components/sections/Contact/Contact.astro`
+  - `src/components/sections/Contact/Contact.css`
+  - `src/icons/index.ts` (verificar íconos de D14)
+- **Acciones**:
+  1. Agregar `modalityBlocks?: { icon: IconName; title: string; description: string }[]` a `Contact` en `contact.ts`. Importar `IconName`.
+  2. En `Contact.astro`: cuando `modalityBlocks` está presente (y `variant: "split"`), renderizar una grilla `.contact__modality` antes del botón de WhatsApp. Cada bloque: `<div class="contact__modality-item"><Icon /><h3>{title}</h3><p>{description}</p></div>`.
+  3. En `Contact.css`: `.contact__modality` como grilla de 2 columnas en desktop, 1 columna en mobile. Cada item con fondo de superficie, borde hairline, radio `md`.
+  4. En `page.ts`: agregar `modalityBlocks` al contact con los valores de D14 (íconos verificados).
+- **Archivos**:
+  - `src/types/contact.ts`
+  - `src/components/sections/Contact/Contact.astro`
+  - `src/components/sections/Contact/Contact.css`
+  - `src/content/page.ts`
+- **Verificación**:
+  - `npm run check && npm run lint`
+  - `npm run dev` → a 375 y 1280 px, dark y light:
+    - Contact: los dos bloques de modalidad visibles, en 2 col en desktop y 1 col en mobile
+    - El botón de WhatsApp sigue visible debajo
+    - El formulario no se desplaza ni rompe el layout split
+- **Modelo sugerido**: Sonnet (sigue el patrón de los channels existentes)
+- **Estado**: Pendiente
+
+---
+
+### Etapa 8: Pulido visual (efectos del DESIGN.md)
+
+- **Objetivo**: los botones primary tienen gradiente metálico y glow en hover; la card destacada muestra borde especular; el hero tiene el glow radial atmosférico; los inputs del formulario tienen el estilo oscuro con borde dorado y focus glow. La página pasa `check:contrast` sin regresiones.
+- **Leer antes**:
+  - Este plan (D15)
+  - `src/components/ui/Button/Button.astro` y `Button.css` (entender las custom properties y clases actuales)
+  - `src/components/ui/Card/Card.astro` y `Card.css`
+  - `src/components/sections/Hero/Hero.css`
+  - `src/components/forms/ContactForm/ContactForm.astro` y el CSS del formulario
+  - `src/config/site.ts` (para verificar qué custom properties de color existen)
+  - Skill `landing-design` para los tokens disponibles
+- **Acciones**:
+  1. **Button.css (primary)**: reemplazar `background` sólido por `linear-gradient(180deg, var(--color-primary-100) 0%, var(--color-primary-500) 100%)`. Agregar `:hover` con `box-shadow: 0 0 20px rgba(197,164,119,0.4)` y `filter: brightness(1.08)`. Verificar que el contraste texto-fondo siga pasando (el gradiente puede cambiar el valor medio).
+  2. **Card.css (featured)**: agregar pseudo-elemento `::before` en `.card--featured` con `border: 1px solid transparent` y `background-image: linear-gradient(135deg, rgba(229,209,173,0.45), rgba(197,164,119,0.1) 40%, rgba(197,164,119,0.3))` como `border-image` o mediante `background-clip`. Alternativa más simple: `outline: 1px solid rgba(229,209,173,0.35)` con `box-shadow: inset 0 0 0 1px rgba(197,164,119,0.15)`.
+  3. **Hero.css (fullscreen)**: en `.hero__content`, agregar pseudo-elemento `::before` absoluto con `radial-gradient(ellipse 60% 60% at 20% 50%, rgba(197,164,119,0.08) 0%, transparent 70%)` y `filter: blur(48px)`, z-index por debajo del texto.
+  4. **ContactForm**: localizar el CSS de los inputs (`input`, `select`, `textarea`). Aplicar `background: var(--color-neutral-900)` (o la variable equivalente del tema oscuro), `border: 1px solid rgba(197,164,119,0.3)`. En `:focus`: `border-color: var(--color-primary-200)`, `box-shadow: 0 0 0 1px var(--color-primary-200)`. Verificar que en light mode el fondo sea adecuado (usar `var(--color-neutral-100)` en light).
+  5. Correr `npm run check:contrast`. Si algún step falla, ajustar la opacidad de los gradientes (nunca el texto).
+- **Archivos**:
+  - `src/components/ui/Button/Button.css`
+  - `src/components/ui/Card/Card.css`
+  - `src/components/sections/Hero/Hero.css`
+  - Archivo CSS de los inputs del formulario (verificar cuál aplica: `ContactForm.css` o un CSS compartido de inputs)
+- **Verificación**:
+  - `npm run check && npm run lint`
+  - `npm run check:contrast`
+  - `npm run build`
+  - `npm run dev` → revisar a 375 y 1280 px, dark y light:
+    - Botón primary: gradiente visible, glow al hacer hover
+    - Card destacada: borde especular sutil
+    - Hero: glow radial detrás del texto, no distorsiona la legibilidad
+    - Formulario: inputs con estilo oscuro/dorado, focus visible y accesible
+- **Modelo sugerido**: Opus (efectos visuales finos, dos temas, riesgo de contraste)
+- **Estado**: Pendiente
+
+---
+
 ## Retoques
 
-_Aplicados. Lista vacía._
+_Lista vacía._
