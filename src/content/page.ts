@@ -18,6 +18,7 @@ const serviceImage = (alt: string) => ({
 const services: Service[] = [
   {
     title: "Peinados para novias",
+    label: "Novia & Celebración",
     description:
       "Prueba previa, peinado el día del casamiento y acompañamiento para que el look dure toda la noche.",
     visual: serviceImage("Novia con peinado recogido y detalles de flores"),
@@ -26,6 +27,7 @@ const services: Service[] = [
   },
   {
     title: "Balayage",
+    label: "Iluminación a Mano",
     description:
       "Iluminación a mano alzada que se funde con tu color natural y crece sin marcas.",
     visual: serviceImage("Melena con balayage rubio miel"),
@@ -33,6 +35,7 @@ const services: Service[] = [
   },
   {
     title: "Peinados para eventos",
+    label: "Gala & Celebraciones",
     description:
       "Recogidos, semirrecogidos y ondas para fiestas, egresos y celebraciones.",
     visual: serviceImage("Peinado semirrecogido de fiesta"),
@@ -40,6 +43,7 @@ const services: Service[] = [
   },
   {
     title: "Colorimetría",
+    label: "Color & Diagnóstico",
     description:
       "Diagnóstico del tono ideal para tu piel y coloración pareja de raíz a puntas.",
     visual: serviceImage("Coloración castaño profundo y brillante"),
@@ -47,6 +51,7 @@ const services: Service[] = [
   },
   {
     title: "Alisados",
+    label: "Tratamiento Capilar",
     description:
       "Tratamientos de alisado que reducen el frizz y dejan el cabello dócil por meses.",
     visual: serviceImage("Cabello largo, lacio y con brillo"),
@@ -122,15 +127,51 @@ export const page = {
       title: "Galería",
       lightbox: true,
       images: [
-        portrait("Peinado de novia con iluminación cálida editorial"),
-        landscape("Close-up balayage rubio miel"),
-        portrait("Peinado fiesta semirrecogido"),
-        portrait("Mechas californianas castaño oscuro"),
-        landscape("Novia de perfil con ondas naturales"),
-        portrait("Colorimetría raíz a puntas"),
-        landscape("Peinado recogido bajo elegante"),
-        portrait("Balayage rubio plateado natural"),
-        portrait("Trenza lateral novia"),
+        {
+          ...portrait("Peinado de novia con iluminación cálida editorial"),
+          title: "Novia editorial",
+          description: "Recogido alto con iluminación cálida y detalles naturales",
+        },
+        {
+          ...landscape("Close-up balayage rubio miel"),
+          title: "Balayage miel",
+          description: "Degradé a mano alzada en castaño dorado",
+        },
+        {
+          ...portrait("Peinado fiesta semirrecogido"),
+          title: "Fiesta semirrecogido",
+          description: "Ondas sueltas con trenza lateral para gala",
+        },
+        {
+          ...portrait("Mechas californianas castaño oscuro"),
+          title: "Mechas californianas",
+          description: "Iluminación suave sobre base castaño oscuro",
+        },
+        {
+          ...landscape("Novia de perfil con ondas naturales"),
+          title: "Novia ondas",
+          description: "Ondas naturales sueltas para ceremonia civil",
+        },
+        {
+          ...portrait("Colorimetría raíz a puntas"),
+          title: "Colorimetría integral",
+          description: "Coloración pareja en tono personalizado de raíz a puntas",
+        },
+        {
+          ...landscape("Peinado recogido bajo elegante"),
+          title: "Recogido bajo",
+          description: "Moño bajo estructurado para noche de gala",
+        },
+        {
+          ...portrait("Balayage rubio plateado natural"),
+          title: "Rubio plateado",
+          description: "Aclarado progresivo con resultado frío y luminoso",
+        },
+        {
+          ...portrait("Trenza lateral novia"),
+          title: "Trenza lateral",
+          description: "Trenza lateral romántica con volumen y adornos",
+        },
       ],
     },
     {
@@ -139,9 +180,9 @@ export const page = {
       eyebrow: "Saint Aure en números",
       title: "Una trayectoria que respalda cada servicio",
       items: [
-        { value: "16+", label: "años de experiencia" },
-        { value: "5", label: "especialidades" },
-        { value: "Rosario & Roldán", label: "Presencial y a domicilio" },
+        { value: "16+", label: "años de experiencia", description: "Perfeccionamiento continuo desde 2008" },
+        { value: "5", label: "especialidades", description: "Peinado, color, tratamientos y más" },
+        { value: "Rosario & Roldán", label: "Presencial y a domicilio", description: "En tu espacio o en el nuestro" },
       ],
     },
     {
@@ -182,6 +223,12 @@ export const page = {
       variant: "highlight",
       title: "¿Tenés algo en mente para tu cabello?",
       description: "Contame qué estás buscando y te asesoro sin compromiso.",
+      image: {
+        src: "/placeholders/portrait.svg",
+        alt: "Saint Aure Beauty House",
+        width: 120,
+        height: 120,
+      },
       primaryAction: {
         label: "Consultar por WhatsApp",
         whatsapp: { message: whatsappMessage },
@@ -214,6 +261,13 @@ export const page = {
             type: "select",
             placeholder: "Elegí una opción",
             options: services.map((service) => service.title),
+          },
+          {
+            name: "modality",
+            label: "Preferencia de atención",
+            type: "select",
+            placeholder: "Elegí una opción",
+            options: ["Presencial en atelier", "A domicilio"],
           },
           {
             name: "message",
