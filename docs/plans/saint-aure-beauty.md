@@ -466,7 +466,11 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
     - El botón de WhatsApp sigue visible debajo
     - El formulario no se desplaza ni rompe el layout split
 - **Modelo sugerido**: Sonnet (sigue el patrón de los channels existentes)
-- **Estado**: Pendiente
+- **Estado**: Implementada
+- **Notas de implementación**:
+  - `building-2` no existe en `src/icons/index.ts`; se usó `shield` para "Atención Presencial" y `map-pin` para "Servicio a Domicilio" (D14).
+  - `modalityBlocks` se renderiza solo cuando `variant === "split"`, igual que el plan pedía.
+  - Grid 1 col en mobile, 2 col en desktop (`min-width: 64rem`), con tarjetas de superficie + borde hairline.
 
 ---
 
