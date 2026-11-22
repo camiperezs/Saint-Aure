@@ -64,6 +64,20 @@
 
   .hero--fullscreen .hero__content {
     max-inline-size: 48rem;
+    position: relative;
+  }
+
+  .hero--fullscreen .hero__content::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 60% 60% at 20% 50%,
+      rgba(197, 164, 119, 0.08) 0%,
+      transparent 70%
+    );
+    filter: blur(48px);
   }
 
   .hero--align-center .hero__content {

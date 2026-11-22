@@ -506,7 +506,14 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
     - Hero: glow radial detrás del texto, no distorsiona la legibilidad
     - Formulario: inputs con estilo oscuro/dorado, focus visible y accesible
 - **Modelo sugerido**: Opus (efectos visuales finos, dos temas, riesgo de contraste)
-- **Estado**: Pendiente
+- **Estado**: Implementada
+- **Notas de implementación**:
+  - Gradiente metálico del botón primary (`primary-100 → primary-500`) scoped a `[data-theme="dark"]` para evitar falla de contraste en light mode (donde el botón es dark gold con texto blanco).
+  - Glow hover `rgba(197,164,119,0.4)` + `filter: brightness(1.08)` aplica en ambos temas.
+  - Card featured: borde `rgba(229,209,173,0.45)` + `box-shadow: inset 0 1px 0 rgba(229,209,173,0.3)` para especular sutil en lugar de pseudo-elemento complejo.
+  - Hero fullscreen: `::before` absoluto con `inset: -40%`, glow radial `rgba(197,164,119,0.08)` y `filter: blur(48px)`. No requiere z-index por painting order de pseudoelementos.
+  - ContactForm: `background-color: var(--color-neutral-100)` en light, `var(--color-neutral-900)` en dark vía `[data-theme="dark"]`; borde `rgba(197,164,119,0.3)`; focus-visible con `border-color: var(--color-primary-200)` y `box-shadow: 0 0 0 1px var(--color-primary-200)`.
+  - `check:contrast` pasa 162 combinaciones. Build limpio.
 
 ---
 
