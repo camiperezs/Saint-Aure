@@ -24,6 +24,12 @@ const services: Service[] = [
     visual: serviceImage("Novia con peinado recogido y detalles de flores"),
     featured: true,
     action: { label: "Consultar", href: "#contact", variant: "outline" },
+    // Placeholder — confirmar con la clienta antes del deploy
+    specs: [
+      { icon: "clock", label: "Duración", value: "2–3 hs" },
+      { icon: "map-pin", label: "Modalidad", value: "Presencial o a domicilio" },
+    ],
+    availabilityBadges: ["Agenda Novias Abierta", "Atención Privada"],
   },
   {
     title: "Balayage",
@@ -32,6 +38,7 @@ const services: Service[] = [
       "Iluminación a mano alzada que se funde con tu color natural y crece sin marcas.",
     visual: serviceImage("Melena con balayage rubio miel"),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
+    footnote: "Diagnóstico previo incluido", // Placeholder — confirmar con la clienta
   },
   {
     title: "Peinados para eventos",
@@ -40,6 +47,7 @@ const services: Service[] = [
       "Recogidos, semirrecogidos y ondas para fiestas, egresos y celebraciones.",
     visual: serviceImage("Peinado semirrecogido de fiesta"),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
+    footnote: "Duración: 60–90 min", // Placeholder — confirmar con la clienta
   },
   {
     title: "Colorimetría",
@@ -48,6 +56,7 @@ const services: Service[] = [
       "Diagnóstico del tono ideal para tu piel y coloración pareja de raíz a puntas.",
     visual: serviceImage("Coloración castaño profundo y brillante"),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
+    footnote: "Incluye diagnóstico de tono", // Placeholder — confirmar con la clienta
   },
   {
     title: "Alisados",
@@ -56,6 +65,7 @@ const services: Service[] = [
       "Tratamientos de alisado que reducen el frizz y dejan el cabello dócil por meses.",
     visual: serviceImage("Cabello largo, lacio y con brillo"),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
+    footnote: "Duración: 2–4 hs según largo", // Placeholder — confirmar con la clienta
   },
 ];
 

@@ -432,7 +432,11 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
     - Card destacada: grilla specs visible, chips de disponibilidad, sin desbordes
     - Cards secundarias: footnote visible al pie con separador, sin romper la grilla
 - **Modelo sugerido**: Opus (layout dentro de card, dos variantes de renderizado condicional)
-- **Estado**: Pendiente
+- **Estado**: Implementada
+- **Notas de implementación**:
+  - `Badge tone="secondary"` no existe en el contrato; se usó `"neutral"` para los chips de disponibilidad.
+  - Los specs se renderizan como `<dl>` con grid de 2 columnas; el ícono ocupa dos filas (label + valor).
+  - `footnote` aparece fuera de `.service-card__body` para poder aplicar `border-top` que abarca el ancho completo de la card.
 
 ---
 

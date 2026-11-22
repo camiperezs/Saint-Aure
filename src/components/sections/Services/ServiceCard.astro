@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { service, labels, locale } = Astro.props;
-const { title, description, visual, price, featured, label, action } = service;
+const { title, description, visual, price, featured, label, action, specs, availabilityBadges, footnote } = service;
 ---
 
 <Card as="li" featured={featured} class="service-card">
@@ -39,6 +39,24 @@ const { title, description, visual, price, featured, label, action } = service;
     {price && (
       <p class="service-card__price">{formatPrice(price, locale, labels)}</p>
     )}
+    {featured && availabilityBadges && availabilityBadges.length > 0 && (
+      <div class="cluster service-card__availability">
+        {availabilityBadges.map((badge) => (
+          <Badge tone="neutral">{badge}</Badge>
+        ))}
+      </div>
+    )}
+    {featured && specs && specs.length > 0 && (
+      <dl class="service-card__specs">
+        {specs.map(({ icon, label: specLabel, value }) => (
+          <div class="service-card__spec-item">
+            <Icon name={icon} class="service-card__spec-icon" />
+            <dt class="service-card__spec-label">{specLabel}</dt>
+            <dd class="service-card__spec-value">{value}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
   </div>
   {action && (
     <ActionButton
@@ -46,5 +64,8 @@ const { title, description, visual, price, featured, label, action } = service;
       action={action}
       variant="outline"
     />
+  )}
+  {!featured && footnote && (
+    <p class="service-card__footnote">{footnote}</p>
   )}
 </Card>

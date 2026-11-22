@@ -46,6 +46,9 @@ export interface Service {
   featured?: boolean;
   label?: string;
   action?: Action;
+  specs?: { icon: IconName; label: string; value: string }[];
+  availabilityBadges?: string[];
+  footnote?: string;
 }
 
 export interface ServiceLabels {
