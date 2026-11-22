@@ -3,6 +3,7 @@ import type { About } from "@/types/about";
 import BackgroundMedia from "@/components/ui/BackgroundMedia/BackgroundMedia.astro";
 import ActionButton from "@/components/ui/ActionButton/ActionButton.astro";
 import Container from "@/components/ui/Container/Container.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
 import Media from "@/components/ui/Media/Media.astro";
 import SectionTitle from "@/components/ui/SectionTitle/SectionTitle.astro";
 import { imageSizes } from "@/utils/image-sizes";
@@ -49,7 +50,22 @@ const centered = variant === "centered" || position === "center";
       {action && <ActionButton action={action} />}
     </div>
     {about.variant !== "image-background" && about.image && (
-      <Media image={about.image} class="about__image" sizes={imageSizes.half} />
+      <div class="about__image-wrap">
+        <Media
+          image={about.image}
+          class="about__image"
+          sizes={imageSizes.half}
+        />
+        {about.variant === "split" && about.badge && (
+          <div class="about__badge">
+            {about.badge.icon && <Icon name={about.badge.icon} />}
+            <span class="about__badge-value">{about.badge.value}</span>
+            {about.badge.label && (
+              <span class="about__badge-label">{about.badge.label}</span>
+            )}
+          </div>
+        )}
+      </div>
     )}
   </Container>
 </section>

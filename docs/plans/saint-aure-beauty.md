@@ -123,13 +123,14 @@ Cuando el cliente entregue las fotos reales, se reemplazan imagen por imagen sin
 Reemplazar `public/favicon.svg` con el logo de Saint Aure en SVG cuadrado. Mientras no se disponga del logo real, dejar el favicon de la plantilla (check:launch lo marcará como pendiente, lo cual es correcto para esta etapa).
 
 **D11 — Franja editorial en Hero**  
-Campo `editorial?: string` opcional en `HeroFullScreen`. Texto libre separado con ` / ` que se renderiza como tira decorativa en mayúsculas debajo del contenido del hero. Valor para Saint Aure: `"VOL. XVI / ATELIER ROSARIO / ROLDÁN / ALTA COIFFURE"` (tomado del DESIGN.md). Si el campo está ausente, no se renderiza nada.
+Campo `editorial?: string` opcional en `HeroFullScreen`. Texto libre separado con `/` que se renderiza como tira decorativa en mayúsculas debajo del contenido del hero. Valor para Saint Aure: `"VOL. XVI / ATELIER ROSARIO / ROLDÁN / ALTA COIFFURE"` (tomado del DESIGN.md). Si el campo está ausente, no se renderiza nada.
 
 **D12 — Badge flotante en About**  
 Campo `badge?: { value: string; label?: string; icon?: IconName }` opcional en `AboutStandard`. Se posiciona en absolute sobre la fotografía (esquina inferior izquierda o según el CSS). Solo aplica cuando hay imagen y `variant: "split"`. Valor para Saint Aure: `{ value: "16+", label: "años de experiencia", icon: "check-circle" }` (ícono thin; verificar con `src/icons/index.ts` que exista el nombre exacto).
 
 **D13 — Campos extendidos en Service**  
 Tres campos opcionales nuevos en la interfaz `Service`:
+
 - `specs?: { icon: IconName; label: string; value: string }[]` — grilla de datos estructurados. Se renderiza **solo** en la card `featured: true`. Ejemplo para "Peinados para novias": `[{ icon: "clock", label: "Duración", value: "2–3 hs" }, { icon: "map-pin", label: "Modalidad", value: "Presencial o a domicilio" }]`. Los íconos deben existir en `src/icons/index.ts`; verificar antes de usar.
 - `availabilityBadges?: string[]` — chips de disponibilidad en la card destacada. Ejemplo: `["Agenda Novias Abierta", "Atención Privada"]`.
 - `footnote?: string` — línea de detalle al pie de las cards **no** destacadas. Ejemplo: "Diagnóstico previo incluido", "Duración: 60–90 min". No se muestra en la featured card.
@@ -138,16 +139,19 @@ Los valores de `specs` y `footnote` para cada servicio son contenido a confirmar
 
 **D14 — Bloques de modalidad en Contact**  
 Campo `modalityBlocks?: { icon: IconName; title: string; description: string }[]` opcional en `Contact`. Cuando está presente y `variant: "split"`, se renderiza una grilla de tarjetas (ícono + título + descripción) encima del botón de WhatsApp, en lugar de la lista plana de `channels`. Valor para Saint Aure:
+
 ```
 [
   { icon: "building-2", title: "Atención Presencial", description: "En mi espacio de Rosario, con cita previa." },
   { icon: "map-pin", title: "Servicio a Domicilio", description: "Me traslado a Rosario y Roldán para que estés cómoda en tu hogar." }
 ]
 ```
+
 Los íconos deben existir en `src/icons/index.ts`; verificar antes de usar. Si alguno no existe, elegir el disponible más cercano.
 
 **D15 — Efectos visuales del DESIGN.md**  
 Cambios de CSS puro (sin cambios de tipos ni contratos). Todos los valores deben usar custom properties del token del cliente (nunca hardcodear hex):
+
 - **`Button.css` (primary):** gradiente lineal `var(--color-primary-100) → var(--color-primary-500)` en background; hover añade `box-shadow: 0 0 20px rgba(var(--color-primary-500-rgb), 0.4)` si el token RGB existe, o un valor aproximado equivalente.
 - **`Card.css` (featured):** borde especular en la card con `featured` via un gradiente radial en el borde: `linear-gradient(135deg, rgba(229,209,173,0.45) 0%, rgba(197,164,119,0.1) 40%, rgba(197,164,119,0.3) 100%)` como `border-image` o como pseudo-elemento `::before` con `border-radius` heredado.
 - **`Hero.css` (fullscreen):** glow radial sutil sobre la zona de texto: pseudo-elemento `::before` con `radial-gradient` y `filter: blur(48px)` en `rgba(197,164,119,0.08)`, posicionado detrás del contenido.
@@ -374,7 +378,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
 - **Acciones**:
   1. Agregar `editorial?: string` a `HeroFullScreen` en `hero.ts`.
   2. En `Hero.astro` (variante `fullscreen`): renderizar `{hero.editorial && <p class="hero__editorial">{hero.editorial}</p>}` debajo de `.hero__content`.
-  3. En `Hero.css`: estilizar `.hero__editorial` como tira en mayúsculas, `overline` scale, opacidad reducida, con separadores ` / ` ya incluidos en el string.
+  3. En `Hero.css`: estilizar `.hero__editorial` como tira en mayúsculas, `overline` scale, opacidad reducida, con separadores `/` ya incluidos en el string.
   4. Agregar `badge?: { value: string; label?: string; icon?: IconName }` a `AboutStandard` en `about.ts`. Importar `IconName` desde `@/icons`.
   5. En `About.astro` (variante `split`): cuando hay `badge` e imagen, renderizar un elemento `.about__badge` dentro del contenedor de la imagen (position relative), con el valor, ícono y label.
   6. En `About.css`: posicionar `.about__badge` en absolute sobre la foto (esquina inferior izquierda, margen `1rem`), con fondo de superficie, borde hairline dorado, `border-radius` pill o `md`.
@@ -393,7 +397,11 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
     - Hero: la franja editorial aparece debajo del texto del hero, legible y no invasiva
     - About: el badge "16+" es visible sobre la foto, no tapa el rostro, contraste correcto en ambos temas
 - **Modelo sugerido**: Opus (diseño visual, posicionamiento en absolute, dos componentes nuevos)
-- **Estado**: Pendiente
+- **Estado**: Implementada
+- **Notas de implementación**:
+  - `check-circle` no existe en `src/icons/index.ts`; se usó `check` como sustituto (D12).
+  - La franja editorial se renderiza dentro de `.hero__inner` (fuera de `.hero__content`) para que ocupe el ancho completo del contenedor sin quedar limitada por el `max-inline-size: 48rem` del content.
+  - El badge usa `position: absolute` dentro de `.about__image-wrap` (`position: relative`); el wrapper reemplaza la imagen directa como ítem de la grilla, así que el `block-size: 100%` en la imagen mantiene el alto.
 
 ---
 

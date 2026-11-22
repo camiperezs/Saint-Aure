@@ -42,6 +42,18 @@
     object-fit: cover;
   }
 
+  .hero__editorial {
+    font-size: var(--text-ui);
+    font-weight: var(--font-medium);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    opacity: 0.6;
+    padding-block: var(--space-4);
+    border-block-start: 1px solid currentColor;
+    margin-block-start: var(--space-4);
+  }
+
   /* Full screen */
   .hero--fullscreen {
     display: grid;

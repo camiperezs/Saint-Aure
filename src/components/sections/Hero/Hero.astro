@@ -35,6 +35,7 @@ const { eyebrow, title, description, actions = [] } = hero;
         {description && <p class="hero__description">{description}</p>}
         <Actions actions={actions} class="hero__actions" />
       </div>
+      {hero.editorial && <p class="hero__editorial">{hero.editorial}</p>}
     </Container>
   </section>
 )}

@@ -82,6 +82,7 @@ export const page = {
     },
     overlay: "strong",
     alignment: "left",
+    editorial: "VOL. XVI / ATELIER ROSARIO / ROLDÁN / ALTA COIFFURE",
     actions: [
       {
         label: "Consultar por WhatsApp",
@@ -110,6 +111,7 @@ export const page = {
         whatsapp: { message: whatsappMessage },
         variant: "ghost",
       },
+      badge: { value: "16+", label: "años de experiencia", icon: "check" },
     },
     {
       type: "services",
@@ -130,7 +132,8 @@ export const page = {
         {
           ...portrait("Peinado de novia con iluminación cálida editorial"),
           title: "Novia editorial",
-          description: "Recogido alto con iluminación cálida y detalles naturales",
+          description:
+            "Recogido alto con iluminación cálida y detalles naturales",
         },
         {
           ...landscape("Close-up balayage rubio miel"),
@@ -155,7 +158,8 @@ export const page = {
         {
           ...portrait("Colorimetría raíz a puntas"),
           title: "Colorimetría integral",
-          description: "Coloración pareja en tono personalizado de raíz a puntas",
+          description:
+            "Coloración pareja en tono personalizado de raíz a puntas",
         },
         {
           ...landscape("Peinado recogido bajo elegante"),
@@ -180,9 +184,21 @@ export const page = {
       eyebrow: "Saint Aure en números",
       title: "Una trayectoria que respalda cada servicio",
       items: [
-        { value: "16+", label: "años de experiencia", description: "Perfeccionamiento continuo desde 2008" },
-        { value: "5", label: "especialidades", description: "Peinado, color, tratamientos y más" },
-        { value: "Rosario & Roldán", label: "Presencial y a domicilio", description: "En tu espacio o en el nuestro" },
+        {
+          value: "16+",
+          label: "años de experiencia",
+          description: "Perfeccionamiento continuo desde 2008",
+        },
+        {
+          value: "5",
+          label: "especialidades",
+          description: "Peinado, color, tratamientos y más",
+        },
+        {
+          value: "Rosario & Roldán",
+          label: "Presencial y a domicilio",
+          description: "En tu espacio o en el nuestro",
+        },
       ],
     },
     {

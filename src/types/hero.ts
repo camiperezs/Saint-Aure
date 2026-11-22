@@ -14,6 +14,7 @@ export interface HeroFullScreen extends HeroBase {
   overlay?: OverlayLevel;
   focalPoint?: FocalPoint;
   alignment?: "left" | "center" | "right";
+  editorial?: string;
 }
 
 export interface HeroCompact extends HeroBase {
