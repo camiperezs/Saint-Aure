@@ -43,10 +43,52 @@
     box-shadow: var(--preset-card-shadow);
   }
 
+  .contact__modality {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .contact__modality-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: var(--space-3);
+    row-gap: var(--space-1);
+    padding: var(--space-4);
+    background-color: var(--preset-card-background);
+    border: var(--preset-card-border-width) solid var(--color-border-default);
+    border-radius: var(--preset-card-radius);
+  }
+
+  .contact__modality-item .icon {
+    grid-row: 1 / 3;
+    align-self: center;
+    font-size: 1.5rem;
+    color: var(--color-action-primary);
+  }
+
+  .contact__modality-title {
+    margin: 0;
+    font-size: var(--text-body-sm);
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .contact__modality-desc {
+    margin: 0;
+    font-size: var(--text-body-sm);
+    color: var(--color-text-secondary);
+  }
+
   @media (min-width: 64rem) {
     .contact__body--split {
       grid-template-columns: 2fr 3fr;
       align-items: start;
+    }
+
+    .contact__modality {
+      grid-template-columns: 1fr 1fr;
     }
   }
 }

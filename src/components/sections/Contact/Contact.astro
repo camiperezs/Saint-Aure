@@ -18,6 +18,7 @@ const {
   description,
   channels = [],
   whatsapp,
+  modalityBlocks,
   form,
   action,
   labels,
@@ -31,7 +32,7 @@ const channelIcons: Record<ContactChannel["type"], IconName> = {
   other: "link",
 };
 
-const hasDetails = channels.length > 0 || whatsapp;
+const hasDetails = channels.length > 0 || whatsapp || (modalityBlocks && modalityBlocks.length > 0);
 ---
 
 <SectionShell
@@ -62,6 +63,17 @@ const hasDetails = channels.length > 0 || whatsapp;
               </li>
             ))}
           </ul>
+        )}
+        {modalityBlocks && modalityBlocks.length > 0 && variant === "split" && (
+          <div class="contact__modality" role="list">
+            {modalityBlocks.map((block) => (
+              <div class="contact__modality-item" role="listitem">
+                <Icon name={block.icon} />
+                <h3 class="contact__modality-title">{block.title}</h3>
+                <p class="contact__modality-desc">{block.description}</p>
+              </div>
+            ))}
+          </div>
         )}
         {whatsapp && (
           <div>

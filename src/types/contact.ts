@@ -1,4 +1,11 @@
+import type { IconName } from "@/icons";
 import type { Action } from "./action";
+
+export interface ContactModalityBlock {
+  icon: IconName;
+  title: string;
+  description: string;
+}
 
 export interface ContactChannel {
   type: "whatsapp" | "email" | "phone" | "social" | "other";
@@ -46,6 +53,7 @@ export interface Contact {
   description?: string;
   channels?: ContactChannel[];
   whatsapp?: WhatsAppLink;
+  modalityBlocks?: ContactModalityBlock[];
   form?: ContactForm;
   action?: Action;
 }

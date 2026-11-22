@@ -268,6 +268,20 @@ export const page = {
       description:
         "Atención presencial en Rosario y a domicilio en Rosario y Roldán. WhatsApp: +54 9 341 000-0000.",
       whatsapp: { message: whatsappMessage },
+      // Placeholder values — confirm icon availability and copy with client
+      modalityBlocks: [
+        {
+          icon: "shield",
+          title: "Atención Presencial",
+          description: "En mi espacio de Rosario, con cita previa.",
+        },
+        {
+          icon: "map-pin",
+          title: "Servicio a Domicilio",
+          description:
+            "Me traslado a Rosario y Roldán para que estés cómoda en tu hogar.",
+        },
+      ],
       form: {
         provider: "netlify",
         name: "contact",
