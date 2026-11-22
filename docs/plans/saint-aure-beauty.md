@@ -301,4 +301,6 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
 
 _Ajustes que aparezcan durante las etapas se anotan aquí y se aplican juntos al final._
 
+- Imágenes como espacios vacíos (pedido de Camila en la etapa 3): no mostrar fotos de relleno. Reemplazar `sample.jpg` (hero y about) y las de picsum.photos (servicios) por marcos vacíos, por ejemplo los SVG de `public/placeholders/` que ya usa la galería, con las mismas proporciones. Así se completan foto por foto cuando la clienta las entregue (D9). Revisar que el hero con `overlay: "strong"` siga legible sin foto, y que las picsum dejen de hacer falta en la CSP si estaban habilitadas.
+
 - `npm run format:check` falla en archivos ajenos al sitio: `.claude/skills/design-prompt/SKILL.md`, `.claude/skills/README.md` y el export de Stitch en `design/`. Formatearlos o agregar `design/stitch-export/` a `.prettierignore` (que no está en la lista de archivos del alcance cliente, así que hay que decidirlo).
