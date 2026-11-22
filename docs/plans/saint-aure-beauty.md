@@ -89,6 +89,7 @@ _Ajustes de contraste en la etapa 1_ (los colores de estado fijos de la plantill
 - `neutral.100`: `#e8e0d6` → `#f6f3ed`
 - `primary.600`: `#b08540` → `#a67c3a` (foco en light)
 - `primary.700`: `#8c6830` → `#85622c` (acción y link en light)
+- _Etapa 3_: `primary.700` → `#7a5a28`. axe marcaba el badge "Destacado" en light (`--color-link` sobre el 15 % del mismo color encima de `surface`, ~4,2:1); con este valor queda en ~4,8:1. `check:contrast` no cubre esa combinación.
 
 **D6 — Secciones de la página (orden exacto)**
 
@@ -285,7 +286,14 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
   - `npm run test:e2e` (spec completo)
   - `npm run check:launch` — se espera que falle en favicon y datos de contacto placeholder; cualquier otro fallo se corrige en esta sesión
 - **Modelo sugerido**: Sonnet (contenido y ajustes; sin diseño nuevo)
-- **Estado**: Pendiente
+- **Estado**: Implementada
+- **Notas de implementación**:
+  - Textos legales con los datos de Saint Aure. Reflejan que no hay analítica ni cookies (D8), que el formulario pide nombre, servicio y mensaje, que Netlify aloja el sitio y recibe el formulario, la Ley 25.326 y una conservación de hasta un año. Se quitó el aviso de "Texto de ejemplo", así que **falta la revisión de un profesional** antes de publicar (figura en el README).
+  - `primary.700` ajustado (ver D5) para que pase el e2e de accesibilidad en light.
+  - Navegación: los `href` (`/#services`, `/#about`, `/#gallery`, `/#contact`) coinciden con los `id` del HTML generado.
+  - e2e completo: 50 pasan y 12 se omiten (cookies, conversiones, FAQ y embeds, que el sitio no usa). Cubren desborde de 320 a 1440 px, menú móvil y lightbox con Escape, skip link, carrusel y formulario. El WhatsApp flotante está en el HTML con el link correcto. La revisión visual a 375, 768 y 1280 px no se hizo en navegador en esta sesión.
+  - `check:launch` falla solo en lo esperado: favicon, `noindex`, fotos de ejemplo (`sample.jpg` y `/placeholders/`) y testimonios de ejemplo. El teléfono y el email placeholder no los detecta, así que se listan en el README.
+  - README: sección "Saint Aure Beauty House: pendientes antes del deploy".
 
 ---
 
