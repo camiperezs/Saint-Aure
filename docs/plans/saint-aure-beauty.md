@@ -356,7 +356,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
     - CTA: se muestra la imagen/logo centrado sobre el título
     - Formulario: tres campos en total, el select de preferencia funciona
 - **Modelo sugerido**: Sonnet (solo contenido, sin diseño nuevo)
-- **Estado**: Pendiente
+- **Estado**: Implementada
 
 ---
 
