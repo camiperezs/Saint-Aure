@@ -1,15 +1,14 @@
 import type { Page } from "@/types/page";
 import type { GalleryItem } from "@/types/gallery";
 import type { Service } from "@/types/services";
-import sample from "@/assets/images/sample.jpg";
 
 // Placeholders hasta recibir las fotos reales (D9).
 const whatsappMessage = "Hola, quiero consultar un turno.";
 
-const serviceImage = (slug: string, alt: string) => ({
+const serviceImage = (alt: string) => ({
   type: "image" as const,
   image: {
-    src: `https://picsum.photos/seed/${slug}/800/600`,
+    src: "/placeholders/landscape.svg",
     alt,
     width: 800,
     height: 600,
@@ -21,10 +20,7 @@ const services: Service[] = [
     title: "Peinados para novias",
     description:
       "Prueba previa, peinado el día del casamiento y acompañamiento para que el look dure toda la noche.",
-    visual: serviceImage(
-      "novias",
-      "Novia con peinado recogido y detalles de flores",
-    ),
+    visual: serviceImage("Novia con peinado recogido y detalles de flores"),
     featured: true,
     action: { label: "Consultar", href: "#contact", variant: "outline" },
   },
@@ -32,31 +28,28 @@ const services: Service[] = [
     title: "Balayage",
     description:
       "Iluminación a mano alzada que se funde con tu color natural y crece sin marcas.",
-    visual: serviceImage("balayage", "Melena con balayage rubio miel"),
+    visual: serviceImage("Melena con balayage rubio miel"),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
   },
   {
     title: "Peinados para eventos",
     description:
       "Recogidos, semirrecogidos y ondas para fiestas, egresos y celebraciones.",
-    visual: serviceImage("eventos", "Peinado semirrecogido de fiesta"),
+    visual: serviceImage("Peinado semirrecogido de fiesta"),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
   },
   {
     title: "Colorimetría",
     description:
       "Diagnóstico del tono ideal para tu piel y coloración pareja de raíz a puntas.",
-    visual: serviceImage(
-      "colorimetria",
-      "Coloración castaño profundo y brillante",
-    ),
+    visual: serviceImage("Coloración castaño profundo y brillante"),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
   },
   {
     title: "Alisados",
     description:
       "Tratamientos de alisado que reducen el frizz y dejan el cabello dócil por meses.",
-    visual: serviceImage("alisados", "Cabello largo, lacio y con brillo"),
+    visual: serviceImage("Cabello largo, lacio y con brillo"),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
   },
 ];
@@ -77,8 +70,10 @@ export const page = {
     description:
       "16 años de experiencia. Atención presencial y a domicilio en Rosario y Roldán.",
     image: {
-      src: sample,
+      src: "/placeholders/landscape.svg",
       alt: "Imagen de ejemplo, se reemplaza por una foto de un peinado",
+      width: 1920,
+      height: 1080,
     },
     overlay: "strong",
     alignment: "left",
@@ -100,8 +95,10 @@ export const page = {
       description:
         "Con más de 16 años de experiencia en peinados, color y tratamientos, cada servicio empieza escuchando lo que buscás. Trabajo con turnos personalizados, en mi espacio de Rosario o a domicilio en Rosario y Roldán, para que llegues a tu día especial sin apuros.",
       image: {
-        src: sample,
+        src: "/placeholders/portrait.svg",
         alt: "Imagen de ejemplo, se reemplaza por una foto de la profesional trabajando",
+        width: 800,
+        height: 1100,
       },
       action: {
         label: "Escribime por WhatsApp",
