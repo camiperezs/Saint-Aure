@@ -102,18 +102,13 @@
     gap: var(--space-fluid-md);
   }
 
-  /* Split */
+  /* Split. Todo sale de los tokens del tema (claro/oscuro) y de la paleta del
+     cliente: nada de colores fijos. */
   .hero--split {
-    --hero-bg: #0b0908;
-    --hero-vignette: radial-gradient(
-      ellipse at center,
-      transparent 50%,
-      rgb(11 9 8 / 0.7) 100%
-    );
+    --hero-bg: var(--color-background);
+    --hero-accent: var(--color-link);
     display: flex;
     flex-direction: column;
-    background: var(--hero-bg);
-    color: #f2ede5;
   }
 
   .hero--split .hero__inner {
@@ -123,16 +118,27 @@
     gap: var(--space-fluid-md);
   }
 
-  /* La foto se centra en su área y conserva su proporción: nunca ocupa todo
-     el alto, así el peinado se ve completo (contain + tope de altura). */
+  /* La foto llena su columna y se recorta con intención (object-position
+     apunta al cabello y al reflejo del sol). Los bordes se funden con el
+     fondo del tema. */
   .hero--split .hero__media {
     position: relative;
     overflow: hidden;
     min-block-size: 460px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-block: clamp(1.5rem, 5svh, 3.5rem);
+  }
+
+  /* Resplandor del sol: luz cálida de la paleta detrás de la foto, arriba a
+     la derecha, para que el reflejo se extienda más allá de la imagen. */
+  .hero--split .hero__media::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 70% 55% at 85% 28%,
+      color-mix(in srgb, var(--color-brand-400) 45%, transparent),
+      transparent 70%
+    );
   }
 
   /* Overlay vertical en mobile; en desktop pasa a lateral (ver más abajo). */
@@ -141,38 +147,26 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background:
-      linear-gradient(to bottom, var(--hero-bg) 0%, transparent 40%),
-      var(--hero-vignette);
+    background: linear-gradient(to bottom, var(--hero-bg) 0%, transparent 35%);
   }
 
   .hero--split .hero__image {
-    position: relative;
-    inline-size: auto;
-    block-size: auto;
-    max-inline-size: 100%;
-    max-block-size: min(84svh, 56rem);
-    object-fit: contain;
-    /* Bordes que se funden con el fondo, sin cortes duros. */
-    --hero-fade-x: linear-gradient(
-      to right,
-      transparent 0%,
-      #000 12%,
-      #000 88%,
-      transparent 100%
-    );
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: 55% 30%;
     --hero-fade-y: linear-gradient(
       to bottom,
       transparent 0%,
-      #000 8%,
-      #000 92%,
+      #000 10%,
+      #000 90%,
       transparent 100%
     );
-    mask-image: var(--hero-fade-x), var(--hero-fade-y);
-    mask-composite: intersect;
-    -webkit-mask-image: var(--hero-fade-x), var(--hero-fade-y);
-    -webkit-mask-composite: source-in;
-    transform: scale(1.02);
+    mask-image: var(--hero-fade-y);
+    -webkit-mask-image: var(--hero-fade-y);
+    transform: scale(1.03);
     transition: transform 1s ease;
   }
 
@@ -181,7 +175,7 @@
   }
 
   /* Sin zoom de entrada ni de hover (D11). El reset global de reduced-motion
-     solo acorta la duración, así que la imagen quedaría en scale(1.05). */
+     solo acorta la duración, así que la imagen quedaría en scale(1.03). */
   @media (prefers-reduced-motion: reduce) {
     .hero--split .hero__image,
     .hero--split .hero__media:hover .hero__image {
@@ -190,18 +184,12 @@
     }
   }
 
-  /* Tipografía del hero split (D4, D6, D7). Colores de la captura en D5. */
-  .hero--split {
-    --hero-gold: #c5a477;
-    --hero-text-muted: #a89582;
-  }
-
   .hero--split .hero__eyebrow {
     display: inline-flex;
     align-items: center;
     gap: var(--space-3);
     font-size: 11px;
-    color: var(--hero-gold);
+    color: var(--hero-accent);
   }
 
   .hero--split .hero__eyebrow::before {
@@ -224,12 +212,11 @@
     font-family: var(--font-heading);
     font-style: italic;
     font-weight: var(--font-regular);
-    color: var(--hero-gold);
+    color: var(--hero-accent);
   }
 
   .hero--split .hero__description {
     font-weight: 300;
-    color: var(--hero-text-muted);
   }
 
   /* CTA apilados: WhatsApp arriba, "Ver trabajos" abajo, mismo ancho. */
@@ -241,9 +228,8 @@
     gap: var(--space-3);
   }
 
-  /* Botones del hero split (D8). Solo dentro de .hero--split: el resto del
-     sitio sigue con el preset. Se usa .button.button--* para ganar
-     especificidad sobre Button.css y el tema oscuro. */
+  /* Botones del hero split: pill y tipografía propia; los colores los dan
+     los tokens del botón (primary / outline), así respetan el tema. */
   .hero--split .button {
     border-radius: 9999px;
     font-size: 12px;
@@ -253,21 +239,8 @@
   }
 
   .hero--split .button.button--primary {
-    --button-color: #0b0908;
-    --button-background: #c5a477;
-    --button-background-hover: #d4b98e;
-    --button-background-active: #b38f5f;
-    --button-border: transparent;
-    background-image: linear-gradient(180deg, #e5d1ad 0%, #b38f5f 100%);
-    box-shadow: 0 0 25px rgb(197 164 119 / 0.35);
-  }
-
-  .hero--split .button.button--outline {
-    --button-color: #f2ede5;
-    --button-background: #292725;
-    --button-background-hover: #343130;
-    --button-background-active: #1f1d1b;
-    --button-border: rgb(197 164 119 / 0.25);
+    box-shadow: 0 0 25px
+      color-mix(in srgb, var(--button-background) 35%, transparent);
   }
 
   .hero--split .button.button--primary[aria-disabled="true"] {
@@ -277,8 +250,8 @@
   @media (hover: hover) and (pointer: fine) {
     .hero--split
       .button.button--primary:hover:not(:disabled, [aria-disabled="true"]) {
-      filter: brightness(1.08);
-      box-shadow: 0 0 36px rgb(197 164 119 / 0.55);
+      box-shadow: 0 0 36px
+        color-mix(in srgb, var(--button-background) 55%, transparent);
     }
   }
 
@@ -336,22 +309,24 @@
     .hero--split .hero__media {
       grid-column: 2;
       grid-row: 1;
-      justify-content: flex-start;
-      padding-inline: 2rem;
     }
 
     .hero--split .hero__media::after {
       background:
         linear-gradient(
-          to right,
-          var(--hero-bg) 0%,
-          rgb(11 9 8 / 0.85) 8%,
-          rgb(11 9 8 / 0.55) 18%,
-          rgb(11 9 8 / 0.25) 30%,
-          rgb(11 9 8 / 0.08) 42%,
-          transparent 55%
+          to left,
+          color-mix(in srgb, var(--hero-bg) 100%, transparent) 0%,
+          color-mix(in srgb, var(--hero-bg) 0%, transparent) 8%
         ),
-        var(--hero-vignette);
+        linear-gradient(
+          to right,
+          color-mix(in srgb, var(--hero-bg) 100%, transparent) 0%,
+          color-mix(in srgb, var(--hero-bg) 85%, transparent) 8%,
+          color-mix(in srgb, var(--hero-bg) 55%, transparent) 18%,
+          color-mix(in srgb, var(--hero-bg) 25%, transparent) 30%,
+          color-mix(in srgb, var(--hero-bg) 8%, transparent) 42%,
+          color-mix(in srgb, var(--hero-bg) 0%, transparent) 55%
+        );
     }
 
     .hero--split.hero--image-left .hero__media {
@@ -363,17 +338,15 @@
     }
 
     .hero--split.hero--image-left .hero__media::after {
-      background:
-        linear-gradient(
-          to left,
-          var(--hero-bg) 0%,
-          rgb(11 9 8 / 0.85) 8%,
-          rgb(11 9 8 / 0.55) 18%,
-          rgb(11 9 8 / 0.25) 30%,
-          rgb(11 9 8 / 0.08) 42%,
-          transparent 55%
-        ),
-        var(--hero-vignette);
+      background: linear-gradient(
+        to left,
+        color-mix(in srgb, var(--hero-bg) 100%, transparent) 0%,
+        color-mix(in srgb, var(--hero-bg) 85%, transparent) 8%,
+        color-mix(in srgb, var(--hero-bg) 55%, transparent) 18%,
+        color-mix(in srgb, var(--hero-bg) 25%, transparent) 30%,
+        color-mix(in srgb, var(--hero-bg) 8%, transparent) 42%,
+        color-mix(in srgb, var(--hero-bg) 0%, transparent) 55%
+      );
     }
   }
 }
