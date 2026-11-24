@@ -70,7 +70,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/hero-captu
 - **Archivos**: `src/components/sections/Hero/Hero.css` (ajustes de breakpoints y de `prefers-reduced-motion`).
 - **Verificación**: catálogo a 375, 768, 1024 y 1440 px, tema claro y oscuro, los tres presets. Sin scroll horizontal (`document.documentElement.scrollWidth === clientWidth`). `prefers-reduced-motion: reduce` desactiva el hover de la imagen. Correr `npm run check:contrast`.
 - **Modelo sugerido**: Sonnet (verificación y ajustes puntuales).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Desvíos: (1) el reset global de `reduced-motion` (`global.css`) solo acorta la duración, así que la imagen quedaba en `scale(1.05)`; se agregó una regla propia en `Hero.css` que deja `transform: none` y `transition: none` (la imagen ya no hace zoom con reduced motion). (2) Verificado con Playwright en `preview` (`dist` de esta build) a 375, 768, 1024 y 1440 px, claro y oscuro: `scrollWidth` igual a `clientWidth` en todos, ningún elemento con `border-radius: 50%` en el hero, la foto llega al borde derecho desde 1024 px, y a 375 px queda una columna (texto, foto de 460 px, franja). A 1440 px el hero mide 828 px = 92svh. (3) Hover: con motion normal la imagen pasa de `scale(1.05)` a `scale(1)`; con `reduce` no cambia. (4) `check:contrast`, `lint`, `format:check`, `check` y `build` pasan. No se probaron los presets `editorial` y `minimal`: el cliente usa `elegant` y cambiarlo solo para probar no vale la pena en esta etapa; la verificación de presets queda para la etapa 6 si Camila lo pide.
 
 ### Etapa 6: Cierre
 

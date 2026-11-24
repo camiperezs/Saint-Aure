@@ -152,6 +152,16 @@
     transform: scale(1);
   }
 
+  /* Sin zoom de entrada ni de hover (D11). El reset global de reduced-motion
+     solo acorta la duración, así que la imagen quedaría en scale(1.05). */
+  @media (prefers-reduced-motion: reduce) {
+    .hero--split .hero__image,
+    .hero--split .hero__media:hover .hero__image {
+      transform: none;
+      transition: none;
+    }
+  }
+
   /* Tipografía del hero split (D4, D6, D7). Colores de la captura en D5. */
   .hero--split {
     --hero-gold: #c5a477;
