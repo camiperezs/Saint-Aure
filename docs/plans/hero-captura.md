@@ -43,7 +43,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/hero-captu
 - **Archivos**: `src/components/sections/Hero/Hero.css` (solo reglas `.hero--split…` y `.hero__media`, `.hero__image`).
 - **Verificación**: catálogo y home a 1280 y 1920 px. Comparar con la captura: la imagen llega al borde derecho, el corte entre texto y foto es suave, la altura es ~92svh. A 375 px: columna única, texto arriba, foto de 460px mínimo. Revisar en tema claro y oscuro. Hover sobre la imagen: escala 1.05→1.
 - **Modelo sugerido**: Opus (composición visual y responsive).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Desvíos: (1) la imagen no es un `order` de grid sino que queda dentro de `.hero__media` (ver etapa 1), así que `image-left` se resuelve con `grid-column` explícito en `.hero--split.hero--image-left`, y el degradado se invierte en ese caso; (2) `align-items: stretch` en desktop, porque con `center` la foto quedaba a mitad de altura; (3) `.hero__image` pasa a `position: absolute; inset: 0` dentro de `.hero__media` (mínimo 460px), para que llene la celda sin depender de alturas porcentuales; (4) la franja editorial queda con `margin: 0 4rem 6rem` para alinearla con el padding del texto. Verificado en preview a 1280, 1920 y 375 px: a 1920 la sección mide 92svh exacto y la foto llega al borde derecho; a 375 no hay scroll horizontal. A 1280 la sección mide 1129px (más de 92svh) porque el título ocupa 7 líneas en la columna de 512px; eso se corrige con la escala tipográfica de la etapa 3, no acá.
 
 ### Etapa 3: Tipografía, eyebrow, descripción y franja editorial
 

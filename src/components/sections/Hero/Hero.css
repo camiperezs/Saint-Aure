@@ -103,10 +103,53 @@
   }
 
   /* Split */
+  .hero--split {
+    --hero-bg: #0b0908;
+    --hero-vignette: radial-gradient(
+      ellipse at center,
+      transparent 50%,
+      rgb(11 9 8 / 0.7) 100%
+    );
+    display: flex;
+    flex-direction: column;
+  }
+
   .hero--split .hero__inner {
+    flex: 1;
     display: grid;
     align-items: center;
     gap: var(--space-fluid-md);
+  }
+
+  .hero--split .hero__media {
+    position: relative;
+    overflow: hidden;
+    min-block-size: 460px;
+  }
+
+  /* Overlay vertical en mobile; en desktop pasa a lateral (ver más abajo). */
+  .hero--split .hero__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(to bottom, var(--hero-bg) 0%, transparent 40%),
+      var(--hero-vignette);
+  }
+
+  .hero--split .hero__image {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    transform: scale(1.05);
+    transition: transform 1s ease;
+  }
+
+  .hero--split .hero__media:hover .hero__image {
+    transform: scale(1);
   }
 
   @media (min-width: 64rem) {
@@ -130,8 +173,58 @@
       grid-template-columns: 3fr 2fr;
     }
 
-    .hero--image-left .hero__image {
-      order: -1;
+    .hero--split {
+      min-block-size: 92svh;
+      padding-block: 0;
+    }
+
+    .hero--split .hero__inner {
+      max-width: none;
+      padding-inline: 0;
+      align-items: stretch;
+      grid-template-rows: 1fr auto;
+      gap: 0;
+    }
+
+    /* Columna de texto con su padding; la imagen va de borde a borde. */
+    .hero--split .hero__content {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: center;
+      padding: 6rem 4rem;
+    }
+
+    .hero--split .hero__editorial {
+      grid-column: 1;
+      grid-row: 2;
+      align-self: end;
+      margin: 0 4rem 6rem;
+    }
+
+    .hero--split .hero__media {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+
+    .hero--split .hero__media::after {
+      background:
+        linear-gradient(to right, var(--hero-bg) 0%, transparent 40%),
+        var(--hero-vignette);
+    }
+
+    .hero--split.hero--image-left .hero__media {
+      grid-column: 1;
+    }
+
+    .hero--split.hero--image-left .hero__content,
+    .hero--split.hero--image-left .hero__editorial {
+      grid-column: 2;
+    }
+
+    .hero--split.hero--image-left .hero__media::after {
+      background:
+        linear-gradient(to left, var(--hero-bg) 0%, transparent 40%),
+        var(--hero-vignette);
     }
   }
 }
