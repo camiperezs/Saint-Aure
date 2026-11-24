@@ -4,9 +4,9 @@ Plantilla técnica reutilizable para desarrollar landing pages profesionales par
 
 Cada proyecto nuevo se crea configurando la identidad visual y el contenido. Los componentes, el Design System, la accesibilidad, el SEO y la seguridad ya están resueltos en la plantilla.
 
-## Saint Aure Beauty House: pendientes antes del deploy
+## Saint Aure: pendientes antes del deploy
 
-Este repositorio es la landing de Saint Aure Beauty House. `npm run check:launch` va a fallar hasta completar lo siguiente con la clienta:
+Este repositorio es la landing de Saint Aure. `npm run check:launch` va a fallar hasta completar lo siguiente con la clienta:
 
 - [ ] **WhatsApp y teléfono reales**: `business.whatsapp` y `business.telephone` en `src/config/site.ts` (hoy `+54 9 341 000-0000`) y el número escrito en la `description` de Contacto en `src/content/page.ts`.
 - [ ] **Email real**: `business.email` (hoy `hola@saintaure.com.ar`), que también figura en `src/content/legal/privacy.md` y `terms.md`.

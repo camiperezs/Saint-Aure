@@ -1,4 +1,4 @@
-# Saint Aure Beauty House — Landing
+# Saint Aure — Landing
 
 Alcance: **cliente** — solo `src/config/site.ts`, `src/content/page.ts`, `src/assets/images/`, `public/` (fuentes, favicon). Los componentes, tokens y estilos de la plantilla no se modifican.
 
@@ -179,7 +179,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
 - **Acciones**:
   1. Descargar los WOFF2 listados en D2 y colocarlos en `public/fonts/`.
   2. Reescribir `src/config/site.ts` completo con los datos de D1–D9:
-     - `name: "Saint Aure Beauty House"`
+     - `name: "Saint Aure"`
      - `url: "https://saintaure.com.ar"` (placeholder; actualizar cuando se defina dominio)
      - `locale: "es-AR"`
      - SEO: título y descripción reales, `robots: "noindex, nofollow"`
@@ -221,7 +221,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
   Reescribir `src/content/page.ts` con estas secciones en orden (D6):
 
   1. **Hero** `variant: "fullscreen"`:
-     - eyebrow: "Saint Aure Beauty House"
+     - eyebrow: "Saint Aure"
      - title: "El cabello que imaginaste, en las manos que lo hacen realidad"
      - description: "16 años de experiencia. Atención presencial y a domicilio en Rosario y Roldán."
      - actions: `[{ label: "Consultar por WhatsApp", whatsapp: { message: "Hola, quiero consultar un turno." } }, { label: "Ver trabajos", href: "#gallery" }]`
@@ -330,7 +330,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
   - Navegación: los `href` (`/#services`, `/#about`, `/#gallery`, `/#contact`) coinciden con los `id` del HTML generado.
   - e2e completo: 50 pasan y 12 se omiten (cookies, conversiones, FAQ y embeds, que el sitio no usa). Cubren desborde de 320 a 1440 px, menú móvil y lightbox con Escape, skip link, carrusel y formulario. El WhatsApp flotante está en el HTML con el link correcto. La revisión visual a 375, 768 y 1280 px no se hizo en navegador en esta sesión.
   - `check:launch` falla solo en lo esperado: favicon, `noindex`, fotos de ejemplo (`sample.webp` y `/placeholders/`) y testimonios de ejemplo. El teléfono y el email placeholder no los detecta, así que se listan en el README.
-  - README: sección "Saint Aure Beauty House: pendientes antes del deploy".
+  - README: sección "Saint Aure: pendientes antes del deploy".
 
 ---
 
@@ -348,7 +348,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
      - "16+" → "Perfeccionamiento continuo desde 2008"
      - "5" → "Peinado, color, tratamientos y más"
      - "Rosario & Roldán" → "En tu espacio o en el nuestro"
-  4. Agregar `image` a la sección CTA: `{ src: "/placeholders/portrait.svg", alt: "Saint Aure Beauty House", width: 120, height: 120 }`. Reemplazar por el logo real cuando esté disponible.
+  4. Agregar `image` a la sección CTA: `{ src: "/placeholders/portrait.svg", alt: "Saint Aure", width: 120, height: 120 }`. Reemplazar por el logo real cuando esté disponible.
   5. Agregar segundo `FormField` al formulario de contacto (insertar después de "Servicio de interés"): `{ name: "modality", label: "Preferencia de atención", type: "select", placeholder: "Elegí una opción", options: ["Presencial en atelier", "A domicilio"] }`.
 - **Archivos**:
   - `src/content/page.ts` — ediciones puntuales en las secciones listadas
