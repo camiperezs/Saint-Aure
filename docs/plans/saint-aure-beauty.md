@@ -115,7 +115,7 @@ _Ajustes de contraste en la etapa 1_ (los colores de estado fijos de la plantill
 Eliminar el bloque `analytics` de `site.ts` para esta etapa. No hay aviso de cookies ni scripts de terceros hasta que el cliente defina su estrategia.
 
 **D9 — Imágenes**  
-Para esta etapa se usan placeholders. Las imágenes locales de alta resolución van en `src/assets/images/` y se importan; los placeholders externos usan `src: string` con `width` y `height` explícitos. El placeholder central del hero y about reutiliza `src/assets/images/sample.jpg`.
+Para esta etapa se usan placeholders. Las imágenes locales de alta resolución van en `src/assets/images/` y se importan; los placeholders externos usan `src: string` con `width` y `height` explícitos. El placeholder central del hero y about reutiliza `src/assets/images/sample.webp`.
 
 Cuando el cliente entregue las fotos reales, se reemplazan imagen por imagen sin tocar la estructura de page.ts.
 
@@ -225,7 +225,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
      - title: "El cabello que imaginaste, en las manos que lo hacen realidad"
      - description: "16 años de experiencia. Atención presencial y a domicilio en Rosario y Roldán."
      - actions: `[{ label: "Consultar por WhatsApp", whatsapp: { message: "Hola, quiero consultar un turno." } }, { label: "Ver trabajos", href: "#gallery" }]`
-     - image: `sample.jpg` (placeholder editorial hasta tener foto real)
+     - image: `sample.webp` (placeholder editorial hasta tener foto real)
      - overlay: `"heavy"` (oscuro 80%)
      - alignment: `"left"`
 
@@ -234,7 +234,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
      - title: "Experiencia, dedicación y atención personalizada"
      - description con "16+ años de experiencia" integrado en el párrafo
      - action primary ghost → WhatsApp; action secondary outline → `href: "#contact"`
-     - image: `sample.jpg` como placeholder
+     - image: `sample.webp` como placeholder
 
   3. **Services** `variant: "featured"`:
      - 5 servicios, sin `price`, con `visual: { type: "image", image: { src: "https://picsum.photos/seed/<slug>/800/600", alt: "<descripción editorial>", width: 800, height: 600 } }`
@@ -329,7 +329,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/saint-aure
   - `primary.700` ajustado (ver D5) para que pase el e2e de accesibilidad en light.
   - Navegación: los `href` (`/#services`, `/#about`, `/#gallery`, `/#contact`) coinciden con los `id` del HTML generado.
   - e2e completo: 50 pasan y 12 se omiten (cookies, conversiones, FAQ y embeds, que el sitio no usa). Cubren desborde de 320 a 1440 px, menú móvil y lightbox con Escape, skip link, carrusel y formulario. El WhatsApp flotante está en el HTML con el link correcto. La revisión visual a 375, 768 y 1280 px no se hizo en navegador en esta sesión.
-  - `check:launch` falla solo en lo esperado: favicon, `noindex`, fotos de ejemplo (`sample.jpg` y `/placeholders/`) y testimonios de ejemplo. El teléfono y el email placeholder no los detecta, así que se listan en el README.
+  - `check:launch` falla solo en lo esperado: favicon, `noindex`, fotos de ejemplo (`sample.webp` y `/placeholders/`) y testimonios de ejemplo. El teléfono y el email placeholder no los detecta, así que se listan en el README.
   - README: sección "Saint Aure Beauty House: pendientes antes del deploy".
 
 ---

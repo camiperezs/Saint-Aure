@@ -12,7 +12,7 @@ Este repositorio es la landing de Saint Aure Beauty House. `npm run check:launch
 - [ ] **Email real**: `business.email` (hoy `hola@saintaure.com.ar`), que también figura en `src/content/legal/privacy.md` y `terms.md`.
 - [ ] **Dirección**: calle, número y código postal (`business.address`, hoy solo "Rosario, Santa Fe" y `S2000`). Si atiende solo a domicilio, confirmarlo y dejar la ciudad.
 - [ ] **Dominio**: `url` en `site.ts` (hoy `https://saintaure.com.ar`, sin confirmar).
-- [ ] **Fotos**: hero y about (hoy `sample.jpg`), los 5 servicios (hoy picsum.photos) y la galería (hoy `/placeholders/`). Van en `src/assets/images/`, con `alt` descriptivo.
+- [ ] **Fotos**: hero y about (hoy `sample.webp`), los 5 servicios (hoy picsum.photos) y la galería (hoy `/placeholders/`). Van en `src/assets/images/`, con `alt` descriptivo.
 - [ ] **Testimonios reales**: reemplazar los 3 "Clienta de ejemplo", con permiso de cada clienta.
 - [ ] **Logo**: SVG cuadrado para `public/favicon.svg`.
 - [ ] **Textos legales**: `privacy.md` y `terms.md` tienen los datos de Saint Aure, pero no los revisó un profesional. Hacerlos revisar antes de publicar.

@@ -27,7 +27,7 @@ const MARKERS: Marker[] = [
     reason: "template site name or description",
   },
   { pattern: /\/placeholders\//, reason: "placeholder image" },
-  { pattern: /sample\.jpg/, reason: "sample image" },
+  { pattern: /sample\.(jpg|webp)/, reason: "sample image" },
   { pattern: /aqz-KE-bpKQ/, reason: "sample video" },
   { pattern: /Nombre del cliente/, reason: "placeholder testimonial" },
   {
