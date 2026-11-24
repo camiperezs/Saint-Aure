@@ -2,8 +2,6 @@
   .header {
     position: relative;
     background-color: var(--color-background);
-    border-block-end: var(--border-width-subtle) solid
-      var(--color-border-subtle);
   }
 
   .header--standard {
@@ -18,8 +16,38 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4) var(--space-6);
-    min-block-size: 4rem;
-    padding-block: var(--space-3);
+    min-block-size: 3.25rem;
+    padding-block: var(--space-2);
+  }
+
+  /* Más compacto: botones y toggle del header de 2.5rem en vez de 2.75rem. */
+  .header .button,
+  .header .theme-toggle,
+  .header__menu-button {
+    min-block-size: 2.5rem;
+    padding-block: var(--space-1);
+  }
+
+  /* Transparente arriba de todo para fundirse con la sección; al hacer scroll
+     el fondo aparece (sticky) para que el contenido no se mezcle con los
+     links. Solo con scroll-driven animations; sin soporte queda sólido. */
+  @supports (animation-timeline: scroll()) {
+    .header--standard {
+      animation-name: header-bg;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll();
+      animation-range: 0 4rem;
+    }
+  }
+
+  @keyframes header-bg {
+    from {
+      background-color: transparent;
+    }
+    to {
+      background-color: var(--color-background);
+    }
   }
 
   .header__brand {
