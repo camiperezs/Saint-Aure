@@ -112,6 +112,8 @@
     );
     display: flex;
     flex-direction: column;
+    background: var(--hero-bg);
+    color: #f2ede5;
   }
 
   .hero--split .hero__inner {
