@@ -32,7 +32,10 @@ const channelIcons: Record<ContactChannel["type"], IconName> = {
   other: "link",
 };
 
-const hasDetails = channels.length > 0 || whatsapp || (modalityBlocks && modalityBlocks.length > 0);
+const hasDetails =
+  channels.length > 0 ||
+  whatsapp ||
+  (modalityBlocks && modalityBlocks.length > 0);
 ---
 
 <SectionShell

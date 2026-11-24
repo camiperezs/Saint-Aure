@@ -27,7 +27,11 @@ const services: Service[] = [
     // Placeholder — confirmar con la clienta antes del deploy
     specs: [
       { icon: "clock", label: "Duración", value: "2–3 hs" },
-      { icon: "map-pin", label: "Modalidad", value: "Presencial o a domicilio" },
+      {
+        icon: "map-pin",
+        label: "Modalidad",
+        value: "Presencial o a domicilio",
+      },
     ],
     availabilityBadges: ["Agenda Novias Abierta", "Atención Privada"],
   },
@@ -190,7 +194,7 @@ export const page = {
     },
     {
       type: "stats",
-      variant: "row",
+      variant: "cards",
       eyebrow: "Saint Aure en números",
       title: "Una trayectoria que respalda cada servicio",
       items: [
@@ -213,7 +217,7 @@ export const page = {
     },
     {
       type: "testimonials",
-      variant: "carousel",
+      variant: "cards",
       eyebrow: "Testimonios",
       title: "Lo que dicen las clientas",
       // Placeholders: reemplazar solo por testimonios reales antes de publicar.

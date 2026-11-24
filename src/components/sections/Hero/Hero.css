@@ -59,6 +59,7 @@
     display: grid;
     align-items: center;
     min-block-size: 100svh;
+    overflow: clip;
     padding-block: calc(4rem + var(--space-fluid-lg)) var(--space-fluid-lg);
   }
 

@@ -15,7 +15,18 @@ interface Props {
 }
 
 const { service, labels, locale } = Astro.props;
-const { title, description, visual, price, featured, label, action, specs, availabilityBadges, footnote } = service;
+const {
+  title,
+  description,
+  visual,
+  price,
+  featured,
+  label,
+  action,
+  specs,
+  availabilityBadges,
+  footnote,
+} = service;
 ---
 
 <Card as="li" featured={featured} class="service-card">
@@ -65,7 +76,5 @@ const { title, description, visual, price, featured, label, action, specs, avail
       variant="outline"
     />
   )}
-  {!featured && footnote && (
-    <p class="service-card__footnote">{footnote}</p>
-  )}
+  {!featured && footnote && <p class="service-card__footnote">{footnote}</p>}
 </Card>
