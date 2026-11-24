@@ -61,7 +61,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/hero-captu
 - **Archivos**: `src/components/sections/Hero/Hero.css` (reglas con `.hero--split .button…`). No tocar `Button.css`.
 - **Verificación**: en el catálogo, un botón de `.hero--split` tiene `border-radius` de 9999px y el de la sección Services sigue cuadrado (preset editorial). Hover en primario: glow más intenso. Estado `aria-disabled` y foco visible (`--color-focus`) siguen funcionando. Correr `npm run check:contrast`.
 - **Modelo sugerido**: Sonnet (reglas CSS acotadas y patrón existente).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Desvíos: (1) la ruta de `ActionButton` es `src/components/ui/ActionButton/ActionButton.astro` (no `ui/Actions/`); `Actions.astro` solo lo llama. Los botones reciben `.button.button--primary` / `.button.button--outline`, así que las reglas van con `.hero--split .button.button--*` (especificidad para ganar a `Button.css` y al gradiente de `[data-theme="dark"]`). (2) El primario usa el gradiente `#E5D1AD`→`#B38F5F` en ambos temas, color de texto `#0B0908` y glow permanente que sube en hover (solo con puntero fino y sin estar deshabilitado). El secundario usa `#292725` y borde dorado al 25%. (3) Dato de D8: el preset activo del cliente es `elegant`, y ahí todos los botones del sitio ya son pill (9999px), incluidos los del header y de Servicios. El override es solo `.hero--split`, así que el resto no cambia, pero el argumento "el preset editorial usa botones cuadrados" no aplica a este cliente. (4) Verificado con Playwright en `dist` a 1280 px, claro y oscuro: radius 9999px, 12px / 600, tracking 0.16em, uppercase, gradiente y glow presentes, sin scroll horizontal. `npm run check`, `lint`, `format:check`, `check:contrast` y `build` pasan. No se probó foco visible ni `aria-disabled` en navegador; quedan para la etapa 5. (5) Con 1280 px los dos botones se apilan (el ancho de la columna de texto no alcanza para ambos en una fila); se anota en Retoques.
 
 ### Etapa 5: Responsive, accesibilidad y temas
 
@@ -86,3 +86,4 @@ Al cerrar: borrar este archivo (`docs/plans/hero-captura.md`) en la misma sesió
 ## Retoques
 
 - La franja editorial del hero split a 1280 px ocupa dos líneas y deja "COIFFURE" sola en la segunda (etapa 3). Revisar si conviene acortar el texto de `page.ts` (no se cambia el copy sin Camila) o bajar el tracking.
+- Los dos botones del hero split se apilan a 1280 px porque la columna de texto (con padding de 4rem) no alcanza para ambos en una fila (etapa 4). Revisar si conviene bajar el padding horizontal del hero o el padding de los botones, o dejarlo apilado.
