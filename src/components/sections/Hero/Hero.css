@@ -166,21 +166,161 @@
     );
     mask-image: var(--hero-fade-y);
     -webkit-mask-image: var(--hero-fade-y);
-    transform: scale(1.03);
-    transition: transform 1s ease;
-  }
-
-  .hero--split .hero__media:hover .hero__image {
     transform: scale(1);
+    transition: transform 600ms var(--ease-out-strong, ease-out);
+    animation: hero-photo-in 1100ms var(--ease-out-strong, ease-out) backwards;
   }
 
-  /* Sin zoom de entrada ni de hover (D11). El reset global de reduced-motion
-     solo acorta la duración, así que la imagen quedaría en scale(1.03). */
+  /* Hover real solamente: zoom discreto, sin tocar el contenedor ni los
+     degradados (el recorte lo hace .hero__media con overflow: hidden). */
+  @media (hover: hover) and (pointer: fine) {
+    .hero--split .hero__media:hover .hero__image {
+      transform: scale(1.025);
+    }
+  }
+
+  /* Entrada. Las animaciones usan fill-mode backwards: una vez terminadas, el
+     elemento vuelve a su estilo normal, y si no corren el contenido ya es
+     visible. Los CTA solo cambian de opacidad y no dejan de ser clicables. */
+  @keyframes hero-photo-in {
+    from {
+      opacity: 0;
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.45em);
+    }
+  }
+
+  @keyframes hero-fade {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes hero-line {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  .hero--split .hero__eyebrow {
+    animation: hero-fade 600ms ease-out 100ms backwards;
+  }
+
+  .hero--split .hero__eyebrow::before {
+    transform-origin: left center;
+    animation: hero-line 700ms var(--ease-out-strong, ease-out) 150ms backwards;
+  }
+
+  .hero--split .hero__word {
+    display: inline-block;
+    animation: hero-rise 700ms var(--ease-out-strong, ease-out) backwards;
+    animation-delay: calc(250ms + var(--i, 0) * 55ms);
+  }
+
+  /* Índice de cada palabra para el escalonado (sin estilos en línea: CSP). */
+  .hero--split .hero__word:nth-child(1) {
+    --i: 0;
+  }
+
+  .hero--split .hero__word:nth-child(2) {
+    --i: 1;
+  }
+
+  .hero--split .hero__word:nth-child(3) {
+    --i: 2;
+  }
+
+  .hero--split .hero__word:nth-child(4) {
+    --i: 3;
+  }
+
+  .hero--split .hero__word:nth-child(5) {
+    --i: 4;
+  }
+
+  .hero--split .hero__word:nth-child(6) {
+    --i: 5;
+  }
+
+  .hero--split .hero__word:nth-child(7) {
+    --i: 6;
+  }
+
+  .hero--split .hero__word:nth-child(8) {
+    --i: 7;
+  }
+
+  .hero--split .hero__word:nth-child(9) {
+    --i: 8;
+  }
+
+  .hero--split .hero__word:nth-child(10) {
+    --i: 9;
+  }
+
+  .hero--split .hero__word:nth-child(11) {
+    --i: 10;
+  }
+
+  .hero--split .hero__word:nth-child(12) {
+    --i: 11;
+  }
+
+  .hero--split .hero__word:nth-child(13) {
+    --i: 12;
+  }
+
+  .hero--split .hero__word:nth-child(14) {
+    --i: 13;
+  }
+
+  .hero--split .hero__word:nth-child(15) {
+    --i: 14;
+  }
+
+  .hero--split .hero__word:nth-child(16) {
+    --i: 15;
+  }
+
+  .hero--split .hero__title-accent {
+    animation-delay: calc(250ms + var(--i, 0) * 55ms + 250ms);
+  }
+
+  .hero--split .hero__description {
+    animation: hero-rise 700ms ease-out 900ms backwards;
+  }
+
+  .hero--split .hero__actions .button {
+    animation: hero-rise 600ms ease-out 1100ms backwards;
+  }
+
+  .hero--split .hero__actions .button:nth-child(2) {
+    animation-delay: 1200ms;
+  }
+
+  /* Sin movimiento: nada de zoom ni desplazamientos; solo aparición simple. */
   @media (prefers-reduced-motion: reduce) {
     .hero--split .hero__image,
     .hero--split .hero__media:hover .hero__image {
       transform: none;
       transition: none;
+    }
+
+    .hero--split .hero__image {
+      animation: hero-fade 400ms ease-out backwards;
+    }
+
+    .hero--split .hero__eyebrow::before,
+    .hero--split .hero__word,
+    .hero--split .hero__description,
+    .hero--split .hero__actions .button {
+      animation: none;
     }
   }
 
@@ -239,6 +379,11 @@
   }
 
   .hero--split .button.button--primary {
+    transition:
+      var(--transition-colors),
+      filter var(--duration-normal) var(--ease-standard),
+      box-shadow var(--duration-normal) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-out-strong);
     box-shadow: 0 0 25px
       color-mix(in srgb, var(--button-background) 35%, transparent);
   }
@@ -250,9 +395,22 @@
   @media (hover: hover) and (pointer: fine) {
     .hero--split
       .button.button--primary:hover:not(:disabled, [aria-disabled="true"]) {
+      filter: brightness(1.08);
       box-shadow: 0 0 36px
         color-mix(in srgb, var(--button-background) 55%, transparent);
     }
+
+    .hero--split .button.button--primary:hover .icon {
+      transform: translateX(3px);
+    }
+
+    .hero--split .button.button--outline:hover {
+      border-color: var(--hero-accent);
+    }
+  }
+
+  .hero--split .button .icon {
+    transition: transform var(--duration-normal) var(--ease-out-strong);
   }
 
   @media (min-width: 64rem) {

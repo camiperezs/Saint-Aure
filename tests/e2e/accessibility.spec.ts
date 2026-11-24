@@ -11,6 +11,16 @@ for (const theme of themes) {
     }) => {
       await setStorage(page, "site-theme", theme);
       await page.goto(path);
+      // Axe mide contraste con el color pintado: esperar a que terminen las
+      // animaciones de entrada (p. ej. las del hero) para no leer opacidades a medias.
+      await page.evaluate(() =>
+        Promise.all(
+          document
+            .getAnimations()
+            .filter((a) => a.timeline instanceof DocumentTimeline)
+            .map((a) => a.finished),
+        ),
+      );
 
       const results = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])

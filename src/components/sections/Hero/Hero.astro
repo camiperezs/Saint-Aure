@@ -11,12 +11,25 @@ type Props = Hero;
 
 const hero = Astro.props;
 const { eyebrow, title, description, actions = [] } = hero;
+// El título se divide en palabras para revelarlas de a una (solo CSS). La
+// palabra destacada conserva su <em> y entra un poco después.
 const titleParts =
   hero.variant === "split" &&
   hero.titleAccent &&
   title.includes(hero.titleAccent)
     ? title.split(hero.titleAccent)
     : null;
+const toWords = (text: string) => text.split(/\s+/).filter(Boolean);
+const titleWords = titleParts
+  ? [
+      ...toWords(titleParts[0]).map((text) => ({ text, accent: false })),
+      {
+        text: hero.variant === "split" ? (hero.titleAccent ?? "") : "",
+        accent: true,
+      },
+      ...toWords(titleParts[1]).map((text) => ({ text, accent: false })),
+    ]
+  : toWords(title).map((text) => ({ text, accent: false }));
 ---
 
 {hero.variant === "fullscreen" && (
@@ -80,15 +93,15 @@ const titleParts =
       <div class="hero__content">
         {eyebrow && <p class="hero__eyebrow">{eyebrow}</p>}
         <h1 class="hero__title text-reflow">
-          {titleParts ? (
+          {titleWords.map((word) => (
             <>
-              {titleParts[0]}
-              <em class="hero__title-accent">{hero.titleAccent}</em>
-              {titleParts[1]}
+              {word.accent ? (
+                <em class="hero__word hero__title-accent">{word.text}</em>
+              ) : (
+                <span class="hero__word">{word.text}</span>
+              )}{" "}
             </>
-          ) : (
-            title
-          )}
+          ))}
         </h1>
         {description && <p class="hero__description">{description}</p>}
         <Actions actions={actions} class="hero__actions" />
