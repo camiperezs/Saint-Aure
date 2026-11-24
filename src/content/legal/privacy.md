@@ -1,12 +1,12 @@
 ---
 title: Política de privacidad
-description: Cómo trata Saint Aure Beauty House los datos personales de quienes visitan este sitio o hacen una consulta.
+description: Cómo trata Saint Aure los datos personales de quienes visitan este sitio o hacen una consulta.
 updated: 2026-11-21
 ---
 
 ## Responsable del tratamiento
 
-Saint Aure Beauty House, con atención en Rosario, Santa Fe, Argentina, y contacto en hola@saintaure.com.ar.
+Saint Aure, con atención en Rosario, Santa Fe, Argentina, y contacto en hola@saintaure.com.ar.
 
 ## Datos que recopilamos
 

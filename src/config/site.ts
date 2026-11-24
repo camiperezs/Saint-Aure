@@ -4,12 +4,12 @@ const description =
   "Peinados para novias, balayage, colorimetría y alisados en Rosario y Roldán. 16 años de experiencia, atención presencial y a domicilio.";
 
 export const site: SiteConfig = {
-  name: "Saint Aure Beauty House",
+  name: "Saint Aure",
   url: "https://saintaure.com.ar",
   locale: "es-AR",
 
   seo: {
-    title: "Saint Aure Beauty House — Peinados y color en Rosario y Roldán",
+    title: "Saint Aure — Peinados y color en Rosario y Roldán",
     description,
     robots: "noindex, nofollow",
   },

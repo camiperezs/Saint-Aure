@@ -1,7 +1,7 @@
 import type { Page } from "@/types/page";
 import type { GalleryItem } from "@/types/gallery";
 import type { Service } from "@/types/services";
-import peinado from "@/assets/images/peinado.webp";
+import hero from "@/assets/images/hero.webp";
 
 // Placeholders hasta recibir las fotos reales (D9).
 const whatsappMessage = "Hola, quiero consultar un turno.";
@@ -90,8 +90,8 @@ export const page = {
     description:
       "16 años de experiencia. Atención presencial y a domicilio en Rosario y Roldán.",
     image: {
-      src: peinado,
-      alt: "Peinado recogido con ondas, vista desde atrás",
+      src: hero,
+      alt: "Cabello largo con ondas y reflejos balayage, visto desde atrás",
     },
     imagePosition: "right",
     ratio: "image",
