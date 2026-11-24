@@ -1,33 +1,14 @@
 /**
- * HeroHairFlow: control del movimiento.
- *
- * - La deformación ambiental de los trazos es SMIL (<animate>) declarada en el
- *   markup; acá solo se pausa con `prefers-reduced-motion`.
- * - Parallax con el cursor: solo con ratón real y sin reduced-motion. No sigue
- *   al cursor: acerca la posición actual a la objetivo con inercia (lerp) y
- *   se detiene cuando se estabiliza.
+ * HeroHairFlow: parallax con el cursor. Solo con ratón real y sin
+ * `prefers-reduced-motion`. No sigue al cursor: acerca la posición actual a
+ * la objetivo con inercia (lerp) y se detiene cuando se estabiliza. Solo
+ * escribe --hair-x / --hair-y; el CSS traslada los contenedores y nunca toca
+ * la geometría de los paths.
  */
 export function initHairFlow(flow: HTMLElement): void {
-  const svg = flow.querySelector<SVGSVGElement>("svg");
   const hero = flow.closest<HTMLElement>(".hero");
   const canHover = matchMedia("(hover: hover) and (pointer: fine)");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-
-  const syncReducedMotion = () => {
-    if (!svg) {
-      return;
-    }
-
-    if (reduced.matches) {
-      svg.pauseAnimations();
-      svg.setCurrentTime(0);
-    } else {
-      svg.unpauseAnimations();
-    }
-  };
-
-  syncReducedMotion();
-  reduced.addEventListener("change", syncReducedMotion);
 
   if (!hero || !canHover.matches || reduced.matches) {
     return;

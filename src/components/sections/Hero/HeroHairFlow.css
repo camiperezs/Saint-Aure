@@ -18,9 +18,8 @@
     --hair-parallax: 7;
   }
 
-  /* Mobile: solo el trazo principal y dos secundarios. */
-  .hero-hair__path--c,
-  .hero-hair__path--d {
+  /* Mobile: solo el trazo principal y el primer secundario. */
+  .hero-hair__layer:nth-child(n + 4) {
     display: none;
   }
 
@@ -41,8 +40,7 @@
       block-size: auto;
     }
 
-    .hero-hair__path--c,
-    .hero-hair__path--d {
+    .hero-hair__layer:nth-child(n + 4) {
       display: inline;
     }
 
@@ -75,8 +73,8 @@
     stop-color: var(--color-brand-300);
   }
 
-  /* Parallax: el script solo actualiza --hair-x / --hair-y (−1…1); cada capa
-     se mueve según su profundidad. */
+  /* Capas: parallax (script) > balanceo ambiental (CSS) > trazo. Ninguna
+     toca la geometría de los paths. */
   .hero-hair__layer {
     --depth: 1;
     transform: translate(
@@ -94,6 +92,11 @@
     --depth: 0.4;
   }
 
+  .hero-hair__sway {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
   .hero-hair__path {
     fill: none;
     stroke: url(#hero-hair-gradient);
@@ -102,7 +105,7 @@
     stroke-dashoffset: 0;
   }
 
-  /* Grosor y opacidad distintos por trazo. */
+  /* Jerarquía fija (también en la versión estática): grosor y opacidad. */
   .hero-hair__path--main {
     stroke-width: 2.4;
     opacity: 0.95;
@@ -110,12 +113,12 @@
 
   .hero-hair__path--a {
     stroke-width: 1.4;
-    opacity: 0.75;
+    opacity: 0.7;
   }
 
   .hero-hair__path--b {
     stroke-width: 1;
-    opacity: 0.55;
+    opacity: 0.5;
   }
 
   .hero-hair__path--c {
@@ -123,60 +126,83 @@
     opacity: 0.6;
   }
 
-  .hero-hair__path--d {
-    stroke-width: 0.8;
-    opacity: 0.45;
-  }
-
-  /* Entrada: el trazo se dibuja. Con fill-mode backwards, al terminar queda
-     el estilo normal (completo) y, si no corre, la línea ya está dibujada. */
+  /* Entrada: el trazo se dibuja con desfase por línea. Con fill-mode
+     backwards, al terminar queda el estilo normal (completo). */
   @keyframes hair-draw {
     from {
       stroke-dashoffset: 1;
     }
   }
 
-  /* Ambiente (la deformación de la forma vive en el <animate> del SVG):
-     respiración de opacidad, con ritmo propio por trazo. */
-  @keyframes hair-glow {
-    50% {
-      opacity: var(--hair-opacity-low, 0.4);
-    }
-  }
-
   .hero-hair__path--main {
-    --hair-opacity-low: 0.6;
-    animation:
-      hair-draw 2400ms cubic-bezier(0.4, 0, 0.2, 1) 300ms backwards,
-      hair-glow 9s ease-in-out 2.7s infinite;
+    animation: hair-draw 2400ms cubic-bezier(0.4, 0, 0.2, 1) 300ms backwards;
   }
 
   .hero-hair__path--a {
-    --hair-opacity-low: 0.35;
-    animation:
-      hair-draw 2600ms cubic-bezier(0.4, 0, 0.2, 1) 600ms backwards,
-      hair-glow 12s ease-in-out 3.2s infinite;
+    animation: hair-draw 2600ms cubic-bezier(0.4, 0, 0.2, 1) 650ms backwards;
   }
 
   .hero-hair__path--b {
-    --hair-opacity-low: 0.25;
-    animation:
-      hair-draw 2800ms cubic-bezier(0.4, 0, 0.2, 1) 900ms backwards,
-      hair-glow 7s ease-in-out 3.7s infinite;
+    animation: hair-draw 2800ms cubic-bezier(0.4, 0, 0.2, 1) 1000ms backwards;
   }
 
   .hero-hair__path--c {
-    --hair-opacity-low: 0.3;
-    animation:
-      hair-draw 2500ms cubic-bezier(0.4, 0, 0.2, 1) 1150ms backwards,
-      hair-glow 14s ease-in-out 3.6s infinite;
+    animation: hair-draw 2500ms cubic-bezier(0.4, 0, 0.2, 1) 1300ms backwards;
   }
 
-  .hero-hair__path--d {
-    --hair-opacity-low: 0.2;
-    animation:
-      hair-draw 3000ms cubic-bezier(0.4, 0, 0.2, 1) 1400ms backwards,
-      hair-glow 10s ease-in-out 4.4s infinite;
+  /* Movimiento ambiental: el contenedor sube y baja unos píxeles y gira una
+     fracción de grado; la forma del trazo no cambia. Ida y vuelta suave
+     (alternate + ease-in-out), cada uno con otra duración y desfase. */
+  @keyframes hair-sway-1 {
+    from {
+      transform: translateY(-9px) rotate(-0.9deg);
+    }
+    to {
+      transform: translateY(9px) rotate(0.9deg);
+    }
+  }
+
+  @keyframes hair-sway-2 {
+    from {
+      transform: translateY(7px) rotate(0.7deg);
+    }
+    to {
+      transform: translateY(-8px) rotate(-1deg);
+    }
+  }
+
+  @keyframes hair-sway-3 {
+    from {
+      transform: translateY(-6px) rotate(1deg);
+    }
+    to {
+      transform: translateY(7px) rotate(-0.6deg);
+    }
+  }
+
+  @keyframes hair-sway-4 {
+    from {
+      transform: translateY(8px) rotate(-0.8deg);
+    }
+    to {
+      transform: translateY(-7px) rotate(0.8deg);
+    }
+  }
+
+  .hero-hair__sway--1 {
+    animation: hair-sway-1 11s ease-in-out -3s infinite alternate;
+  }
+
+  .hero-hair__sway--2 {
+    animation: hair-sway-2 14s ease-in-out -7s infinite alternate;
+  }
+
+  .hero-hair__sway--3 {
+    animation: hair-sway-3 17s ease-in-out -2s infinite alternate;
+  }
+
+  .hero-hair__sway--4 {
+    animation: hair-sway-4 13s ease-in-out -9s infinite alternate;
   }
 
   @keyframes hair-fade {
@@ -185,11 +211,15 @@
     }
   }
 
-  /* Sin movimiento: las líneas quedan quietas y completas; solo aparecen
-     (el script pausa además la deformación SMIL). */
+  /* Sin movimiento: la composición queda completa y quieta (misma jerarquía,
+     opacidades y formas); solo aparece con un fade corto. */
   @media (prefers-reduced-motion: reduce) {
     .hero-hair__layer {
       transform: none;
+    }
+
+    .hero-hair__sway {
+      animation: none;
     }
 
     .hero-hair__path {

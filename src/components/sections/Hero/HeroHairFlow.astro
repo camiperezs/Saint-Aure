@@ -9,92 +9,42 @@ interface Props {
 const { intensity = "normal" } = Astro.props;
 
 /**
- * Cada trazo es una curva de Bézier cúbica: "M x y" seguido de segmentos
- * "C x1 y1 x2 y2 x y" (6 números por segmento). El movimiento se logra
- * deformando los puntos de control entre tres formas distintas (SMIL), así
- * cambia la curvatura en lugar de solo trasladar la línea.
+ * Geometría fija: una curva principal larga y tres secundarias más finas.
+ *
+ * Cada trazo es "M" + un primer segmento "C" + segmentos "S". El comando S
+ * refleja el punto de control anterior, así la tangente es continua en cada
+ * unión (sin vértices ni picos). Las formas no se animan: lo que se mueve son
+ * los contenedores (ver el CSS).
  *
  * - layer: profundidad del parallax (1 cerca, 3 lejos).
- * - amp: cuánto se deforma (unidades del viewBox).
- * - dur: duración del ciclo de deformación; todas distintas para que no se
- *   sincronicen.
- * - phase: desfase de la deformación.
+ * - sway: variante de movimiento ambiental (duración, desfase, sentido).
  */
 const strokes = [
   {
     id: "main",
     layer: 1,
-    amp: 30,
-    dur: 13,
-    phase: 0,
-    pts: [
-      372, -20, 340, 90, 290, 150, 250, 240, 215, 320, 205, 400, 250, 470, 300,
-      545, 345, 590, 320, 690, 300, 770, 240, 820, 205, 930,
-    ],
+    sway: 1,
+    d: "M360 -20 C300 120 160 200 190 360 S330 560 260 720 S170 860 215 940",
   },
   {
     id: "a",
     layer: 2,
-    amp: 24,
-    dur: 17,
-    phase: 1.7,
-    pts: [
-      395, 60, 350, 150, 330, 210, 300, 300, 270, 390, 320, 440, 350, 520, 375,
-      590, 360, 650, 330, 720,
-    ],
+    sway: 2,
+    d: "M400 40 C350 170 270 230 285 360 S380 520 340 660",
   },
   {
     id: "b",
     layer: 3,
-    amp: 20,
-    dur: 11,
-    phase: 3.1,
-    pts: [330, -10, 300, 80, 230, 170, 215, 280, 200, 380, 255, 450, 270, 540],
+    sway: 3,
+    d: "M300 -10 C260 90 215 150 235 250 S285 360 262 450",
   },
   {
     id: "c",
     layer: 2,
-    amp: 22,
-    dur: 19,
-    phase: 4.4,
-    pts: [400, 330, 360, 420, 300, 470, 290, 560, 282, 640, 330, 700, 300, 800],
-  },
-  {
-    id: "d",
-    layer: 3,
-    amp: 18,
-    dur: 15,
-    phase: 5.6,
-    pts: [310, 200, 280, 280, 240, 330, 245, 420, 250, 500, 290, 540, 270, 640],
+    sway: 4,
+    d: "M395 420 C350 500 300 540 310 620 S330 760 285 860",
   },
 ];
-
-const toPath = (pts: number[]) => {
-  const [x, y, ...rest] = pts;
-  const segments: string[] = [];
-  for (let i = 0; i < rest.length; i += 6) {
-    segments.push(`C${rest.slice(i, i + 6).join(" ")}`);
-  }
-  return `M${x} ${y} ${segments.join(" ")}`;
-};
-
-// Variante determinista: desplaza cada coordenada con una senoide.
-const variant = (pts: number[], amp: number, phase: number, step: number) =>
-  pts.map((value, i) =>
-    Math.round(value + amp * Math.sin(1.9 * i + phase + step * 2.1)),
-  );
-
-const paths = strokes.map((stroke) => {
-  const shapes = [
-    stroke.pts,
-    variant(stroke.pts, stroke.amp, stroke.phase, 1),
-    variant(stroke.pts, stroke.amp, stroke.phase, 2),
-  ].map(toPath);
-
-  return { ...stroke, d: shapes[0], values: [...shapes, shapes[0]].join(";") };
-});
-
-const splines = Array(3).fill("0.45 0 0.55 1").join(";");
 ---
 
 <div
@@ -115,23 +65,15 @@ const splines = Array(3).fill("0.45 0 0.55 1").join(";");
         <stop class="hero-hair__stop hero-hair__stop--c" offset="1"></stop>
       </linearGradient>
     </defs>
-    {paths.map((stroke) => (
+    {strokes.map((stroke) => (
       <g class="hero-hair__layer" data-layer={stroke.layer}>
-        <path
-          class={`hero-hair__path hero-hair__path--${stroke.id}`}
-          d={stroke.d}
-          pathLength="1"
-        >
-          <animate
-            attributeName="d"
-            values={stroke.values}
-            keyTimes="0;0.33;0.66;1"
-            keySplines={splines}
-            calcMode="spline"
-            dur={`${stroke.dur}s`}
-            repeatCount="indefinite"
+        <g class={`hero-hair__sway hero-hair__sway--${stroke.sway}`}>
+          <path
+            class={`hero-hair__path hero-hair__path--${stroke.id}`}
+            d={stroke.d}
+            pathLength="1"
           />
-        </path>
+        </g>
       </g>
     ))}
   </svg>
