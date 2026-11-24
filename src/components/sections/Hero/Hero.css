@@ -152,6 +152,52 @@
     transform: scale(1);
   }
 
+  /* Tipografía del hero split (D4, D6, D7). Colores de la captura en D5. */
+  .hero--split {
+    --hero-gold: #c5a477;
+    --hero-text-muted: #a89582;
+  }
+
+  .hero--split .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 11px;
+    color: var(--hero-gold);
+  }
+
+  .hero--split .hero__eyebrow::before {
+    content: "";
+    inline-size: 32px;
+    block-size: 1px;
+    background: currentColor;
+  }
+
+  .hero--split .hero__title {
+    font-size: clamp(2.25rem, 4vw, 3.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  .hero--split .hero__description {
+    font-weight: 300;
+    color: var(--hero-text-muted);
+  }
+
+  .hero--split .hero__editorial {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    color: var(--hero-text-muted);
+    opacity: 1;
+    border-block-start: 1px solid rgb(197 164 119 / 0.1);
+  }
+
+  @media (min-width: 64rem) {
+    .hero--split .hero__description {
+      font-size: 18px;
+    }
+  }
+
   @media (min-width: 64rem) {
     .hero--ratio-balanced .hero__inner {
       grid-template-columns: 1fr 1fr;

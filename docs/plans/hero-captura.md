@@ -52,7 +52,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/hero-captu
 - **Archivos**: `src/components/sections/Hero/Hero.css` (reglas `.hero--split .hero__eyebrow`, `.hero--split .hero__title`, `.hero--split .hero__description`, `.hero--split .hero__editorial`).
 - **Verificación**: en el navegador, `getComputedStyle` del `h1` muestra Playfair Display y ~56px a 1280 px; el eyebrow tiene la línea antes; la descripción tiene peso 300. Revisar que `text-wrap: balance` no deje títulos de una sola palabra en la última línea.
 - **Modelo sugerido**: Opus (ajuste fino de tipografía).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Desvíos: (1) el título mide 51.2px a 1280 px, no ~56px como decía la verificación; la fórmula de D7 (`4vw`) da 51.2px, así que se mantiene la fórmula y el número esperado del plan estaba mal. (2) Colores locales agregados en `.hero--split`: `--hero-gold` (#C5A477) para el eyebrow y su línea, y `--hero-text-muted` (#A89582) para la descripción y la franja; la franja pierde el `opacity: .6` y usa el filete dorado al 10%. (3) Playfair ya llega por `site.ts` → `appearance.ts` (`--font-heading`), sin cambios; verificado en `getComputedStyle`. Verificado con Playwright en 1280 px: h1 Playfair 51.2px, eyebrow 11px con línea de 32px, descripción 18px peso 300, franja 11px, sin scroll horizontal, 4 líneas de título.
 
 ### Etapa 4: Botones del hero
 
@@ -85,4 +85,4 @@ Al cerrar: borrar este archivo (`docs/plans/hero-captura.md`) en la misma sesió
 
 ## Retoques
 
-Ninguno todavía.
+- La franja editorial del hero split a 1280 px ocupa dos líneas y deja "COIFFURE" sola en la segunda (etapa 3). Revisar si conviene acortar el texto de `page.ts` (no se cambia el copy sin Camila) o bajar el tracking.
