@@ -1,33 +1,56 @@
 @layer components {
-  /* Recurso decorativo: solo desktop (≥64rem), donde hay espacio negativo
-     entre el texto y la foto. En pantallas apiladas no se muestra. */
+  /* Recurso decorativo en el espacio negativo entre el texto y la foto.
+     Desktop: columna central, separada de la foto. Mobile: versión chica
+     junto a los botones, con menos trazos. */
   .hero-hair {
-    display: none;
     --hair-parallax: 12;
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    /* Mobile: libre a la derecha de los botones, justo sobre la foto. */
+    inset-inline-end: 0;
+    inset-block-end: calc(460px + 1rem);
+    inline-size: 5.5rem;
+    block-size: 11rem;
   }
 
   .hero-hair--subtle {
     --hair-parallax: 7;
   }
 
+  /* Mobile: solo el trazo principal y dos secundarios. */
+  .hero-hair__path--c,
+  .hero-hair__path--d {
+    display: none;
+  }
+
+  @media (max-width: 23rem) {
+    .hero-hair {
+      display: none;
+    }
+  }
+
   @media (min-width: 64rem) {
     .hero-hair {
-      display: block;
-      position: absolute;
       inset-block: 0;
-      /* Termina dentro del degradado de la foto para conectarse con ella. */
-      inset-inline-end: calc(clamp(30rem, 66svh, 46vw) - 5rem);
-      inline-size: clamp(12rem, 24vw, 28rem);
-      z-index: 1;
-      pointer-events: none;
-      /* El extremo derecho se disuelve en la foto; no la tapa. */
-      mask-image: linear-gradient(to right, #000 55%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, #000 55%, transparent 100%);
+      /* Lejos de la foto: queda en el espacio central, no pegado al borde. */
+      inset-inline-end: calc(
+        clamp(30rem, 66svh, 46vw) + clamp(1.5rem, 4vw, 6rem)
+      );
+      inline-size: clamp(9rem, 16vw, 24rem);
+      block-size: auto;
+    }
+
+    .hero-hair__path--c,
+    .hero-hair__path--d {
+      display: inline;
     }
 
     .hero--image-left .hero-hair {
       inset-inline-end: auto;
-      inset-inline-start: calc(clamp(30rem, 66svh, 46vw) - 5rem);
+      inset-inline-start: calc(
+        clamp(30rem, 66svh, 46vw) + clamp(1.5rem, 4vw, 6rem)
+      );
       transform: scaleX(-1);
     }
   }
@@ -77,101 +100,83 @@
     stroke-linecap: round;
     stroke-dasharray: 1;
     stroke-dashoffset: 0;
-    transform-box: fill-box;
-    transform-origin: center;
   }
 
+  /* Grosor y opacidad distintos por trazo. */
   .hero-hair__path--main {
-    stroke-width: 2.2;
-    opacity: 0.9;
+    stroke-width: 2.4;
+    opacity: 0.95;
   }
 
   .hero-hair__path--a {
-    stroke-width: 1.2;
-    opacity: 0.7;
+    stroke-width: 1.4;
+    opacity: 0.75;
   }
 
   .hero-hair__path--b {
-    stroke-width: 0.9;
-    opacity: 0.5;
-  }
-
-  .hero-hair__path--c {
-    stroke-width: 0.8;
+    stroke-width: 1;
     opacity: 0.55;
   }
 
-  .hero-hair__path--d {
-    stroke-width: 0.7;
-    opacity: 0.4;
+  .hero-hair__path--c {
+    stroke-width: 0.9;
+    opacity: 0.6;
   }
 
-  /* Entrada: el trazo se dibuja; los secundarios arrancan un poco después y
-     con duraciones distintas. Con fill-mode backwards, al terminar queda el
-     estilo normal, y sin animación el trazo ya está completo. */
+  .hero-hair__path--d {
+    stroke-width: 0.8;
+    opacity: 0.45;
+  }
+
+  /* Entrada: el trazo se dibuja. Con fill-mode backwards, al terminar queda
+     el estilo normal (completo) y, si no corre, la línea ya está dibujada. */
   @keyframes hair-draw {
     from {
       stroke-dashoffset: 1;
     }
   }
 
-  /* Ambiente: deriva lenta de pocos píxeles y respiración de opacidad. */
-  @keyframes hair-sway-a {
-    50% {
-      transform: translate(5px, 7px) rotate(0.4deg);
-    }
-  }
-
-  @keyframes hair-sway-b {
-    50% {
-      transform: translate(-4px, 9px) rotate(-0.35deg);
-    }
-  }
-
+  /* Ambiente (la deformación de la forma vive en el <animate> del SVG):
+     respiración de opacidad, con ritmo propio por trazo. */
   @keyframes hair-glow {
     50% {
-      opacity: var(--hair-opacity-low, 0.55);
+      opacity: var(--hair-opacity-low, 0.4);
     }
   }
 
   .hero-hair__path--main {
-    --hair-opacity-low: 0.7;
+    --hair-opacity-low: 0.6;
     animation:
-      hair-draw 2200ms cubic-bezier(0.4, 0, 0.2, 1) 300ms backwards,
-      hair-sway-a 17s ease-in-out 2.5s infinite,
-      hair-glow 11s ease-in-out 2.5s infinite;
+      hair-draw 2400ms cubic-bezier(0.4, 0, 0.2, 1) 300ms backwards,
+      hair-glow 9s ease-in-out 2.7s infinite;
   }
 
   .hero-hair__path--a {
-    --hair-opacity-low: 0.45;
+    --hair-opacity-low: 0.35;
     animation:
-      hair-draw 2400ms cubic-bezier(0.4, 0, 0.2, 1) 550ms backwards,
-      hair-sway-b 21s ease-in-out 3s infinite,
-      hair-glow 13s ease-in-out 3s infinite;
+      hair-draw 2600ms cubic-bezier(0.4, 0, 0.2, 1) 600ms backwards,
+      hair-glow 12s ease-in-out 3.2s infinite;
   }
 
   .hero-hair__path--b {
-    --hair-opacity-low: 0.3;
+    --hair-opacity-low: 0.25;
     animation:
-      hair-draw 2600ms cubic-bezier(0.4, 0, 0.2, 1) 800ms backwards,
-      hair-sway-a 25s ease-in-out 3.4s infinite,
-      hair-glow 15s ease-in-out 3.4s infinite;
+      hair-draw 2800ms cubic-bezier(0.4, 0, 0.2, 1) 900ms backwards,
+      hair-glow 7s ease-in-out 3.7s infinite;
   }
 
   .hero-hair__path--c {
-    --hair-opacity-low: 0.35;
+    --hair-opacity-low: 0.3;
     animation:
-      hair-draw 2300ms cubic-bezier(0.4, 0, 0.2, 1) 1000ms backwards,
-      hair-sway-b 19s ease-in-out 3.3s infinite,
-      hair-glow 12s ease-in-out 3.3s infinite;
+      hair-draw 2500ms cubic-bezier(0.4, 0, 0.2, 1) 1150ms backwards,
+      hair-glow 14s ease-in-out 3.6s infinite;
   }
 
   .hero-hair__path--d {
-    --hair-opacity-low: 0.25;
+    --hair-opacity-low: 0.2;
     animation:
-      hair-draw 2800ms cubic-bezier(0.4, 0, 0.2, 1) 1200ms backwards,
-      hair-sway-a 23s ease-in-out 4s infinite,
-      hair-glow 14s ease-in-out 4s infinite;
+      hair-draw 3000ms cubic-bezier(0.4, 0, 0.2, 1) 1400ms backwards,
+      hair-glow 10s ease-in-out 4.4s infinite;
   }
 
   @keyframes hair-fade {
@@ -180,7 +185,8 @@
     }
   }
 
-  /* Sin movimiento: las líneas quedan quietas y completas; solo aparecen. */
+  /* Sin movimiento: las líneas quedan quietas y completas; solo aparecen
+     (el script pausa además la deformación SMIL). */
   @media (prefers-reduced-motion: reduce) {
     .hero-hair__layer {
       transform: none;
