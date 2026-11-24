@@ -1,0 +1,78 @@
+---
+import "./HeroHairFlow.css";
+
+interface Props {
+  /** Amplitud del parallax con el cursor (el movimiento ambiental es igual). */
+  intensity?: "subtle" | "normal";
+}
+
+const { intensity = "normal" } = Astro.props;
+
+// Trazos: uno principal y cuatro secundarios más finos. Cada uno tiene su
+// propio recorrido, grosor y capa de profundidad (data-layer 1–3).
+const strokes = [
+  {
+    id: "main",
+    layer: 1,
+    d: "M392 -30 C330 120 200 190 190 360 C180 520 330 600 280 760 C255 840 200 880 170 940",
+  },
+  {
+    id: "a",
+    layer: 2,
+    d: "M400 40 C320 170 230 250 235 400 C240 540 350 620 310 780 C295 850 250 900 230 950",
+  },
+  {
+    id: "b",
+    layer: 3,
+    d: "M385 -10 C300 110 160 200 150 370 C142 520 280 610 240 770",
+  },
+  {
+    id: "c",
+    layer: 2,
+    d: "M400 120 C340 240 270 300 275 440 C280 560 380 650 360 820",
+  },
+  {
+    id: "d",
+    layer: 3,
+    d: "M360 -40 C270 100 120 220 110 400 C100 560 230 640 200 800 C190 850 150 890 120 930",
+  },
+];
+---
+
+<div
+  class:list={["hero-hair", `hero-hair--${intensity}`]}
+  data-hair-flow
+  aria-hidden="true"
+>
+  <svg
+    class="hero-hair__svg"
+    viewBox="0 0 400 900"
+    preserveAspectRatio="xMaxYMid meet"
+    focusable="false"
+  >
+    <defs>
+      <linearGradient id="hero-hair-gradient" x1="0" y1="0" x2="0" y2="1">
+        <stop class="hero-hair__stop hero-hair__stop--a" offset="0"></stop>
+        <stop class="hero-hair__stop hero-hair__stop--b" offset="0.5"></stop>
+        <stop class="hero-hair__stop hero-hair__stop--c" offset="1"></stop>
+      </linearGradient>
+    </defs>
+    {strokes.map((stroke) => (
+      <g class="hero-hair__layer" data-layer={stroke.layer}>
+        <path
+          class={`hero-hair__path hero-hair__path--${stroke.id}`}
+          d={stroke.d}
+          pathLength="1"
+        />
+      </g>
+    ))}
+  </svg>
+</div>
+
+<script>
+  import { initHairFlow } from "@/scripts/hair-flow";
+
+  document
+    .querySelectorAll<HTMLElement>("[data-hair-flow]")
+    .forEach((flow) => initHairFlow(flow));
+</script>

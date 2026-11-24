@@ -3,6 +3,7 @@ import type { Hero } from "@/types/hero";
 import Actions from "@/components/ui/Actions/Actions.astro";
 import BackgroundMedia from "@/components/ui/BackgroundMedia/BackgroundMedia.astro";
 import Container from "@/components/ui/Container/Container.astro";
+import HeroHairFlow from "./HeroHairFlow.astro";
 import Media from "@/components/ui/Media/Media.astro";
 import { imageSizes } from "@/utils/image-sizes";
 import "./Hero.css";
@@ -89,6 +90,7 @@ const titleWords = titleParts
       `hero--ratio-${hero.ratio ?? "balanced"}`,
     ]}
   >
+    {hero.hairFlow && <HeroHairFlow intensity={hero.hairFlow} />}
     <Container size="wide" class="hero__inner">
       <div class="hero__content">
         {eyebrow && <p class="hero__eyebrow">{eyebrow}</p>}

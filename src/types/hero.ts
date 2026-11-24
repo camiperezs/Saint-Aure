@@ -30,6 +30,8 @@ export interface HeroSplit extends HeroBase {
   ratio?: "balanced" | "content" | "image";
   /** Fragmento del título que se destaca en serif cursiva y color de acento. */
   titleAccent?: string;
+  /** Trazos dorados animados entre el texto y la foto (solo desktop). Sin valor: no se muestra. */
+  hairFlow?: "subtle" | "normal";
 }
 
 export type Hero = HeroFullScreen | HeroCompact | HeroSplit;

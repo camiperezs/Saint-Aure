@@ -17,7 +17,11 @@ for (const theme of themes) {
         Promise.all(
           document
             .getAnimations()
-            .filter((a) => a.timeline instanceof DocumentTimeline)
+            .filter(
+              (a) =>
+                a.timeline instanceof DocumentTimeline &&
+                a.effect?.getComputedTiming().iterations !== Infinity,
+            )
             .map((a) => a.finished),
         ),
       );

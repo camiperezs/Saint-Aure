@@ -96,6 +96,7 @@ export const page = {
     imagePosition: "right",
     ratio: "image",
     titleAccent: "imaginaste,",
+    hairFlow: "normal",
     actions: [
       {
         label: "Consultar por WhatsApp",
