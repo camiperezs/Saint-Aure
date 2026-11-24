@@ -1,6 +1,7 @@
 import type { Page } from "@/types/page";
 import type { GalleryItem } from "@/types/gallery";
 import type { Service } from "@/types/services";
+import peinado from "@/assets/images/peinado.webp";
 
 // Placeholders hasta recibir las fotos reales (D9).
 const whatsappMessage = "Hola, quiero consultar un turno.";
@@ -83,19 +84,17 @@ const landscape = (alt: string): GalleryItem => ({
 
 export const page = {
   hero: {
-    variant: "fullscreen",
+    variant: "split",
     eyebrow: "Saint Aure Beauty House",
     title: "El cabello que imaginaste, en las manos que lo hacen realidad",
     description:
       "16 años de experiencia. Atención presencial y a domicilio en Rosario y Roldán.",
     image: {
-      src: "/placeholders/landscape.svg",
-      alt: "Imagen de ejemplo, se reemplaza por una foto de un peinado",
-      width: 1920,
-      height: 1080,
+      src: peinado,
+      alt: "Peinado recogido con ondas, vista desde atrás",
     },
-    overlay: "strong",
-    alignment: "left",
+    imagePosition: "right",
+    ratio: "image",
     editorial: "VOL. XVI / ATELIER ROSARIO / ROLDÁN / ALTA COIFFURE",
     actions: [
       {

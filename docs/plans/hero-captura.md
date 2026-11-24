@@ -34,7 +34,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/hero-captu
   - `src/content/page.ts`: `variant: "split"`, `imagePosition: "right"`, `ratio: "image"`, `image: { src: peinado, alt: "Peinado recogido con ondas, vista desde atrás" }` con `import peinado from "@/assets/images/peinado.webp"`. Quitar `overlay` y `focalPoint`. Mantener `editorial`.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run build`. En `/dev/components` y en la home a 1280 px: la foto aparece a la derecha, la franja se ve debajo del texto, y no hay ningún elemento circular con logo en el hero (buscar en el DOM `.hero` que no exista nada con `border-radius: 50%`).
 - **Modelo sugerido**: Sonnet (cambio de contrato y markup siguiendo el patrón de `split`).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Desvío: `src/pages/index.astro` también cambió. `headerOverlay` comparaba `page.hero.variant` con `"fullscreen"` y TypeScript lo rechazó al quedar `split`. Se tipó la variable como `string` para que la lógica siga valiendo si un cliente vuelve a `fullscreen`. Verificado por build y DOM (`hero--split`, `hero__editorial` presente, sin elementos circulares); la verificación visual en navegador queda para la etapa 2.
 
 ### Etapa 2: Layout, imagen y overlay
 

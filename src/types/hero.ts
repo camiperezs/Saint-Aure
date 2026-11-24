@@ -28,6 +28,7 @@ export interface HeroSplit extends HeroBase {
   image: Image;
   imagePosition?: "left" | "right";
   ratio?: "balanced" | "content" | "image";
+  editorial?: string;
 }
 
 export type Hero = HeroFullScreen | HeroCompact | HeroSplit;

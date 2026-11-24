@@ -77,12 +77,15 @@ const { eyebrow, title, description, actions = [] } = hero;
         {description && <p class="hero__description">{description}</p>}
         <Actions actions={actions} class="hero__actions" />
       </div>
-      <Media
-        image={hero.image}
-        priority
-        class="hero__image"
-        sizes={imageSizes.half}
-      />
+      <div class="hero__media">
+        <Media
+          image={hero.image}
+          priority
+          class="hero__image"
+          sizes={imageSizes.half}
+        />
+      </div>
+      {hero.editorial && <p class="hero__editorial">{hero.editorial}</p>}
     </Container>
   </section>
 )}

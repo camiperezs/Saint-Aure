@@ -5,9 +5,11 @@ import PageSections from "@/components/sections/PageSections.astro";
 import { site } from "@/config/site";
 import { page } from "@/content/page";
 import { getBusinessStructuredData } from "@/utils/structured-data";
+
+const heroVariant: string | undefined = page.hero?.variant;
 ---
 
-<BaseLayout headerOverlay={page.hero?.variant === "fullscreen"}>
+<BaseLayout headerOverlay={heroVariant === "fullscreen"}>
   <script
     slot="head"
     type="application/ld+json"
