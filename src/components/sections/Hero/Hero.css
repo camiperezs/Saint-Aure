@@ -127,9 +127,9 @@
     min-block-size: 460px;
   }
 
-  /* Resplandor del sol: luz cálida de la paleta detrás de la foto, arriba a
-     la derecha, para que el reflejo se extienda más allá de la imagen. */
-  .hero--split .hero__media::before {
+  /* Resplandor del sol (solo tema oscuro): luz cálida de la paleta detrás de
+     la foto, arriba a la derecha. En claro se omite: ensucia el fondo. */
+  [data-theme="dark"] .hero--split .hero__media::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -157,15 +157,6 @@
     block-size: 100%;
     object-fit: cover;
     object-position: 55% 30%;
-    --hero-fade-y: linear-gradient(
-      to bottom,
-      transparent 0%,
-      #000 10%,
-      #000 90%,
-      transparent 100%
-    );
-    mask-image: var(--hero-fade-y);
-    -webkit-mask-image: var(--hero-fade-y);
     transform: scale(1);
     transition: transform 600ms var(--ease-out-strong, ease-out);
     animation: hero-photo-in 1100ms var(--ease-out-strong, ease-out) backwards;
@@ -346,6 +337,7 @@
     letter-spacing: -0.02em;
     font-family: var(--font-body);
     font-weight: var(--font-regular);
+    max-inline-size: 8.5em;
   }
 
   .hero--split .hero__title-accent {
@@ -429,7 +421,7 @@
     }
 
     .hero--ratio-image .hero__inner {
-      grid-template-columns: 1.15fr 1fr;
+      grid-template-columns: 1fr clamp(30rem, 66svh, 46vw);
     }
 
     .hero--image-left.hero--ratio-content .hero__inner {
@@ -437,19 +429,22 @@
     }
 
     .hero--image-left.hero--ratio-image .hero__inner {
-      grid-template-columns: 1fr 1.3fr;
+      grid-template-columns: clamp(30rem, 66svh, 46vw) 1fr;
     }
 
+    /* El header (sticky y transparente) no ocupa espacio: el hero sube por
+       detrás y la foto llega hasta el borde superior de la pantalla. */
     .hero--split {
-      min-block-size: 92svh;
+      --hero-header-offset: 3.5rem;
+      margin-block-start: calc(-1 * var(--hero-header-offset));
+      min-block-size: 100svh;
       padding-block: 0;
     }
 
-    /* Texto y foto juntos: el conjunto se centra con un ancho máximo en vez
-       de abrirse hasta los bordes del viewport. */
+    /* La foto va de borde a borde (arriba, derecha y abajo); el texto se
+       alinea con el contenedor de 96rem. */
     .hero--split .hero__inner {
-      max-width: 96rem;
-      margin-inline: auto;
+      max-width: none;
       padding-inline: 0;
       align-items: stretch;
       grid-template-rows: 1fr;
@@ -462,6 +457,7 @@
       grid-row: 1;
       align-self: center;
       padding: 6rem 4rem;
+      padding-inline-start: max(4rem, calc((100vw - 96rem) / 2 + 4rem));
     }
 
     .hero--split .hero__media {
@@ -470,21 +466,15 @@
     }
 
     .hero--split .hero__media::after {
-      background:
-        linear-gradient(
-          to left,
-          color-mix(in srgb, var(--hero-bg) 100%, transparent) 0%,
-          color-mix(in srgb, var(--hero-bg) 0%, transparent) 8%
-        ),
-        linear-gradient(
-          to right,
-          color-mix(in srgb, var(--hero-bg) 100%, transparent) 0%,
-          color-mix(in srgb, var(--hero-bg) 85%, transparent) 8%,
-          color-mix(in srgb, var(--hero-bg) 55%, transparent) 18%,
-          color-mix(in srgb, var(--hero-bg) 25%, transparent) 30%,
-          color-mix(in srgb, var(--hero-bg) 8%, transparent) 42%,
-          color-mix(in srgb, var(--hero-bg) 0%, transparent) 55%
-        );
+      background: linear-gradient(
+        to right,
+        color-mix(in srgb, var(--hero-bg) 100%, transparent) 0%,
+        color-mix(in srgb, var(--hero-bg) 85%, transparent) 8%,
+        color-mix(in srgb, var(--hero-bg) 55%, transparent) 18%,
+        color-mix(in srgb, var(--hero-bg) 25%, transparent) 30%,
+        color-mix(in srgb, var(--hero-bg) 8%, transparent) 42%,
+        color-mix(in srgb, var(--hero-bg) 0%, transparent) 55%
+      );
     }
 
     .hero--split.hero--image-left .hero__media {

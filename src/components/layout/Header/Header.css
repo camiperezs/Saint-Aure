@@ -8,6 +8,13 @@
     position: sticky;
     inset-block-start: 0;
     z-index: var(--elevation-overlay);
+    /* Fondo translúcido con desenfoque: se ve lo que hay debajo. */
+    background-color: color-mix(
+      in srgb,
+      var(--color-background) 55%,
+      transparent
+    );
+    backdrop-filter: blur(14px);
   }
 
   .header__inner {
@@ -30,7 +37,7 @@
 
   /* Transparente arriba de todo para fundirse con la sección; al hacer scroll
      el fondo aparece (sticky) para que el contenido no se mezcle con los
-     links. Solo con scroll-driven animations; sin soporte queda sólido. */
+     links. Solo con scroll-driven animations; sin soporte queda translúcido siempre. */
   @supports (animation-timeline: scroll()) {
     .header--standard {
       animation-name: header-bg;
@@ -44,9 +51,15 @@
   @keyframes header-bg {
     from {
       background-color: transparent;
+      backdrop-filter: blur(0);
     }
     to {
-      background-color: var(--color-background);
+      background-color: color-mix(
+        in srgb,
+        var(--color-background) 55%,
+        transparent
+      );
+      backdrop-filter: blur(14px);
     }
   }
 
