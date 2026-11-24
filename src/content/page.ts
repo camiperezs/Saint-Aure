@@ -85,7 +85,7 @@ const landscape = (alt: string): GalleryItem => ({
 export const page = {
   hero: {
     variant: "split",
-    eyebrow: "Saint Aure Beauty House",
+    eyebrow: "Saint Aure",
     title: "El cabello que imaginaste, en las manos que lo hacen realidad",
     description:
       "16 años de experiencia. Atención presencial y a domicilio en Rosario y Roldán.",
@@ -95,7 +95,7 @@ export const page = {
     },
     imagePosition: "right",
     ratio: "image",
-    editorial: "VOL. XVI / ATELIER ROSARIO / ROLDÁN / ALTA COIFFURE",
+    titleAccent: "imaginaste,",
     actions: [
       {
         label: "Consultar por WhatsApp",
@@ -254,7 +254,7 @@ export const page = {
       description: "Contame qué estás buscando y te asesoro sin compromiso.",
       image: {
         src: "/placeholders/portrait.svg",
-        alt: "Saint Aure Beauty House",
+        alt: "Saint Aure",
         width: 120,
         height: 120,
       },

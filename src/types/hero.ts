@@ -28,7 +28,8 @@ export interface HeroSplit extends HeroBase {
   image: Image;
   imagePosition?: "left" | "right";
   ratio?: "balanced" | "content" | "image";
-  editorial?: string;
+  /** Fragmento del título que se destaca en serif cursiva y color de acento. */
+  titleAccent?: string;
 }
 
 export type Hero = HeroFullScreen | HeroCompact | HeroSplit;

@@ -123,10 +123,16 @@
     gap: var(--space-fluid-md);
   }
 
+  /* La foto se centra en su área y conserva su proporción: nunca ocupa todo
+     el alto, así el peinado se ve completo (contain + tope de altura). */
   .hero--split .hero__media {
     position: relative;
     overflow: hidden;
     min-block-size: 460px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: clamp(1.5rem, 5svh, 3.5rem);
   }
 
   /* Overlay vertical en mobile; en desktop pasa a lateral (ver más abajo). */
@@ -141,12 +147,32 @@
   }
 
   .hero--split .hero__image {
-    position: absolute;
-    inset: 0;
-    inline-size: 100%;
-    block-size: 100%;
-    object-fit: cover;
-    transform: scale(1.05);
+    position: relative;
+    inline-size: auto;
+    block-size: auto;
+    max-inline-size: 100%;
+    max-block-size: min(80svh, 52rem);
+    object-fit: contain;
+    /* Bordes que se funden con el fondo, sin cortes duros. */
+    --hero-fade-x: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 12%,
+      #000 88%,
+      transparent 100%
+    );
+    --hero-fade-y: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+    mask-image: var(--hero-fade-x), var(--hero-fade-y);
+    mask-composite: intersect;
+    -webkit-mask-image: var(--hero-fade-x), var(--hero-fade-y);
+    -webkit-mask-composite: source-in;
+    transform: scale(1.02);
     transition: transform 1s ease;
   }
 
@@ -180,6 +206,7 @@
 
   .hero--split .hero__eyebrow::before {
     content: "";
+    flex: none;
     inline-size: 32px;
     block-size: 1px;
     background: currentColor;
@@ -189,6 +216,15 @@
     font-size: clamp(2.25rem, 4vw, 3.5rem);
     line-height: 1.08;
     letter-spacing: -0.02em;
+    font-family: var(--font-body);
+    font-weight: var(--font-regular);
+  }
+
+  .hero--split .hero__title-accent {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: var(--font-regular);
+    color: var(--hero-gold);
   }
 
   .hero--split .hero__description {
@@ -196,12 +232,13 @@
     color: var(--hero-text-muted);
   }
 
-  .hero--split .hero__editorial {
-    font-size: 11px;
-    letter-spacing: 0.24em;
-    color: var(--hero-text-muted);
-    opacity: 1;
-    border-block-start: 1px solid rgb(197 164 119 / 0.1);
+  /* CTA apilados: WhatsApp arriba, "Ver trabajos" abajo, mismo ancho. */
+  .hero--split .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    gap: var(--space-3);
   }
 
   /* Botones del hero split (D8). Solo dentro de .hero--split: el resto del
@@ -281,7 +318,7 @@
       max-width: none;
       padding-inline: 0;
       align-items: stretch;
-      grid-template-rows: 1fr auto;
+      grid-template-rows: 1fr;
       gap: 0;
     }
 
@@ -293,21 +330,22 @@
       padding: 6rem 4rem;
     }
 
-    .hero--split .hero__editorial {
-      grid-column: 1;
-      grid-row: 2;
-      align-self: end;
-      margin: 0 4rem 6rem;
-    }
-
     .hero--split .hero__media {
       grid-column: 2;
-      grid-row: 1 / span 2;
+      grid-row: 1;
     }
 
     .hero--split .hero__media::after {
       background:
-        linear-gradient(to right, var(--hero-bg) 0%, transparent 40%),
+        linear-gradient(
+          to right,
+          var(--hero-bg) 0%,
+          rgb(11 9 8 / 0.85) 8%,
+          rgb(11 9 8 / 0.55) 18%,
+          rgb(11 9 8 / 0.25) 30%,
+          rgb(11 9 8 / 0.08) 42%,
+          transparent 55%
+        ),
         var(--hero-vignette);
     }
 
@@ -315,14 +353,21 @@
       grid-column: 1;
     }
 
-    .hero--split.hero--image-left .hero__content,
-    .hero--split.hero--image-left .hero__editorial {
+    .hero--split.hero--image-left .hero__content {
       grid-column: 2;
     }
 
     .hero--split.hero--image-left .hero__media::after {
       background:
-        linear-gradient(to left, var(--hero-bg) 0%, transparent 40%),
+        linear-gradient(
+          to left,
+          var(--hero-bg) 0%,
+          rgb(11 9 8 / 0.85) 8%,
+          rgb(11 9 8 / 0.55) 18%,
+          rgb(11 9 8 / 0.25) 30%,
+          rgb(11 9 8 / 0.08) 42%,
+          transparent 55%
+        ),
         var(--hero-vignette);
     }
   }

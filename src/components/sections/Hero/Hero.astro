@@ -11,6 +11,12 @@ type Props = Hero;
 
 const hero = Astro.props;
 const { eyebrow, title, description, actions = [] } = hero;
+const titleParts =
+  hero.variant === "split" &&
+  hero.titleAccent &&
+  title.includes(hero.titleAccent)
+    ? title.split(hero.titleAccent)
+    : null;
 ---
 
 {hero.variant === "fullscreen" && (
@@ -73,7 +79,17 @@ const { eyebrow, title, description, actions = [] } = hero;
     <Container size="wide" class="hero__inner">
       <div class="hero__content">
         {eyebrow && <p class="hero__eyebrow">{eyebrow}</p>}
-        <h1 class="hero__title text-reflow">{title}</h1>
+        <h1 class="hero__title text-reflow">
+          {titleParts ? (
+            <>
+              {titleParts[0]}
+              <em class="hero__title-accent">{hero.titleAccent}</em>
+              {titleParts[1]}
+            </>
+          ) : (
+            title
+          )}
+        </h1>
         {description && <p class="hero__description">{description}</p>}
         <Actions actions={actions} class="hero__actions" />
       </div>
@@ -85,7 +101,6 @@ const { eyebrow, title, description, actions = [] } = hero;
           sizes={imageSizes.half}
         />
       </div>
-      {hero.editorial && <p class="hero__editorial">{hero.editorial}</p>}
     </Container>
   </section>
 )}
