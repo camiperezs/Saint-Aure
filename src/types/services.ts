@@ -55,6 +55,8 @@ export interface ServiceLabels {
   featured: string;
   priceFrom: string;
   priceOnRequest: string;
+  previous: string;
+  next: string;
 }
 
 export interface Services {

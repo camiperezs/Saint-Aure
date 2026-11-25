@@ -132,6 +132,8 @@ export const site: SiteConfig = {
       featured: "Destacado",
       priceFrom: "Desde",
       priceOnRequest: "Precio a consultar",
+      previous: "Especialidad anterior",
+      next: "Especialidad siguiente",
     },
     testimonials: {
       previous: "Testimonio anterior",

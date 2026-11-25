@@ -44,7 +44,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/especialid
 - **Archivos**: nuevo `src/scripts/service-catalog.ts`; `ServiceCatalog.astro` (atributos `data-*`, roles ARIA, botones de flecha); su CSS (estados selected/focus/disabled, transición de opacidad del panel).
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`; en `/dev/components`: clic cambia panel, flechas ← → y botones, Home/End, extremos deshabilitados, Tab entra a las tarjetas como un solo grupo (roving), foco visible distinto de la selección, `prefers-reduced-motion` sin movimiento; consola sin errores ni violaciones de CSP.
 - **Modelo sugerido**: Opus (accesibilidad no trivial, script nuevo).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Notas: `ServiceLabels` ganó `previous` y `next` (obligatorios; valores en `site.ts`). Tarjetas son `li role="presentation"` con `button role="tab"`; el script va inline-bundled desde `ServiceCatalog.astro`. Verificado con Playwright en `/dev/components` (clic, flechas, Home/End, extremos, roving tabindex, sin errores de consola).
 
 ### Etapa 3: Responsive y tests e2e
 

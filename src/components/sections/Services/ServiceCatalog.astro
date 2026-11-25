@@ -8,38 +8,75 @@ import "./ServiceCatalog.css";
 
 interface Props {
   id: string;
+  title: string;
   services: Service[];
   labels: ServiceLabels;
   locale: string;
 }
 
-const { id, services, labels, locale } = Astro.props;
+const { id, title, services, labels, locale } = Astro.props;
 const selected = 0;
 ---
 
-<div class="service-catalog">
-  <ul class="service-catalog__cards">
-    {services.map((service, index) => (
-      <li
-        class="service-catalog__card"
-        data-selected={index === selected ? "true" : undefined}
-      >
-        {service.visual?.type === "image" && (
-          <Media
-            image={service.visual.image}
-            class="service-catalog__image"
-            sizes="(min-width: 64rem) 20vw, 40vw"
-          />
-        )}
-        <span class="service-catalog__name">{service.title}</span>
-      </li>
-    ))}
-  </ul>
+<div class="service-catalog" data-service-catalog>
+  <div class="service-catalog__browser">
+    <button
+      class="service-catalog__arrow"
+      type="button"
+      aria-label={labels.previous}
+      aria-disabled="true"
+      data-catalog-prev
+    >
+      <Icon name="arrow-left" />
+    </button>
+    <ul
+      class="service-catalog__cards"
+      role="tablist"
+      aria-label={title}
+      data-catalog-track
+    >
+      {services.map((service, index) => (
+        <li role="presentation">
+          <button
+            class="service-catalog__card"
+            type="button"
+            role="tab"
+            id={`${id}-tab-${index}`}
+            aria-selected={index === selected ? "true" : "false"}
+            aria-controls={`${id}-panel-${index}`}
+            tabindex={index === selected ? 0 : -1}
+            data-selected={index === selected ? "" : undefined}
+            data-catalog-tab
+          >
+            {service.visual?.type === "image" && (
+              <Media
+                image={service.visual.image}
+                class="service-catalog__image"
+                sizes="(min-width: 64rem) 20vw, 40vw"
+              />
+            )}
+            <span class="service-catalog__name">{service.title}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+    <button
+      class="service-catalog__arrow"
+      type="button"
+      aria-label={labels.next}
+      data-catalog-next
+    >
+      <Icon name="arrow-right" />
+    </button>
+  </div>
   <div class="service-catalog__panels">
     {services.map((service, index) => (
       <article
         class="service-catalog__panel"
         id={`${id}-panel-${index}`}
+        role="tabpanel"
+        aria-labelledby={`${id}-tab-${index}`}
+        data-catalog-panel
         hidden={index !== selected}
       >
         <h3 class="service-catalog__title">{service.title}</h3>
@@ -78,3 +115,11 @@ const selected = 0;
     ))}
   </div>
 </div>
+
+<script>
+  import { initServiceCatalog } from "@/scripts/service-catalog";
+
+  document
+    .querySelectorAll<HTMLElement>("[data-service-catalog]")
+    .forEach((catalog) => initServiceCatalog(catalog));
+</script>
