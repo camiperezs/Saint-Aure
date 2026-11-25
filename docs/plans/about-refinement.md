@@ -111,7 +111,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/about-refi
   - Un token semántico en los dos temas solo si D7 lo exige (más `scripts/check-contrast.ts`).
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`; catálogo y home a 375, 768 y 1280 px, ambos temas, presets elegant, modern y editorial; zoom 200 %; sin desborde horizontal.
 - **Modelo sugerido**: Opus (composición visual y contraste de la tarjeta en dos temas).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. La tarjeta fija sus colores con variables locales (`--badge-*`) sobre `--color-neutral-900/300` y `--color-brand-300`, sin token nuevo. Sin revisión visual en navegador todavía.
 
 ### Etapa 4: Jerarquía tipográfica y ritmo
 
@@ -144,4 +144,6 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/about-refi
 
 ## Retoques
 
-_Lista vacía._ Candidatos a revisar en el navegador: si dorado y champagne se ven iguales (D4), si el segundo contorno del marco suma (D6).
+- Revisar en navegador (375/768/1280, ambos temas, tres presets) la foto, el marco con anillo (D6) y la tarjeta de la etapa 3.
+
+Candidatos a revisar en el navegador: si dorado y champagne se ven iguales (D4), si el segundo contorno del marco suma (D6).
