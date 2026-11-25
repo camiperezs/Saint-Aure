@@ -35,7 +35,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/cta-badge.
 - **Archivos**: `src/content/page.ts` (mover el bloque `cta` justo después de `gallery`, actualizar descripción y logo), `src/assets/images/` o `public/` (logo si Camila lo trae), `docs/architecture/overview.md` (variantes de CallToAction: simple, split y badge; quitar highlight) y, si aplica, `README.md` y las skills `landing-*` que mencionen `highlight`. Revisar que los anchors (`#contact`, `#gallery`) y el orden de la página sigan coherentes.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run build`, `npm run test:e2e` (specs `conversions`, `accessibility` y `layout`); en el navegador, 375 y 1280 px en ambos temas y foco por teclado en el botón. Confirmar con grep que no queda ningún `highlight` de CTA.
 - **Modelo sugerido**: Sonnet (contenido y docs, sigue lo hecho en la etapa 1).
-- **Estado**: Pendiente.
+- **Estado**: Implementada.
 
 ## Retoques
 

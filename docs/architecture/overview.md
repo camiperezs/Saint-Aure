@@ -200,7 +200,7 @@ The Footer has Compact and Expanded variants. Detailed content contracts and exa
 
 **CallToAction**
 
-- Variants: Simple, Split and Highlight.
+- Variants: Simple, Split and Badge (dark translucent panel with a circular logo `image` above the title, forced `data-theme="dark"`).
 - Image is optional.
 - One primary action and one optional secondary action.
 - Supported action types: internal link, external link, WhatsApp, email and phone.
@@ -425,7 +425,7 @@ Shared states include:
 
 Component-specific states may include Loading, Error and Success, particularly for forms and asynchronous actions.
 
-Interaction state tokens live in `src/styles/tokens/interaction.css`. Hover uses `--color-state-hover: color-mix(in srgb, currentColor 8%, transparent)` and active uses `--color-state-active` at 14%; both depend on `currentColor` and work over any surface. Surfaces using `action-primary` colors (CTA Highlight panel, overlaid Header) redefine `--color-focus` with `--color-focus-on-primary` (derived from `--color-text-on-primary`) to maintain at least 3:1 contrast on those backgrounds.
+Interaction state tokens live in `src/styles/tokens/interaction.css`. Hover uses `--color-state-hover: color-mix(in srgb, currentColor 8%, transparent)` and active uses `--color-state-active` at 14%; both depend on `currentColor` and work over any surface. Surfaces using `action-primary` colors (CTA Badge panel, overlaid Header) redefine `--color-focus` with `--color-focus-on-primary` (derived from `--color-text-on-primary`) to maintain at least 3:1 contrast on those backgrounds.
 
 Transitions are configured through global design tokens in `src/styles/tokens/motion.css`. Durations: Fast 120ms, Normal 200ms, Slow 300ms, `--duration-reveal` 600ms (section entrances), `--duration-spin` 800ms (loading spinners). Easing curves: `--ease-out-strong`, `--ease-out-expo` and `--ease-in-out-strong` cover the majority of interface animations. Prefer performant properties such as `transform` and `opacity`; avoid delaying user actions or animating layout dimensions unnecessarily.
 

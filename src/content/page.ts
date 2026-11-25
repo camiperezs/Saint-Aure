@@ -275,6 +275,26 @@ export const page = {
       ],
     },
     {
+      type: "cta",
+      variant: "badge",
+      title: "¿Tenés algo en mente para tu cabello?",
+      description:
+        "Contame qué estás buscando y te asesoro sin compromiso para planificar tu próxima cita o evento especial.",
+      // Placeholder — confirmar con la clienta
+      image: {
+        src: "/placeholders/portrait.svg",
+        alt: "Saint Aure",
+        width: 120,
+        height: 120,
+      },
+      primaryAction: {
+        label: "Consultar por WhatsApp",
+        icon: "whatsapp",
+        iconPosition: "start",
+        whatsapp: { message: whatsappMessage },
+      },
+    },
+    {
       type: "stats",
       variant: "cards",
       eyebrow: "Saint Aure en números",
@@ -329,25 +349,6 @@ export const page = {
           rating: 5,
         },
       ],
-    },
-    {
-      type: "cta",
-      variant: "badge",
-      title: "¿Tenés algo en mente para tu cabello?",
-      description: "Contame qué estás buscando y te asesoro sin compromiso.",
-      // Placeholder — confirmar con la clienta
-      image: {
-        src: "/placeholders/portrait.svg",
-        alt: "Saint Aure",
-        width: 120,
-        height: 120,
-      },
-      primaryAction: {
-        label: "Consultar por WhatsApp",
-        icon: "whatsapp",
-        iconPosition: "start",
-        whatsapp: { message: whatsappMessage },
-      },
     },
     {
       type: "contact",

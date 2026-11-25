@@ -64,7 +64,7 @@ Para crear la landing de un cliente, seguí la guía [Crear una landing nueva](d
 | FAQ          | Accordion, Grid                         |
 | Location     | Map, Information                        |
 | Contact      | Split, Centered, Form                   |
-| CTA Banner   | Simple, Split, Highlight                |
+| CTA Banner   | Simple, Split, Badge                    |
 | Logos        | Row, Grid                               |
 | Stats        | Row, Cards                              |
 | Pricing      | Planes con plan destacado               |
