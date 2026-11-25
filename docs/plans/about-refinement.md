@@ -124,7 +124,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/about-refi
   - Token `--color-text-warm` solo si D4 lo exige.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`; home a 375, 768 y 1280 px, ambos temas, los tres presets: el título no se corta con guiones ni queda con una palabra suelta; Hero, Services y demás sin cambios visibles.
 - **Modelo sugerido**: Opus (jerarquía visual y contraste).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Título `calc(var(--text-heading) * 1.15)` en peso 300; etiqueta con `--color-accent-text` y tracking 0.14em; `em` cursiva en acento; descripción con `--color-text-secondary` (sin `--color-text-warm`); `Quote.css` sin cambios (`--text-title` ya queda bajo el título). Sin revisión visual en navegador todavía.
 
 ### Etapa 5: Revisión responsive, tests y cierre
 
@@ -145,5 +145,6 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/about-refi
 ## Retoques
 
 - Revisar en navegador (375/768/1280, ambos temas, tres presets) la foto, el marco con anillo (D6) y la tarjeta de la etapa 3.
+- Revisar en navegador la jerarquía de la etapa 4: tamaño del título (×1,15), marfil de la descripción en oscuro (hoy `--color-text-secondary`), ritmo entre grupos.
 
 Candidatos a revisar en el navegador: si dorado y champagne se ven iguales (D4), si el segundo contorno del marco suma (D6).

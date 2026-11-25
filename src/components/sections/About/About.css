@@ -9,7 +9,17 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-6);
+    gap: var(--space-5);
+  }
+
+  /* Ritmo por grupo: más aire tras el título y antes de la acción que
+     entre frase y descripción. */
+  .about__content > .section-title {
+    margin-block-end: var(--space-4);
+  }
+
+  .about__content > .about__description {
+    margin-block-end: var(--space-4);
   }
 
   .about--centered .about__content {
@@ -17,8 +27,10 @@
   }
 
   .about__description {
-    max-inline-size: 65ch;
+    max-inline-size: 62ch;
     margin: 0;
+    font-size: var(--text-body);
+    line-height: var(--text-body-line-height);
     color: var(--color-text-secondary);
     text-wrap: pretty;
   }

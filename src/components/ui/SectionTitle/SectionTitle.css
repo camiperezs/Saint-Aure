@@ -61,8 +61,24 @@
     border-block-start: 1px solid var(--section-title-line);
   }
 
+  .section-title--accent .section-title__eyebrow {
+    font-weight: var(--font-medium);
+    letter-spacing: 0.14em;
+    color: var(--color-accent-text);
+  }
+
+  /* Título protagonista: liviano y algo mayor que el heading base. */
   .section-title--accent .section-title__heading {
+    font-size: calc(var(--text-heading) * 1.15);
+    font-weight: 300;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  .section-title__em {
+    font-style: italic;
     font-weight: var(--font-regular);
+    color: var(--color-accent-text);
   }
 
   .section-title--accent .section-title__heading::after {
