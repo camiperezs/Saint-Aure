@@ -33,7 +33,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/orden-proy
 - **Archivos**: `src/components/sections/Hero/Hero.css`: los dos degradados de 6 paradas (`to right` / `to left`, líneas ~472 y ~492) pasan a una variable con la dirección; `font-size` de 11px, 12px y 18px (líneas ~323, 368, 411) pasan a `rem` o a tokens de tipografía; revisar el `font-family: var(--font-body)` forzado en el título `split` contra la regla del preset; duraciones literales de `animation` hacia los tokens de `motion.css` donde exista equivalente.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`. Catálogo, variantes `fullscreen`, `compact` y `split` (con `image-left`), 375 y 1280 px, claro y oscuro. Comprobar `prefers-reduced-motion`.
 - **Modelo sugerido**: Opus (tocar el hero con movimiento y tres variantes).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Los dos degradados pasan a uno solo con `--hero-fade-dir`; tamaños en `rem`/`--text-caption`; `600ms` de la foto y del CTA usan `--duration-reveal`. El escalonado de entrada (100 a 1200 ms) queda con valores propios del hero. `font-family: var(--font-body)` del título `split` se conserva (decisión de diseño: título sans, acento serif cursiva). Sin revisión visual en navegador (solo check, lint y format).
 
 ### Etapa 3: Literales restantes (íconos, glows, overlay)
 
