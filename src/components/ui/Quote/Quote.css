@@ -15,4 +15,28 @@
     color: var(--color-accent-text);
     text-wrap: pretty;
   }
+
+  /* Entrada ligada al scroll: mejora progresiva. Sin soporte o con
+     movimiento reducido la cita queda visible en su estado final. */
+  @keyframes quote-rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .quote {
+        animation: quote-rise var(--ease-linear) both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 45%;
+      }
+    }
+  }
 }

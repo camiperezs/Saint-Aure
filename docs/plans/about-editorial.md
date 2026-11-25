@@ -169,7 +169,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/about-edit
   - `src/components/ui/Quote/Quote.css`: la misma entrada, escalonada con `--duration-reveal`.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`; en el navegador: scroll con y sin reducción de movimiento (DevTools, Rendering), contraste aumentado, colores forzados de Windows; sin saltos de layout (CLS); `npm run build`.
 - **Modelo sugerido**: Opus (movimiento fino y modos de accesibilidad).
-- **Estado**: Pendiente.
+- **Estado**: Implementada (sin revisión visual en navegador: mirar scroll con y sin reducción de movimiento, contraste aumentado y colores forzados). Notas: la animación es scroll-driven (`animation-range`), así que el escalonado se resuelve con rangos distintos (cita `entry 0% 45%`, card `entry 10% 60%`) y no con `--duration-reveal`.
 
 ### Etapa 6: Tests, auditoría y cierre
 
