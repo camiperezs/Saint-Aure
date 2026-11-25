@@ -53,7 +53,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/especialid
 - **Archivos**: CSS de `ServiceCatalog`; nuevo spec en `tests/` (p. ej. `service-catalog.spec.ts`).
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`; catálogo a 375, 768 y 1280 px (dark/light): scroll horizontal con snap en mobile, panel visible justo debajo, sin overflow horizontal de página; `npm run build` y `npm run test:e2e` solo el spec nuevo más el de desborde/axe que ya exista.
 - **Modelo sugerido**: Opus (responsive fino) o Sonnet si la etapa 1 ya dejó el CSS mobile-first prolijo.
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Notas: CSS mobile-first (cards `max(40%, 9rem)`, flechas ocultas bajo 48rem; ≥ 48rem flechas y 3 cards; ≥ 64rem dos columnas). `tests/e2e/service-catalog.spec.ts` se saltea mientras la home no use `variant: "catalog"` (la ruta `/dev/components` solo existe en dev); se verificó cambiando temporalmente `page.ts` a catalog (42 tests OK) y revirtiéndolo. En la etapa 4 el spec corre de verdad: confirmar que pasa.
 
 ### Etapa 4: Contenido de Saint Aure (cliente)
 

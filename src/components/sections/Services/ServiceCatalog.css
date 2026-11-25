@@ -6,13 +6,17 @@
 
   .service-catalog__browser {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
     align-items: center;
     gap: var(--space-3);
   }
 
+  /* Mobile: se desliza con el dedo; las flechas aparecen desde tablet. */
   .service-catalog__arrow {
-    display: inline-grid;
+    display: none;
+  }
+
+  .service-catalog__arrow {
     place-items: center;
     inline-size: 2.75rem;
     block-size: 2.75rem;
@@ -40,8 +44,9 @@
     scroll-snap-type: x proximity;
     scrollbar-width: none;
     grid-auto-flow: column;
-    grid-auto-columns: minmax(11rem, 1fr);
-    gap: var(--space-4);
+    grid-auto-columns: max(40%, 9rem);
+    gap: var(--space-3);
+    scroll-padding-inline: 0;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -215,14 +220,25 @@
     border-radius: var(--preset-button-radius);
   }
 
-  @media (min-width: 64rem) {
-    .service-catalog {
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      align-items: start;
+  @media (min-width: 48rem) {
+    .service-catalog__browser {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+
+    .service-catalog__arrow {
+      display: inline-grid;
     }
 
     .service-catalog__cards {
       grid-auto-columns: calc((100% - 2 * var(--space-4)) / 3);
+      gap: var(--space-4);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .service-catalog {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      align-items: start;
     }
 
     .service-catalog__panels {
