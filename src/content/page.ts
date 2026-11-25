@@ -111,8 +111,10 @@ export const page = {
     {
       type: "about",
       variant: "split",
-      eyebrow: "El profesional — Tomas Mooney",
+      eyebrow: "Sobre el profesional",
       title: "Experiencia, dedicación y atención personalizada",
+      titleAccent: "atención personalizada",
+      quoteAuthor: "Tomas Mooney",
       quote:
         "Cada trabajo es único. Lo que más valoro es escuchar qué querés y acompañarte para que el resultado sea exactamente el que buscás.",
       description:

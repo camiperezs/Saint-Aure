@@ -12,7 +12,9 @@ interface AboutBase {
 export interface AboutStandard extends AboutBase {
   variant: "split" | "centered";
   image?: Image;
+  titleAccent?: string;
   quote?: string;
+  quoteAuthor?: string;
   badge?: { value: string; label?: string };
 }
 

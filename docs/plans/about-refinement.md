@@ -88,7 +88,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/about-refi
   - `src/dev/` (catálogo): una entrada de `SectionTitle` con `titleAccent`, si ya hay una de `accent`.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`; `npm run build`; en el HTML generado el `em` envuelve exactamente "atención personalizada" y el `figcaption` dice "Tomas Mooney".
 - **Modelo sugerido**: Sonnet (contrato chico y patrón ya existente).
-- **Estado**: Pendiente.
+- **Estado**: Implementada.
 
 ### Etapa 2: Ícono de WhatsApp y botón plano
 

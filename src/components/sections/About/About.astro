@@ -18,6 +18,10 @@ const isBackground = about.variant === "image-background";
 const position = isBackground ? (about.contentPosition ?? "start") : undefined;
 const centered = variant === "centered" || position === "center";
 const quote = about.variant === "image-background" ? undefined : about.quote;
+const titleAccent =
+  about.variant === "image-background" ? undefined : about.titleAccent;
+const quoteAuthor =
+  about.variant === "image-background" ? undefined : about.quoteAuthor;
 const titleId = `${id}-title`;
 ---
 
@@ -48,10 +52,11 @@ const titleId = `${id}-title`;
         id={titleId}
         eyebrow={eyebrow}
         title={title}
+        titleAccent={titleAccent}
         align={centered ? "center" : "start"}
         accent
       />
-      {quote && <Quote text={quote} author={eyebrow} />}
+      {quote && <Quote text={quote} author={quoteAuthor ?? eyebrow} />}
       <p class="about__description">{description}</p>
       {action && <ActionButton action={action} />}
     </div>

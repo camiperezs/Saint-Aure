@@ -4,6 +4,7 @@ import "./SectionTitle.css";
 interface Props {
   eyebrow?: string;
   title: string;
+  titleAccent?: string;
   description?: string;
   id?: string;
   level?: 1 | 2 | 3;
@@ -15,6 +16,7 @@ interface Props {
 const {
   eyebrow,
   title,
+  titleAccent,
   description,
   id,
   level = 2,
@@ -24,6 +26,15 @@ const {
 } = Astro.props;
 
 const Heading = `h${level}` as const;
+
+// Parte el título en tres tramos si la subcadena existe; si no, se ignora.
+const accentAt = titleAccent ? title.indexOf(titleAccent) : -1;
+const before = accentAt >= 0 ? title.slice(0, accentAt) : title;
+const emphasis = accentAt >= 0 ? titleAccent : undefined;
+const after =
+  accentAt >= 0 && titleAccent
+    ? title.slice(accentAt + titleAccent.length)
+    : "";
 ---
 
 <hgroup
@@ -36,7 +47,9 @@ const Heading = `h${level}` as const;
 >
   {eyebrow && <p class="section-title__eyebrow">{eyebrow}</p>}
   <Heading id={id} class="section-title__heading text-reflow">
-    {title}
+    {before}
+    {emphasis && <em class="section-title__em">{emphasis}</em>}
+    {after}
   </Heading>
   {description && <p class="section-title__description">{description}</p>}
 </hgroup>
