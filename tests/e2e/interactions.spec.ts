@@ -82,6 +82,8 @@ test("About WhatsApp link points to wa.me and opens safely", async ({
   await expect(link).toHaveAttribute("target", "_blank");
   await expect(link).toHaveAttribute("rel", /noopener/);
   await expect(link).toHaveAccessibleName(/.+/);
+  await expect(link).toHaveClass(/button--primary/);
+  await expect(link.locator("svg")).toHaveCount(1);
 });
 
 test("external WhatsApp links open safely in a new tab", async ({ page }) => {

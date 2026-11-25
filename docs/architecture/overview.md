@@ -89,7 +89,8 @@ The Footer has Compact and Expanded variants. Detailed content contracts and exa
 - Image is optional in every variant.
 - Eyebrow and CTA are optional.
 - Split supports image position and composition settings. The image is always shown on the left from 64rem, using CSS `order` only: the DOM keeps the content first, so reading and focus order do not change on mobile.
-- Standard variants accept an optional `quote`, rendered with `Quote`, and Split an optional `badge` (`value` and `label`, no icon) shown as an experience card overlapping the image.
+- Standard variants accept an optional `quote`, rendered with `Quote`, with an optional `quoteAuthor` for its (visually hidden) caption, and an optional `titleAccent`: an exact substring of `title` that `SectionTitle` wraps in `<em>` by string splitting (no HTML in content). Split accepts an optional `badge` (`value` and `label`, no icon) shown as a dark experience card inside the bottom-right corner of the image, with colours fixed locally in both themes.
+- The About CTA is a flat primary button with a WhatsApp icon (`src/icons/whatsapp.svg`); the metallic gradient and glow are disabled only inside `.about`.
 - The section is labelled by its heading (`aria-labelledby`). The entrance of the quote and the card is CSS only (`animation-timeline: view()`), disabled with `prefers-reduced-motion`.
 - Centered supports a constrained content width and optional image.
 - ImageBackground supports overlay, opacity, content position and image focal point.
