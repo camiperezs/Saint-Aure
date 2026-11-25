@@ -34,6 +34,7 @@
     var(--color-brand-200) 30%,
     transparent
   );
+  --color-scrim: color-mix(in srgb, black 80%, transparent);
   --shadow-glow: 0 0 1.25rem
     color-mix(in srgb, var(--color-brand-500) 40%, transparent);
 }

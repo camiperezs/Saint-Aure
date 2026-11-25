@@ -10,7 +10,7 @@
     inline-size: 3.5rem;
     block-size: 3.5rem;
 
-    font-size: 1.5rem;
+    font-size: var(--icon-size-lg);
     color: var(--color-text-on-primary);
     background-color: var(--color-action-primary);
     border-radius: var(--radius-pill);

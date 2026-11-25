@@ -42,7 +42,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/orden-proy
 - **Archivos**: token de tamaño de ícono en `src/styles/tokens/` y su uso en `CallToAction.css:84`, `Contact.css:34,67`, `Gallery.css:166`, `Embed.css:36`, `Icon.css:16`, `ThemeToggle.css:31`, `WhatsAppButton.css:13`, `FAQ.css:61`; `--shadow-glow` (o equivalente) compartido por `Button.css` y `Hero.css:380,392` (si la etapa 1 no lo dejó creado); `ServiceCatalog.css:83` usa un token de overlay oscuro de `overlay.css`; `About.css` y `Hero.css` unifican los `color-mix` repetidos con un token `--color-accent-soft` (si la etapa 1 lo creó, reutilizarlo).
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`. Catálogo a 375 y 1280 px, claro y oscuro, los tres presets; la variante `catalog` de Services con el overlay.
 - **Modelo sugerido**: Sonnet (sigue el patrón de tokens de las etapas 1 y 2).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Tokens nuevos: `--icon-size-sm/md/lg/xl/2xl` (`typography.css`) y `--color-scrim` (`surfaces.css`, usado por ServiceCatalog). El glow del hero `split` queda en el componente (depende de `--button-background`, no puede ser token de `:root`), solo pasó a `rem`. `FAQ.css:61` (`1.25em`, relativo al texto) y los `color-mix` de `About.css` (otros porcentajes y base `accent-text`) se dejaron como están. Sin revisión visual en navegador.
 
 ### Etapa 4: Logo preparado
 

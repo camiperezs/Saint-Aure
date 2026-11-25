@@ -13,7 +13,7 @@
   }
 
   .feature-icon {
-    font-size: 1.75rem;
+    font-size: var(--icon-size-xl);
     color: var(--color-action-primary);
   }
 }

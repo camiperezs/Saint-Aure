@@ -33,7 +33,7 @@
   .embed__placeholder {
     display: grid;
     place-items: center;
-    font-size: 3rem;
+    font-size: var(--icon-size-2xl);
     color: var(--color-border-strong);
   }
 
