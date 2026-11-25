@@ -160,7 +160,8 @@ export const page = {
       variant: "portfolio",
       eyebrow: "Portfolio",
       title: "El trabajo habla solo",
-      description: "Click en cualquier imagen para expandir en alta resolución editorial.",
+      description:
+        "Click en cualquier imagen para expandir en alta resolución editorial.",
       lightbox: true,
       images: [
         {
@@ -331,9 +332,10 @@ export const page = {
     },
     {
       type: "cta",
-      variant: "highlight",
+      variant: "badge",
       title: "¿Tenés algo en mente para tu cabello?",
       description: "Contame qué estás buscando y te asesoro sin compromiso.",
+      // Placeholder — confirmar con la clienta
       image: {
         src: "/placeholders/portrait.svg",
         alt: "Saint Aure",
@@ -342,6 +344,8 @@ export const page = {
       },
       primaryAction: {
         label: "Consultar por WhatsApp",
+        icon: "whatsapp",
+        iconPosition: "start",
         whatsapp: { message: whatsappMessage },
       },
     },

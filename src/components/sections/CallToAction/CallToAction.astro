@@ -24,12 +24,25 @@ const actions = secondaryAction
   ? [primaryAction, secondaryAction]
   : [primaryAction];
 const showImage = variant === "split" && image;
+const showBadge = variant === "badge" && image;
 ---
 
-<section id={id} class:list={["section", "cta", `cta--${variant}`]}>
+<section
+  id={id}
+  class:list={["section", "cta", `cta--${variant}`]}
+  data-theme={variant === "badge" ? "dark" : undefined}
+>
   <Container>
     <div class:list={["cta__panel", { "cta__panel--with-image": showImage }]}>
       <div class="cta__content">
+        {showBadge && (
+          <Media
+            image={image}
+            class="cta__badge"
+            sizes="6rem"
+            placeholder={false}
+          />
+        )}
         <SectionTitle
           eyebrow={eyebrow}
           title={title}

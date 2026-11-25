@@ -16,7 +16,7 @@
   }
 
   .cta--simple .cta__actions,
-  .cta--highlight .cta__actions {
+  .cta--badge .cta__actions {
     justify-content: center;
   }
 
@@ -26,43 +26,35 @@
     object-fit: cover;
   }
 
-  .cta--highlight .cta__panel {
-    --color-focus: var(--color-focus-on-primary);
-
-    color: var(--color-text-on-primary);
-    background-color: var(--color-action-primary);
-    border-color: transparent;
+  .cta--badge {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
   }
 
-  .cta--highlight .section-title__eyebrow,
-  .cta--highlight .section-title__description {
-    color: var(--color-text-on-primary);
+  .cta--badge .cta__panel {
+    justify-items: center;
+    padding: var(--space-fluid-md);
+    text-align: center;
+    background-color: color-mix(in srgb, var(--color-surface) 70%, transparent);
+    border-color: var(--color-border-default);
+    box-shadow: var(--shadow-default);
   }
 
-  .cta--highlight .button--primary,
-  .cta--highlight .button--secondary {
-    --button-color: var(--color-action-primary);
-    --button-background: var(--color-text-on-primary);
-    --button-background-hover: var(--color-text-on-primary);
-    --button-background-active: var(--color-text-on-primary);
+  .cta--badge .cta__content {
+    align-items: center;
+    max-inline-size: 40rem;
   }
 
-  .cta--highlight .button--outline,
-  .cta--highlight .button--ghost {
-    --button-color: var(--color-text-on-primary);
+  .cta--badge .cta__badge {
+    inline-size: 5rem;
+    block-size: 5rem;
+    object-fit: cover;
+    border: var(--border-width-default) solid var(--color-border-default);
+    border-radius: 50%;
   }
 
-  .cta--highlight .button--outline {
-    --button-border: var(--color-text-on-primary);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .cta--highlight
-      .button--primary:hover:not(:disabled, [aria-disabled="true"]),
-    .cta--highlight
-      .button--secondary:hover:not(:disabled, [aria-disabled="true"]) {
-      text-decoration: underline;
-    }
+  .cta--badge .button--primary {
+    border-radius: var(--radius-pill);
   }
 
   @media (min-width: 64rem) {

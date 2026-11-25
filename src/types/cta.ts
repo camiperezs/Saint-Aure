@@ -3,7 +3,7 @@ import type { Image } from "./image";
 
 export interface CTA {
   type: "cta";
-  variant: "simple" | "split" | "highlight";
+  variant: "simple" | "split" | "badge";
   eyebrow?: string;
   title: string;
   description?: string;

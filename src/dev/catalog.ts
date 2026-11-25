@@ -118,5 +118,5 @@ export const catalog: CatalogEntry[] = [
   ...variants("faq", ["accordion", "grid"]),
   ...variants("location", ["map", "information"]),
   ...variants("contact", ["split", "centered", "form"]),
-  ...variants("cta", ["simple", "split", "highlight"]),
+  ...variants("cta", ["simple", "split", "badge"]),
 ];

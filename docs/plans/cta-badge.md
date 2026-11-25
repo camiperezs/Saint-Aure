@@ -26,7 +26,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/cta-badge.
 - **Archivos**: `src/types/cta.ts`, `src/components/sections/CallToAction/CallToAction.astro`, `src/components/sections/CallToAction/CallToAction.css`, `src/dev/catalog.ts`, y `src/content/page.ts` solo para pasar el bloque `cta` existente a `variant: "badge"` y que la build no rompa.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`; catálogo `/dev/components` (`npm run dev`) a 375 y 1280 px, temas claro y oscuro, los tres presets; `npm run check:contrast` (texto dorado y botón sobre el panel oscuro).
 - **Modelo sugerido**: Opus (diseño visual y contrato nuevo).
-- **Estado**: Pendiente.
+- **Estado**: Implementada.
 
 ### Etapa 2: Ubicación, contenido, docs y tests
 
