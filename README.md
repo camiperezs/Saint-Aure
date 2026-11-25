@@ -13,7 +13,7 @@ Este repositorio es la landing de Saint Aure. `npm run check:launch` va a fallar
 - [ ] **Dirección**: calle, número y código postal (`business.address`, hoy solo "Rosario, Santa Fe" y `S2000`). Si atiende solo a domicilio, confirmarlo y dejar la ciudad.
 - [ ] **Dominio**: `url` en `site.ts` (hoy `https://saintaure.com.ar`, sin confirmar).
 - [ ] **Texto y foto de About**: la cita, la descripción, el nombre del profesional ("Tomas Mooney"), los "16+ años de experiencia" y la foto `about.webp` son provisorios. Confirmarlos con la clienta.
-- [ ] **Fotos**: hero (hoy `sample.webp`), los 5 servicios (hoy picsum.photos) y la galería (hoy `/placeholders/`). Van en `src/assets/images/`, con `alt` descriptivo.
+- [ ] **Fotos**: hero (hoy `sample.webp`), la galería (hoy `/placeholders/`). Van en `src/assets/images/`, con `alt` descriptivo.
 - [ ] **Testimonios reales**: reemplazar los 3 "Clienta de ejemplo", con permiso de cada clienta.
 - [ ] **Logo**: SVG cuadrado para `public/favicon.svg`.
 - [ ] **Textos legales**: `privacy.md` y `terms.md` tienen los datos de Saint Aure, pero no los revisó un profesional. Hacerlos revisar antes de publicar.
@@ -56,7 +56,7 @@ Para crear la landing de un cliente, seguí la guía [Crear una landing nueva](d
 | ------------ | --------------------------------------- |
 | Hero         | FullScreen, Compact, Split              |
 | About        | Split, Centered, ImageBackground        |
-| Services     | Grid, List, Featured                    |
+| Services     | Grid, List, Featured, Catalog           |
 | Benefits     | Grid, Horizontal                        |
 | Process      | Steps, Timeline                         |
 | Testimonials | Cards, Carousel                         |

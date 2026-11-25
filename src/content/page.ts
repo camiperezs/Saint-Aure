@@ -4,27 +4,31 @@ import type { Service } from "@/types/services";
 import hero from "@/assets/images/hero.webp";
 import about from "@/assets/images/about.webp";
 
-// Placeholders hasta recibir las fotos reales (D9).
 const whatsappMessage = "Hola, quiero consultar un turno.";
 
-const serviceImage = (alt: string) => ({
+const serviceImage = (
+  src: string,
+  alt: string,
+  width: number,
+  height: number,
+) => ({
   type: "image" as const,
-  image: {
-    src: "/placeholders/landscape.svg",
-    alt,
-    width: 800,
-    height: 600,
-  },
+  image: { src, alt, width, height },
 });
+
+const price = { type: "quote" as const, label: "Presupuesto a medida" };
 
 const services: Service[] = [
   {
     title: "Peinados para novias",
-    label: "Novia & Celebración",
     description:
       "Prueba previa, peinado el día del casamiento y acompañamiento para que el look dure toda la noche.",
-    visual: serviceImage("Novia con peinado recogido y detalles de flores"),
-    featured: true,
+    visual: serviceImage(
+      "/works/novia/novia.webp",
+      "Novia con peinado recogido y detalles de flores",
+      1134,
+      728,
+    ),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
     // Placeholder — confirmar con la clienta antes del deploy
     specs: [
@@ -35,43 +39,65 @@ const services: Service[] = [
         value: "Presencial o a domicilio",
       },
     ],
-    availabilityBadges: ["Agenda Novias Abierta", "Atención Privada"],
+    price,
   },
   {
     title: "Balayage",
-    label: "Iluminación a Mano",
     description:
       "Iluminación a mano alzada que se funde con tu color natural y crece sin marcas.",
-    visual: serviceImage("Melena con balayage rubio miel"),
+    visual: serviceImage(
+      "/works/balayge/balayage-02.webp",
+      "Melena con balayage rubio miel",
+      1284,
+      1585,
+    ),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
+    price,
     footnote: "Diagnóstico previo incluido", // Placeholder — confirmar con la clienta
   },
   {
     title: "Peinados para eventos",
-    label: "Gala & Celebraciones",
     description:
       "Recogidos, semirrecogidos y ondas para fiestas, egresos y celebraciones.",
-    visual: serviceImage("Peinado semirrecogido de fiesta"),
+    visual: serviceImage(
+      "/works/peinado.webp",
+      "Peinado semirrecogido de fiesta",
+      1279,
+      1600,
+    ),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
-    footnote: "Duración: 60–90 min", // Placeholder — confirmar con la clienta
+    price,
+    // Placeholder — confirmar con la clienta
+    specs: [{ icon: "clock", label: "Duración", value: "60–90 min" }],
   },
   {
     title: "Colorimetría",
-    label: "Color & Diagnóstico",
     description:
       "Diagnóstico del tono ideal para tu piel y coloración pareja de raíz a puntas.",
-    visual: serviceImage("Coloración castaño profundo y brillante"),
+    visual: serviceImage(
+      "/works/corte/corte.webp",
+      "Coloración castaño profundo y brillante",
+      1281,
+      1600,
+    ),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
+    price,
     footnote: "Incluye diagnóstico de tono", // Placeholder — confirmar con la clienta
   },
   {
     title: "Alisados",
-    label: "Tratamiento Capilar",
     description:
       "Tratamientos de alisado que reducen el frizz y dejan el cabello dócil por meses.",
-    visual: serviceImage("Cabello largo, lacio y con brillo"),
+    visual: serviceImage(
+      "/works/corte/corte-02.webp",
+      "Cabello largo, lacio y con brillo",
+      1284,
+      1590,
+    ),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
-    footnote: "Duración: 2–4 hs según largo", // Placeholder — confirmar con la clienta
+    price,
+    // Placeholder — confirmar con la clienta
+    specs: [{ icon: "clock", label: "Duración", value: "2–4 hs según largo" }],
   },
 ];
 
@@ -133,11 +159,9 @@ export const page = {
     },
     {
       type: "services",
-      variant: "featured",
-      eyebrow: "Servicios",
+      variant: "catalog",
+      eyebrow: "Colección de servicios",
       title: "Especialidades",
-      description:
-        "Cada servicio se adapta a tu cabello y a la ocasión. Consultá para recibir un presupuesto a medida.",
       services,
     },
     {
