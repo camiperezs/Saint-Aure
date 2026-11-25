@@ -42,12 +42,9 @@ const selected = 0;
             <Media
               image={service.visual.image}
               class="service-catalog__image"
-              sizes="(min-width: 64rem) 12vw, 20vw"
+              sizes="(min-width: 64rem) 14vw, 22vw"
             />
           )}
-          <span class="service-catalog__index" aria-hidden="true">
-            {String(index + 1).padStart(2, "0")}
-          </span>
           <span class="service-catalog__name">{service.title}</span>
         </button>
       </li>
@@ -70,7 +67,6 @@ const selected = 0;
     >
       <Icon name="arrow-right" />
     </button>
-    <span class="service-catalog__rule" aria-hidden="true"></span>
   </div>
   <div class="service-catalog__panels">
     {services.map((service, index) => (

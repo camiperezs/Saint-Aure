@@ -31,7 +31,7 @@
     cursor: pointer;
     text-align: start;
     font: inherit;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 2 / 3;
     border: var(--border-width-subtle, 1px) solid var(--color-border-subtle);
     border-radius: var(--radius-md);
     background: var(--color-surface-sunken);
@@ -45,58 +45,25 @@
     border-color: var(--color-border-strong);
   }
 
-  /* Marco interior fino: la tarjeta elegida queda "enmarcada". */
-  .service-catalog__card::after {
-    content: "";
-    position: absolute;
-    inset: var(--space-2);
-    border: 1px solid var(--color-accent-text);
-    border-radius: calc(var(--radius-md) - 2px);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 300ms ease;
-  }
-
-  .service-catalog__card[aria-selected="true"] {
-    border-color: var(--color-accent-text);
-    background: var(--color-surface-raised);
-  }
-
-  .service-catalog__card[aria-selected="true"]::after {
-    opacity: 0.7;
-  }
-
   .service-catalog__image {
     position: absolute;
     inset: 0;
     inline-size: 100%;
     block-size: 100%;
     object-fit: cover;
-    filter: grayscale(0.35) brightness(0.72);
+    filter: brightness(0.8);
     transition:
       filter 400ms ease,
       transform 700ms ease;
   }
 
   .service-catalog__card:hover .service-catalog__image {
-    filter: grayscale(0.1) brightness(0.9);
+    filter: brightness(0.95);
     transform: scale(1.04);
   }
 
   .service-catalog__card[aria-selected="true"] .service-catalog__image {
-    filter: none;
-  }
-
-  .service-catalog__index {
-    position: absolute;
-    inset-block-start: var(--space-3);
-    inset-inline-start: var(--space-3);
-    z-index: 1;
-    font-family: var(--font-heading);
-    font-size: var(--text-small);
-    letter-spacing: 0.12em;
-    color: var(--color-text-on-overlay);
-    text-shadow: 0 1px 6px color-mix(in srgb, black 60%, transparent);
+    filter: brightness(1.02);
   }
 
   /* Velo solo detrás del nombre, para que se lea sobre cualquier foto. */
@@ -105,38 +72,24 @@
     inset-inline: 0;
     inset-block-end: 0;
     z-index: 1;
-    padding: var(--space-8) var(--space-4) var(--space-4);
+    padding: var(--space-8) var(--space-3) var(--space-3);
     background: linear-gradient(
       to top,
       color-mix(in srgb, black 80%, transparent),
       transparent
     );
     font-family: var(--font-heading);
-    font-size: var(--text-body);
-    line-height: 1.2;
+    font-size: var(--text-small);
+    line-height: 1.25;
     color: var(--color-text-on-overlay);
     text-wrap: balance;
-  }
-
-  .service-catalog__name::before {
-    content: "";
-    display: block;
-    inline-size: 1.5rem;
-    block-size: 1px;
-    margin-block-end: var(--space-2);
-    background: var(--color-accent-text);
-  }
-
-  /* Mobile: miniaturas; el nombre vive en el panel. */
-  .service-catalog__name,
-  .service-catalog__index {
-    display: none;
   }
 
   /* Controles compactos sobre una línea fina. */
   .service-catalog__controls {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-2);
   }
 
@@ -164,52 +117,38 @@
     border-color: var(--color-accent-text);
   }
 
-  .service-catalog__rule {
-    flex: 1;
-    block-size: 1px;
-    margin-inline-start: var(--space-2);
-    background: var(--color-border-subtle);
+  /* Todos los paneles comparten la misma celda: el alto lo marca el más
+     largo y no cambia al seleccionar otra especialidad. */
+  .service-catalog__panels {
+    display: grid;
   }
 
   .service-catalog__panel {
-    position: relative;
-    display: grid;
-    gap: var(--space-5);
-    padding: var(--space-fluid-md);
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-md);
-    animation: service-catalog-fade 250ms ease;
-  }
-
-  .service-catalog__panel::before {
-    content: "";
-    position: absolute;
-    inset-block-start: -1px;
-    inset-inline-start: var(--space-fluid-md);
-    inline-size: 4rem;
-    block-size: 2px;
-    background: var(--color-accent-text);
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    opacity: 1;
+    transition:
+      opacity 200ms ease,
+      visibility 0s;
   }
 
   .service-catalog__panel[hidden] {
-    display: none;
-  }
-
-  @keyframes service-catalog-fade {
-    from {
-      opacity: 0;
-    }
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 200ms ease,
+      visibility 0s 200ms;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .service-catalog__panel {
-      animation: none;
-    }
-
+    .service-catalog__panel,
+    .service-catalog__panel[hidden],
     .service-catalog__card,
-    .service-catalog__image,
-    .service-catalog__card::after {
+    .service-catalog__image {
       transition: none;
     }
 
@@ -218,83 +157,97 @@
     }
   }
 
-  .service-catalog__intro,
-  .service-catalog__meta {
+  .service-catalog__intro {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-5);
+    gap: var(--space-3);
   }
 
   .service-catalog__title {
     margin: 0;
+    min-block-size: 2.4em; /* reserva dos líneas */
     font-family: var(--font-heading);
-    font-size: var(--text-heading);
-    font-weight: var(--text-heading-weight);
-    line-height: var(--text-heading-line-height);
+    font-size: var(--text-title);
+    font-weight: var(--font-regular);
+    line-height: 1.2;
     letter-spacing: var(--text-heading-tracking);
     text-wrap: balance;
   }
 
   .service-catalog__description {
-    max-inline-size: 52ch;
+    max-inline-size: 46ch;
+    min-block-size: calc(var(--catalog-desc-lines, 3) * 1.65em);
     margin: 0;
-    font-size: var(--text-body);
-    line-height: var(--text-body-line-height);
+    font-size: var(--text-small);
+    line-height: 1.65;
     color: var(--color-text-secondary);
     text-wrap: pretty;
   }
 
-  .service-catalog__specs {
+  /* Filas fijas: lo opcional (specs, nota) no mueve el resto. */
+  .service-catalog__meta {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    gap: var(--space-4) var(--space-6);
-    inline-size: 100%;
+    grid-template-rows: 2.75rem 1.25rem auto auto;
+    row-gap: var(--space-3);
+    margin-block-start: auto;
+  }
+
+  .service-catalog__specs {
+    grid-row: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
     margin: 0;
   }
 
   .service-catalog__spec {
     display: grid;
     grid-template-columns: auto 1fr;
-    column-gap: var(--space-3);
+    column-gap: var(--space-2);
     align-items: start;
   }
 
   .service-catalog__spec-icon {
     grid-row: span 2;
-    inline-size: 1.25rem;
-    block-size: 1.25rem;
-    margin-block-start: 0.15rem;
+    inline-size: 1rem;
+    block-size: 1rem;
+    margin-block-start: 0.1rem;
     color: var(--color-accent-text);
   }
 
   .service-catalog__spec-label {
-    font-size: var(--text-small);
+    font-size: var(--text-caption);
     color: var(--color-text-secondary);
   }
 
   .service-catalog__spec-value {
     margin: 0;
-    font-size: var(--text-body);
+    font-size: var(--text-small);
     font-weight: var(--font-medium);
     color: var(--color-text-primary);
   }
 
   .service-catalog__note {
+    grid-row: 2;
     margin: 0;
-    font-size: var(--text-small);
+    font-size: var(--text-caption);
     color: var(--color-text-secondary);
   }
 
   .service-catalog__price {
-    inline-size: 100%;
+    grid-row: 3;
     margin: 0;
-    padding-block-start: var(--space-4);
+    padding-block-start: var(--space-3);
     border-block-start: 1px solid var(--color-border-subtle);
-    font-size: var(--text-small);
+    font-size: var(--text-caption);
     letter-spacing: var(--eyebrow-tracking);
     text-transform: uppercase;
     color: var(--color-accent-text);
+  }
+
+  .service-catalog__action {
+    grid-row: 4;
+    justify-self: start;
   }
 
   /* Botón liso, igual que el de About. */
@@ -304,14 +257,35 @@
     border-radius: var(--preset-button-radius);
   }
 
+  /* Mobile: panel primero, cards en carrusel horizontal con snap. */
+  .service-catalog__cards {
+    grid-auto-columns: max(36%, 8.5rem);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .service-catalog__cards > li {
+    scroll-snap-align: start;
+  }
+
+  .service-catalog__panels {
+    order: -1;
+  }
+
   @media (min-width: 48rem) {
     .service-catalog__cards {
-      gap: var(--space-4);
+      grid-auto-columns: minmax(0, 1fr);
+      overflow: visible;
+      gap: var(--space-3);
     }
 
-    .service-catalog__name,
-    .service-catalog__index {
-      display: block;
+    .service-catalog__card {
+      aspect-ratio: 5 / 8;
+    }
+
+    .service-catalog__panels {
+      order: 0;
     }
 
     .service-catalog__arrow {
@@ -320,35 +294,41 @@
     }
   }
 
-  /* Desktop: cards a la izquierda (las 5 juntas), panel más angosto a la derecha. */
+  /* Desktop: flecha, 5 cards, flecha; panel angosto a la derecha con hairline. */
   @media (min-width: 64rem) {
     .service-catalog {
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-      grid-template-rows: 1fr 1fr;
-      grid-template-areas:
-        "cards panel"
-        "controls panel";
-      gap: var(--space-5) var(--space-fluid-md);
+      grid-template-columns: auto minmax(0, 1fr) auto minmax(17rem, 0.55fr);
+      grid-template-areas: "prev cards next panel";
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .service-catalog__controls {
+      display: contents;
+    }
+
+    .service-catalog__arrow[data-catalog-prev] {
+      grid-area: prev;
+    }
+
+    .service-catalog__arrow[data-catalog-next] {
+      grid-area: next;
     }
 
     .service-catalog__cards {
       grid-area: cards;
-      align-self: end;
-    }
-
-    .service-catalog__controls {
-      grid-area: controls;
-      align-self: start;
     }
 
     .service-catalog__panels {
       grid-area: panel;
-      align-self: center;
+      align-self: stretch;
+      margin-inline-start: var(--space-4);
+      padding-inline-start: var(--space-6);
+      border-inline-start: 1px solid var(--color-border-subtle);
     }
 
-    .service-catalog__name {
-      padding-inline: var(--space-3);
-      font-size: var(--text-small);
+    .service-catalog__panel {
+      justify-content: center;
     }
   }
 }

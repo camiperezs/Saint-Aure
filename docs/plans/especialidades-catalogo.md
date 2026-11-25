@@ -70,6 +70,8 @@ _Lista vacía._
 
 Retoque aplicado (2.º pedido de Camila): desktop vuelve a dos columnas (cards ~2/3 a la izquierda, las 5 visibles; panel ~1/3 a la derecha, una columna), cards sin elevación para que midan lo mismo, y fotos recortadas a 4:5 con el pelo del mismo tamaño en `public/works/catalog/` (originales intactos; `page.ts` apunta a los recortes). Reemplaza lo de "dos columnas en el panel" del retoque anterior.
 
+Retoque aplicado (3.er pedido, referencia: mockup opción 1): cards 5/8 (2/3 en mobile) solo con foto y nombre (sin número ni línea), foto menos oscurecida, seleccionada solo con borde champagne; flechas a los costados de las cards en desktop (debajo, compactas, en mobile; sin línea); panel sin caja, separado por hairline, con título `--text-title` y texto pequeño; todos los paneles comparten celda de grilla (`visibility`/opacidad en vez de `display:none`) y filas fijas para specs/nota, así el alto y el CTA no cambian entre servicios (test e2e nuevo); en mobile el panel va primero y las cards en carrusel con snap (la elegida se centra). Reemplaza lo de D5/D10 en lo visual.
+
 ## Cierre del plan
 
 Al terminar la última etapa: llevar a `docs/architecture/overview.md` el contrato de `catalog` (campos usados de `Service`, roles ARIA, script), actualizar la tabla del README, borrar este plan y commitear `docs: close especialidades-catalogo plan`.

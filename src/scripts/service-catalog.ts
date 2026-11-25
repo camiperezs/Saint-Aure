@@ -32,8 +32,19 @@ export function initServiceCatalog(root: HTMLElement): void {
       panel.hidden = i !== current;
     });
 
+    // En mobile las cards se desplazan: la elegida queda siempre a la vista.
+    const track = tabs[current].closest<HTMLElement>("[data-catalog-track]");
+    if (track && track.scrollWidth > track.clientWidth) {
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const card = tabs[current].parentElement as HTMLElement;
+      track.scrollTo({
+        left: card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2,
+        behavior: reduce ? "auto" : "smooth",
+      });
+    }
+
     if (focus) {
-      tabs[current].focus();
+      tabs[current].focus({ preventScroll: true });
     }
   };
 

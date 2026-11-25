@@ -111,7 +111,7 @@ for (const width of [320, 375, 768, 1024, 1440]) {
   });
 }
 
-test("on mobile the panel sits right below the cards", async ({
+test("on mobile the panel comes first, close to the cards", async ({
   page,
   isMobile,
 }) => {
@@ -121,5 +121,28 @@ test("on mobile the panel sits right below the cards", async ({
     .locator("[data-catalog-panel]:not([hidden])")
     .boundingBox();
 
-  expect(track && panel && panel.y - (track.y + track.height)).toBeLessThan(96);
+  expect(track && panel && track.y - (panel.y + panel.height)).toBeLessThan(96);
+  expect(track && panel && panel.y).toBeLessThan(track?.y ?? 0);
+});
+
+test("the panel keeps the same size and CTA position for every service", async ({
+  page,
+}) => {
+  const tabs = page.locator("[data-catalog-tab]");
+  const seen = new Set<string>();
+
+  for (let i = 0; i < (await tabs.count()); i++) {
+    await tabs.nth(i).click();
+    const panel = page.locator("[data-catalog-panel]:not([hidden])");
+    const box = await panel.boundingBox();
+    const cta = await panel.locator(".button").boundingBox();
+
+    seen.add(
+      [box?.height, box?.width, cta && cta.y - (box?.y ?? 0)]
+        .map((n) => Math.round(n ?? 0))
+        .join("/"),
+    );
+  }
+
+  expect(seen.size).toBe(1);
 });
