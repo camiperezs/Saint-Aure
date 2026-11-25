@@ -144,7 +144,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/about-edit
   - `tests/e2e/interactions.spec.ts` o spec nuevo: el link de WhatsApp tiene `target="_blank"` y `rel` con `noopener`.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`; `npm run check:contrast`; catálogo a 375 y 1280 px en ambos temas; foco por teclado visible sobre el link; `npm run build` y el spec modificado.
 - **Modelo sugerido**: Sonnet (sigue el patrón de las variantes existentes).
-- **Estado**: Pendiente.
+- **Estado**: Implementada (sin revisión visual en navegador: mirar el catálogo al cerrar la etapa 4).
 
 ### Etapa 4: Composición de About y contenido
 

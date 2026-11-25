@@ -21,6 +21,11 @@ const resolved = resolveAction(action);
   target={resolved.target}
   rel={resolved.rel}
 >
-  {resolved.icon && <Icon name={resolved.icon} />}
+  {resolved.icon && resolved.iconPosition !== "end" && (
+    <Icon name={resolved.icon} />
+  )}
   {resolved.label}
+  {resolved.icon && resolved.iconPosition === "end" && (
+    <Icon class="button__icon-end" name={resolved.icon} />
+  )}
 </Button>

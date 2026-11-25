@@ -78,6 +78,35 @@
     --button-border: transparent;
   }
 
+  .button--link {
+    --button-color: var(--color-text-primary);
+    --button-background: transparent;
+    --button-background-hover: transparent;
+    --button-background-active: transparent;
+    --button-border: transparent;
+
+    padding-inline: 0;
+    text-transform: uppercase;
+    letter-spacing: var(--eyebrow-tracking);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .button--link:hover:not(:disabled, [aria-disabled="true"]) {
+      color: var(--color-accent-text);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .button__icon-end {
+      transition: transform var(--duration-fast) var(--ease-out-strong);
+    }
+
+    .button:hover .button__icon-end,
+    .button:focus-visible .button__icon-end {
+      transform: translateX(0.125rem);
+    }
+  }
+
   /* Metallic gradient sheen — dark mode only (action-primary is light gold there) */
   [data-theme="dark"] .button--primary {
     background-image: linear-gradient(

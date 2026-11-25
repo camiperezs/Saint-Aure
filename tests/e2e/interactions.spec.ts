@@ -72,3 +72,15 @@ test("embeds load only after an explicit request", async ({ page }) => {
     await expect(embed.locator("iframe")).toHaveAttribute("title", /.+/);
   }
 });
+
+test("external WhatsApp links open safely in a new tab", async ({ page }) => {
+  const links = page.locator('main a[href^="https://wa.me/"]');
+  const count = await links.count();
+  test.skip(count === 0, "No WhatsApp links on this page");
+
+  for (let index = 0; index < count; index++) {
+    const link = links.nth(index);
+    await expect(link).toHaveAttribute("target", "_blank");
+    await expect(link).toHaveAttribute("rel", /noopener/);
+  }
+});

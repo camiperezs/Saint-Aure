@@ -1,4 +1,9 @@
-import type { Action, ActionVariant, LinkAction } from "@/types/action";
+import type {
+  Action,
+  ActionIconPosition,
+  ActionVariant,
+  LinkAction,
+} from "@/types/action";
 import type { IconName } from "@/icons";
 import { getWhatsAppUrl } from "./whatsapp";
 
@@ -9,6 +14,7 @@ export interface ResolvedAction {
   target?: LinkAction["target"];
   rel?: string;
   icon?: IconName;
+  iconPosition?: ActionIconPosition;
 }
 
 export function resolveAction(action: Action): ResolvedAction {
@@ -19,6 +25,7 @@ export function resolveAction(action: Action): ResolvedAction {
       variant: action.variant,
       target: "_blank",
       icon: action.icon ?? "message",
+      iconPosition: action.iconPosition,
     };
   }
 

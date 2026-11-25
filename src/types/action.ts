@@ -1,11 +1,15 @@
 import type { IconName } from "@/icons";
 
-export type ActionVariant = "primary" | "secondary" | "outline" | "ghost";
+export type ActionVariant =
+  "primary" | "secondary" | "outline" | "ghost" | "link";
+
+export type ActionIconPosition = "start" | "end";
 
 interface ActionBase {
   label: string;
   variant?: ActionVariant;
   icon?: IconName;
+  iconPosition?: ActionIconPosition;
 }
 
 export interface LinkAction extends ActionBase {

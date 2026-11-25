@@ -10,7 +10,13 @@ import Icon from "@/components/ui/Icon/Icon.astro";
 import Quote from "@/components/ui/Quote/Quote.astro";
 import SectionTitle from "@/components/ui/SectionTitle/SectionTitle.astro";
 
-const variants: ActionVariant[] = ["primary", "secondary", "outline", "ghost"];
+const variants: ActionVariant[] = [
+  "primary",
+  "secondary",
+  "outline",
+  "ghost",
+  "link",
+];
 const tones = [
   "neutral",
   "primary",
@@ -30,6 +36,13 @@ const whatsappActions: Action[] = [
     whatsapp: { message: "Hola, quiero pedir un presupuesto." },
   },
   { label: "Llamar", href: "tel:+5491100000000", icon: "phone" },
+  {
+    label: "Escribir por WhatsApp",
+    whatsapp: { message: "Hola, quiero pedir un turno." },
+    variant: "link",
+    icon: "arrow-right",
+    iconPosition: "end",
+  },
 ];
 ---
 
