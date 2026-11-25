@@ -6,6 +6,11 @@
     min-block-size: 100svh;
   }
 
+  /* Sin tope de ancho: la sección usa todo el ancho de la página. */
+  .services--catalog .section-shell {
+    max-width: none;
+  }
+
   .service-catalog {
     display: grid;
     gap: var(--space-5);
