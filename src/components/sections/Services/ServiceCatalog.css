@@ -1,0 +1,167 @@
+@layer components {
+  .service-catalog {
+    display: grid;
+    gap: var(--space-fluid-md);
+  }
+
+  .service-catalog__cards {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(11rem, 1fr);
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .service-catalog__card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    border: var(--border-width-subtle, 1px) solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-sunken);
+  }
+
+  .service-catalog__card[data-selected="true"] {
+    border-color: var(--color-accent-text);
+    background: var(--color-surface-raised);
+  }
+
+  .service-catalog__image {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+  }
+
+  .service-catalog__card[data-selected="true"] .service-catalog__image {
+    opacity: 1;
+  }
+
+  /* Velo mínimo solo detrás del nombre, para que se lea sobre cualquier foto. */
+  .service-catalog__name {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    padding: var(--space-8) var(--space-3) var(--space-3);
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, black 72%, transparent),
+      transparent
+    );
+    font-family: var(--font-heading);
+    font-size: var(--text-body);
+    line-height: 1.2;
+    color: var(--color-text-on-overlay);
+  }
+
+  .service-catalog__panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+  }
+
+  .service-catalog__panel[hidden] {
+    display: none;
+  }
+
+  .service-catalog__title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--text-heading);
+    font-weight: var(--text-heading-weight);
+    line-height: var(--text-heading-line-height);
+    letter-spacing: var(--text-heading-tracking);
+    text-wrap: balance;
+  }
+
+  .service-catalog__description {
+    max-inline-size: 52ch;
+    margin: 0;
+    font-size: var(--text-body);
+    line-height: var(--text-body-line-height);
+    color: var(--color-text-secondary);
+    text-wrap: pretty;
+  }
+
+  .service-catalog__specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: var(--space-4) var(--space-6);
+    inline-size: 100%;
+    margin: 0;
+  }
+
+  .service-catalog__spec {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--space-3);
+    align-items: start;
+  }
+
+  .service-catalog__spec-icon {
+    grid-row: span 2;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    margin-block-start: 0.15rem;
+    color: var(--color-accent-text);
+  }
+
+  .service-catalog__spec-label {
+    font-size: var(--text-small);
+    color: var(--color-text-secondary);
+  }
+
+  .service-catalog__spec-value {
+    margin: 0;
+    font-size: var(--text-body);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+  }
+
+  .service-catalog__note {
+    margin: 0;
+    font-size: var(--text-small);
+    color: var(--color-text-secondary);
+  }
+
+  .service-catalog__price {
+    inline-size: 100%;
+    margin: 0;
+    padding-block-start: var(--space-4);
+    border-block-start: 1px solid var(--color-border-subtle);
+    font-size: var(--text-small);
+    letter-spacing: var(--eyebrow-tracking);
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+  }
+
+  /* Botón liso, igual que el de About. */
+  .service-catalog .button--primary,
+  [data-theme="dark"] .service-catalog .button--primary {
+    background-image: none;
+    border-radius: var(--preset-button-radius);
+  }
+
+  @media (min-width: 64rem) {
+    .service-catalog {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      align-items: start;
+    }
+
+    .service-catalog__cards {
+      overflow-x: auto;
+      grid-auto-columns: calc((100% - 2 * var(--space-4)) / 3);
+    }
+
+    .service-catalog__panels {
+      padding-inline-start: var(--space-fluid-md);
+      border-inline-start: 1px solid var(--color-border-subtle);
+    }
+  }
+}

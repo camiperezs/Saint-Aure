@@ -25,6 +25,62 @@ function variants(type: Section["type"], names: string[]): CatalogEntry[] {
   }));
 }
 
+// La variante catalog muestra los datos del contrato D2: duración y
+// modalidad en specs y presupuesto a medida. Se arma aquí para no tocar page.ts.
+function catalogServices(): CatalogEntry[] {
+  const [base] = sectionsOf("services");
+
+  if (base?.type !== "services") {
+    return [];
+  }
+
+  const specs = [
+    { icon: "clock" as const, label: "Duración", value: "2–3 hs" },
+    {
+      icon: "map-pin" as const,
+      label: "Modalidad",
+      value: "Presencial o a domicilio",
+    },
+  ];
+  const quote = { type: "quote" as const, label: "Presupuesto a medida" };
+  const services = base.services.map((service, index) => {
+    const isDuration = service.footnote?.startsWith("Duración: ");
+    const duration = isDuration
+      ? service.footnote?.replace("Duración: ", "")
+      : undefined;
+
+    return {
+      title: service.title,
+      description: service.description,
+      visual: service.visual,
+      price: quote,
+      footnote: isDuration ? undefined : service.footnote,
+      // El cuarto servicio queda sin specs y el segundo con una sola.
+      specs:
+        index === 3
+          ? undefined
+          : [
+              { ...specs[0], value: duration ?? specs[0].value },
+              ...(index === 1 ? [] : [specs[1]]),
+            ],
+    };
+  });
+
+  return [
+    {
+      label: "services · catalog",
+      section: {
+        ...base,
+        variant: "catalog",
+        eyebrow: "Colección de servicios",
+        description: undefined,
+        action: undefined,
+        services,
+      },
+    },
+  ];
+}
+
 function heroes(): CatalogEntry[] {
   const hero = page.hero;
 
@@ -51,6 +107,7 @@ export const catalog: CatalogEntry[] = [
   ...variants("about", ["centered"]),
   ...variants("logos", ["row", "grid"]),
   ...variants("services", ["grid", "list", "featured"]),
+  ...catalogServices(),
   ...variants("stats", ["row", "cards"]),
   ...sectionsOf("pricing").map((section) => ({ label: "pricing", section })),
   ...variants("benefits", ["grid", "horizontal"]),

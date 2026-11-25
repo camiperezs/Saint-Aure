@@ -59,7 +59,7 @@ export interface ServiceLabels {
 
 export interface Services {
   type: "services";
-  variant: "grid" | "list" | "featured";
+  variant: "grid" | "list" | "featured" | "catalog";
   title: string;
   eyebrow?: string;
   description?: string;

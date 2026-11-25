@@ -2,6 +2,7 @@
 import type { ServiceLabels, Services } from "@/types/services";
 import SectionShell from "../SectionShell.astro";
 import ServiceCard from "./ServiceCard.astro";
+import ServiceCatalog from "./ServiceCatalog.astro";
 import "./Services.css";
 
 type Props = Services & {
@@ -30,17 +31,36 @@ const items =
     : services;
 ---
 
-<SectionShell
-  id={id}
-  class={`services services--${variant}`}
-  eyebrow={eyebrow}
-  title={title}
-  description={description}
-  action={action}
->
-  <ul class:list={["services__items", { "grid grid--3": variant !== "list" }]}>
-    {items.map((service) => (
-      <ServiceCard service={service} labels={labels} locale={locale} />
-    ))}
-  </ul>
-</SectionShell>
+{variant === "catalog" ? (
+  <SectionShell
+    id={id}
+    class={`services services--${variant}`}
+    eyebrow={eyebrow}
+    title={title}
+    size="wide"
+  >
+    <ServiceCatalog
+      id={id}
+      services={services}
+      labels={labels}
+      locale={locale}
+    />
+  </SectionShell>
+) : (
+  <SectionShell
+    id={id}
+    class={`services services--${variant}`}
+    eyebrow={eyebrow}
+    title={title}
+    description={description}
+    action={action}
+  >
+    <ul
+      class:list={["services__items", { "grid grid--3": variant !== "list" }]}
+    >
+      {items.map((service) => (
+        <ServiceCard service={service} labels={labels} locale={locale} />
+      ))}
+    </ul>
+  </SectionShell>
+)}

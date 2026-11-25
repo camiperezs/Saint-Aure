@@ -1,0 +1,80 @@
+---
+import type { Service, ServiceLabels } from "@/types/services";
+import ActionButton from "@/components/ui/ActionButton/ActionButton.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import Media from "@/components/ui/Media/Media.astro";
+import { formatPrice } from "@/utils/price";
+import "./ServiceCatalog.css";
+
+interface Props {
+  id: string;
+  services: Service[];
+  labels: ServiceLabels;
+  locale: string;
+}
+
+const { id, services, labels, locale } = Astro.props;
+const selected = 0;
+---
+
+<div class="service-catalog">
+  <ul class="service-catalog__cards">
+    {services.map((service, index) => (
+      <li
+        class="service-catalog__card"
+        data-selected={index === selected ? "true" : undefined}
+      >
+        {service.visual?.type === "image" && (
+          <Media
+            image={service.visual.image}
+            class="service-catalog__image"
+            sizes="(min-width: 64rem) 20vw, 40vw"
+          />
+        )}
+        <span class="service-catalog__name">{service.title}</span>
+      </li>
+    ))}
+  </ul>
+  <div class="service-catalog__panels">
+    {services.map((service, index) => (
+      <article
+        class="service-catalog__panel"
+        id={`${id}-panel-${index}`}
+        hidden={index !== selected}
+      >
+        <h3 class="service-catalog__title">{service.title}</h3>
+        <p class="service-catalog__description">{service.description}</p>
+        {service.specs && service.specs.length > 0 && (
+          <dl class="service-catalog__specs">
+            {service.specs.map((spec) => (
+              <div class="service-catalog__spec">
+                <Icon name={spec.icon} class="service-catalog__spec-icon" />
+                <dt class="service-catalog__spec-label">{spec.label}</dt>
+                <dd class="service-catalog__spec-value">{spec.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+        {service.footnote && (
+          <p class="service-catalog__note">{service.footnote}</p>
+        )}
+        {service.price && (
+          <p class="service-catalog__price">
+            {formatPrice(service.price, locale, labels)}
+          </p>
+        )}
+        <ActionButton
+          class="service-catalog__action"
+          variant="primary"
+          action={{
+            label: "Consultar por WhatsApp",
+            icon: "whatsapp",
+            whatsapp: {
+              message: `Hola, quiero consultar por ${service.title}.`,
+            },
+          }}
+        />
+      </article>
+    ))}
+  </div>
+</div>

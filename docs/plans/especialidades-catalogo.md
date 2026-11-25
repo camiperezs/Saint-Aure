@@ -35,7 +35,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/especialid
 - **Archivos**: `src/types/services.ts` (variante `catalog`); `src/components/sections/Services/Services.astro` (rama catalog); nuevo `ServiceCatalog.astro` (y `ServiceCatalog.css` si Services.css ya es grande); `src/dev/catalog.ts`.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`; `npm run dev` → `/dev/components` a 1280 px, dark y light, los tres presets: título protagonista, descripción legible, specs en 2 columnas, presupuesto diferenciado, un solo servicio sin specs no rompe; variantes grid/list/featured idénticas a antes.
 - **Modelo sugerido**: Opus (diseño visual, contrato nuevo, jerarquía).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Notas: todos los paneles se renderizan ya con `hidden` (D6); las tarjetas son `li` estáticos con `data-selected` (la etapa 2 las pasa a `button role="tab"`). El ejemplo de `/dev/components` arma los datos de D2 en `src/dev/catalog.ts` (sin tocar `page.ts`). CSS mobile/tablet pendiente de etapa 3.
 
 ### Etapa 2: Interacción (selección, flechas, teclado)
 
