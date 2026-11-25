@@ -19,47 +19,49 @@ const selected = 0;
 ---
 
 <div class="service-catalog" data-service-catalog>
-  <div class="service-catalog__browser">
+  <ul
+    class="service-catalog__cards"
+    role="tablist"
+    aria-label={title}
+    data-catalog-track
+  >
+    {services.map((service, index) => (
+      <li role="presentation">
+        <button
+          class="service-catalog__card"
+          type="button"
+          role="tab"
+          id={`${id}-tab-${index}`}
+          aria-selected={index === selected ? "true" : "false"}
+          aria-controls={`${id}-panel-${index}`}
+          tabindex={index === selected ? 0 : -1}
+          data-selected={index === selected ? "" : undefined}
+          data-catalog-tab
+        >
+          {service.visual?.type === "image" && (
+            <Media
+              image={service.visual.image}
+              class="service-catalog__image"
+              sizes="(min-width: 64rem) 20vw, 20vw"
+            />
+          )}
+          <span class="service-catalog__index" aria-hidden="true">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span class="service-catalog__name">{service.title}</span>
+        </button>
+      </li>
+    ))}
+  </ul>
+  <div class="service-catalog__controls">
     <button
       class="service-catalog__arrow"
       type="button"
       aria-label={labels.previous}
-      aria-disabled="true"
       data-catalog-prev
     >
       <Icon name="arrow-left" />
     </button>
-    <ul
-      class="service-catalog__cards"
-      role="tablist"
-      aria-label={title}
-      data-catalog-track
-    >
-      {services.map((service, index) => (
-        <li role="presentation">
-          <button
-            class="service-catalog__card"
-            type="button"
-            role="tab"
-            id={`${id}-tab-${index}`}
-            aria-selected={index === selected ? "true" : "false"}
-            aria-controls={`${id}-panel-${index}`}
-            tabindex={index === selected ? 0 : -1}
-            data-selected={index === selected ? "" : undefined}
-            data-catalog-tab
-          >
-            {service.visual?.type === "image" && (
-              <Media
-                image={service.visual.image}
-                class="service-catalog__image"
-                sizes="(min-width: 64rem) 20vw, 40vw"
-              />
-            )}
-            <span class="service-catalog__name">{service.title}</span>
-          </button>
-        </li>
-      ))}
-    </ul>
     <button
       class="service-catalog__arrow"
       type="button"
@@ -68,6 +70,7 @@ const selected = 0;
     >
       <Icon name="arrow-right" />
     </button>
+    <span class="service-catalog__rule" aria-hidden="true"></span>
   </div>
   <div class="service-catalog__panels">
     {services.map((service, index) => (
@@ -79,38 +82,42 @@ const selected = 0;
         data-catalog-panel
         hidden={index !== selected}
       >
-        <h3 class="service-catalog__title">{service.title}</h3>
-        <p class="service-catalog__description">{service.description}</p>
-        {service.specs && service.specs.length > 0 && (
-          <dl class="service-catalog__specs">
-            {service.specs.map((spec) => (
-              <div class="service-catalog__spec">
-                <Icon name={spec.icon} class="service-catalog__spec-icon" />
-                <dt class="service-catalog__spec-label">{spec.label}</dt>
-                <dd class="service-catalog__spec-value">{spec.value}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
-        {service.footnote && (
-          <p class="service-catalog__note">{service.footnote}</p>
-        )}
-        {service.price && (
-          <p class="service-catalog__price">
-            {formatPrice(service.price, locale, labels)}
-          </p>
-        )}
-        <ActionButton
-          class="service-catalog__action"
-          variant="primary"
-          action={{
-            label: "Consultar por WhatsApp",
-            icon: "whatsapp",
-            whatsapp: {
-              message: `Hola, quiero consultar por ${service.title}.`,
-            },
-          }}
-        />
+        <div class="service-catalog__intro">
+          <h3 class="service-catalog__title">{service.title}</h3>
+          <p class="service-catalog__description">{service.description}</p>
+        </div>
+        <div class="service-catalog__meta">
+          {service.specs && service.specs.length > 0 && (
+            <dl class="service-catalog__specs">
+              {service.specs.map((spec) => (
+                <div class="service-catalog__spec">
+                  <Icon name={spec.icon} class="service-catalog__spec-icon" />
+                  <dt class="service-catalog__spec-label">{spec.label}</dt>
+                  <dd class="service-catalog__spec-value">{spec.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          {service.footnote && (
+            <p class="service-catalog__note">{service.footnote}</p>
+          )}
+          {service.price && (
+            <p class="service-catalog__price">
+              {formatPrice(service.price, locale, labels)}
+            </p>
+          )}
+          <ActionButton
+            class="service-catalog__action"
+            variant="primary"
+            action={{
+              label: "Consultar por WhatsApp",
+              icon: "whatsapp",
+              whatsapp: {
+                message: `Hola, quiero consultar por ${service.title}.`,
+              },
+            }}
+          />
+        </div>
       </article>
     ))}
   </div>

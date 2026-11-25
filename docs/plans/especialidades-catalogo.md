@@ -62,7 +62,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/especialid
 - **Archivos**: `src/content/page.ts`; imágenes en `public/works/` o `src/assets/images/` (según D12); `README.md` (pendiente de fotos de servicios, tabla de variantes de Services con `Catalog`).
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`; `npm run build`, `npm run test:e2e` completo; revisión de la home a 375 y 1280 px en ambos temas; el select del formulario sigue tomando los títulos de `services`.
 - **Modelo sugerido**: Sonnet (contenido).
-- **Estado**: Implementada. Notas: fotos desde `public/works/` (novia, balayage-02, peinado, corte, corte-02); `label`, `featured` y `availabilityBadges` se quitaron de `page.ts` (catalog no los muestra); duración de Eventos y Alisados pasó de `footnote` a `specs`. Falta decidir el PNG sin fondo (sin commitear).
+- **Estado**: Implementada. Retoque posterior (pedido de Camila): sección a pantalla completa, 5 tarjetas siempre visibles sin scroll (miniaturas sin nombre en mobile), flechas compactas con carrusel sin fin (también ← → en teclado), tarjeta elegida enmarcada y elevada, panel en superficie elevada con dos columnas en desktop; reemplaza lo de D7 (extremos deshabilitados) y D9 (sin desplazamientos). Notas: fotos desde `public/works/` (novia, balayage-02, peinado, corte, corte-02); `label`, `featured` y `availabilityBadges` se quitaron de `page.ts` (catalog no los muestra); duración de Eventos y Alisados pasó de `footnote` a `specs`. Falta decidir el PNG sin fondo (sin commitear).
 
 ## Retoques
 

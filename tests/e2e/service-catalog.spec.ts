@@ -39,27 +39,23 @@ test("clicking a card swaps the panel", async ({ page }) => {
   );
 });
 
-test("arrow buttons move the selection and disable at the ends", async ({
+test("arrow buttons cycle endlessly through the specialties", async ({
   page,
-  isMobile,
 }) => {
-  test.skip(isMobile, "Las flechas se ocultan en mobile");
   const tabs = page.locator("[data-catalog-tab]");
   const previous = page.locator("[data-catalog-prev]");
   const next = page.locator("[data-catalog-next]");
   const last = (await tabs.count()) - 1;
 
-  await expect(previous).toHaveAttribute("aria-disabled", "true");
   await next.click();
   await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
-  await expect(previous).toHaveAttribute("aria-disabled", "false");
 
-  for (let i = 1; i < last; i += 1) {
-    await next.click();
-  }
-
+  await previous.click();
+  await previous.click();
   await expect(tabs.nth(last)).toHaveAttribute("aria-selected", "true");
-  await expect(next).toHaveAttribute("aria-disabled", "true");
+
+  await next.click();
+  await expect(tabs.first()).toHaveAttribute("aria-selected", "true");
 });
 
 test("keyboard navigation moves between cards", async ({ page, isMobile }) => {
@@ -73,6 +69,12 @@ test("keyboard navigation moves between cards", async ({ page, isMobile }) => {
   await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
 
   await page.keyboard.press("End");
+  await expect(tabs.nth(last)).toBeFocused();
+
+  await page.keyboard.press("ArrowRight");
+  await expect(tabs.first()).toBeFocused();
+
+  await page.keyboard.press("ArrowLeft");
   await expect(tabs.nth(last)).toBeFocused();
 
   await page.keyboard.press("Home");
