@@ -38,6 +38,7 @@ const RULES: ContrastRule[] = [
       "text-muted",
       "link",
       "link-hover",
+      "accent-text",
     ],
     background: BACKGROUNDS,
     minimum: TEXT,

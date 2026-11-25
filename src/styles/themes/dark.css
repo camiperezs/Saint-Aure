@@ -33,6 +33,7 @@
   /* Links */
   --color-link: var(--color-brand-300);
   --color-link-hover: var(--color-brand-200);
+  --color-accent-text: var(--color-brand-300);
 
   /* Focus */
   --color-focus: var(--color-brand-300);

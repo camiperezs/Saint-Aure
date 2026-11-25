@@ -117,7 +117,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/about-edit
   - `scripts/check-contrast.ts`: sumar `accent-text` a la regla de texto (4,5:1).
 - **Verificación**: `npm run check:contrast` (debe subir la cantidad de combinaciones y pasar), `npm run check`, `npm run lint`, `npm run format:check`. Si falla, el ajuste va en la escala de `site.ts` y no en el componente.
 - **Modelo sugerido**: Opus (paleta y contraste en dos temas).
-- **Estado**: Pendiente.
+- **Estado**: Implementada.
 
 ### Etapa 2: Primitivos editoriales (SectionTitle accent y Quote)
 
