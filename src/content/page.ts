@@ -24,10 +24,10 @@ const services: Service[] = [
     description:
       "Prueba previa, peinado el día del casamiento y acompañamiento para que el look dure toda la noche.",
     visual: serviceImage(
-      "/works/novia/novia.webp",
+      "/works/catalog/novia.webp",
       "Novia con peinado recogido y detalles de flores",
-      1134,
-      728,
+      800,
+      1000,
     ),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
     // Placeholder — confirmar con la clienta antes del deploy
@@ -46,10 +46,10 @@ const services: Service[] = [
     description:
       "Iluminación a mano alzada que se funde con tu color natural y crece sin marcas.",
     visual: serviceImage(
-      "/works/balayge/balayage-02.webp",
+      "/works/catalog/balayage.webp",
       "Melena con balayage rubio miel",
-      1284,
-      1585,
+      800,
+      1000,
     ),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
     price,
@@ -60,10 +60,10 @@ const services: Service[] = [
     description:
       "Recogidos, semirrecogidos y ondas para fiestas, egresos y celebraciones.",
     visual: serviceImage(
-      "/works/peinado.webp",
+      "/works/catalog/eventos.webp",
       "Peinado semirrecogido de fiesta",
-      1279,
-      1600,
+      800,
+      1000,
     ),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
     price,
@@ -75,10 +75,10 @@ const services: Service[] = [
     description:
       "Diagnóstico del tono ideal para tu piel y coloración pareja de raíz a puntas.",
     visual: serviceImage(
-      "/works/corte/corte.webp",
+      "/works/catalog/colorimetria.webp",
       "Coloración castaño profundo y brillante",
-      1281,
-      1600,
+      800,
+      1000,
     ),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
     price,
@@ -89,10 +89,10 @@ const services: Service[] = [
     description:
       "Tratamientos de alisado que reducen el frizz y dejan el cabello dócil por meses.",
     visual: serviceImage(
-      "/works/corte/corte-02.webp",
+      "/works/catalog/alisados.webp",
       "Cabello largo, lacio y con brillo",
-      1284,
-      1590,
+      800,
+      1000,
     ),
     action: { label: "Consultar", href: "#contact", variant: "outline" },
     price,
