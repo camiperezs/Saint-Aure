@@ -477,7 +477,7 @@ Font roles map to the tokens `--font-body`, `--font-heading` and `--font-ui` (UI
 
 Sections share one vocabulary, defined once as tokens and a utility instead of per-component values:
 
-- **Surface tokens** (`src/styles/tokens/surfaces.css`): `--surface-panel-bg`, `--surface-panel-border`, `--surface-panel-border-hover`, `--surface-rule-color` and `--surface-rule-size`. They derive from semantic tokens, never from hex values.
+- **Surface tokens** (`src/styles/tokens/surfaces.css`): `--surface-panel-bg`, `--surface-panel-border`, `--surface-panel-border-hover`, `--surface-rule-color` and `--surface-rule-size`. They derive from semantic tokens, never from hex values. They are declared on `:root, [data-theme]` so sections with their own theme (the dark CTA badge) recompute them; declaring them on `:root` alone resolves them with the page theme and breaks contrast.
 - **`.panel`** (`src/styles/utilities/panel.css`): translucent background, 1px border, `--preset-card-radius`, no shadow. The border turns gold on hover only with `(hover: hover) and (pointer: fine)`; no zoom or shadow. `.panel--ruled` adds the 2rem gold rule on top, the same stroke as the Hero eyebrow.
 - **Eyebrow**: uppercase with wide tracking (`--eyebrow-transform`, `--eyebrow-tracking`), gold (`--color-link`), always paired with the rule.
 - **Stats `ruled`**: no box, 1px dividers, gold value, eyebrow-style label. `StatItem.kind: "text"` renders a textual value in the heading font, italic and smaller. `cards` and `row` are unchanged.
