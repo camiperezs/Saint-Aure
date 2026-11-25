@@ -1,0 +1,18 @@
+---
+import "./Quote.css";
+
+interface Props {
+  text: string;
+  author?: string;
+  class?: string;
+}
+
+const { text, author, class: className } = Astro.props;
+---
+
+<figure class:list={["quote", className]}>
+  <blockquote class="quote__text">
+    <p>{text}</p>
+  </blockquote>
+  {author && <figcaption class="visually-hidden">{author}</figcaption>}
+</figure>

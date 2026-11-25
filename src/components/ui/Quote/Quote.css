@@ -1,0 +1,18 @@
+@layer components {
+  .quote {
+    margin: 0;
+  }
+
+  .quote__text {
+    max-inline-size: 45ch;
+    margin: 0;
+
+    font-family: var(--font-heading);
+    font-size: var(--text-title);
+    font-style: italic;
+    font-weight: var(--font-regular);
+    line-height: 1.5;
+    color: var(--color-accent-text);
+    text-wrap: pretty;
+  }
+}

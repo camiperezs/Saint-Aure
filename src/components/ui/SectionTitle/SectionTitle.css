@@ -34,4 +34,52 @@
     color: var(--color-text-secondary);
     text-wrap: pretty;
   }
+
+  /* Editorial accent: eyebrow flanked by hairlines, hairline under the heading.
+     The lines are decorative pseudo-elements, hidden from assistive tech. */
+  .section-title--accent {
+    --section-title-line: color-mix(
+      in srgb,
+      var(--color-accent-text) 55%,
+      transparent
+    );
+    --section-title-line-size: 2.5rem;
+  }
+
+  .section-title--accent .section-title__eyebrow {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  .section-title--accent .section-title__eyebrow::before,
+  .section-title--accent.section-title--center .section-title__eyebrow::after {
+    content: "";
+    flex: none;
+    inline-size: var(--section-title-line-size);
+    block-size: 0;
+    border-block-start: 1px solid var(--section-title-line);
+  }
+
+  .section-title--accent .section-title__heading {
+    font-weight: var(--font-regular);
+  }
+
+  .section-title--accent .section-title__heading::after {
+    content: "";
+    display: block;
+    inline-size: var(--section-title-line-size);
+    margin-block-start: var(--space-4);
+    border-block-start: 1px solid var(--section-title-line);
+  }
+
+  .section-title--accent.section-title--center .section-title__heading::after {
+    margin-inline: auto;
+  }
+
+  @media (forced-colors: active) {
+    .section-title--accent {
+      --section-title-line: CanvasText;
+    }
+  }
 }

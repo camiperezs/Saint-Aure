@@ -130,7 +130,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/about-edit
   - `src/dev/` (catálogo): una entrada de `Quote` y de `SectionTitle accent`.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`; catálogo `/dev/components` a 375 y 1280 px, temas claro y oscuro, los tres presets; revisar que el filete no rompa `align="center"`.
 - **Modelo sugerido**: Opus (diseño visual y accesibilidad de dos primitivos).
-- **Estado**: Pendiente.
+- **Estado**: Implementada (sin revisión visual en navegador: mirar el catálogo al cerrar la etapa 4).
 
 ### Etapa 3: Acción tipo link con ícono al final
 

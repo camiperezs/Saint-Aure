@@ -8,6 +8,7 @@ interface Props {
   id?: string;
   level?: 1 | 2 | 3;
   align?: "start" | "center";
+  accent?: boolean;
   class?: string;
 }
 
@@ -18,13 +19,21 @@ const {
   id,
   level = 2,
   align = "start",
+  accent = false,
   class: className,
 } = Astro.props;
 
 const Heading = `h${level}` as const;
 ---
 
-<hgroup class:list={["section-title", `section-title--${align}`, className]}>
+<hgroup
+  class:list={[
+    "section-title",
+    `section-title--${align}`,
+    accent && "section-title--accent",
+    className,
+  ]}
+>
   {eyebrow && <p class="section-title__eyebrow">{eyebrow}</p>}
   <Heading id={id} class="section-title__heading text-reflow">
     {title}

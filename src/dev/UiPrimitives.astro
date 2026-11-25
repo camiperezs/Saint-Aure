@@ -7,6 +7,7 @@ import Button from "@/components/ui/Button/Button.astro";
 import Card from "@/components/ui/Card/Card.astro";
 import Container from "@/components/ui/Container/Container.astro";
 import Icon from "@/components/ui/Icon/Icon.astro";
+import Quote from "@/components/ui/Quote/Quote.astro";
 import SectionTitle from "@/components/ui/SectionTitle/SectionTitle.astro";
 
 const variants: ActionVariant[] = ["primary", "secondary", "outline", "ghost"];
@@ -122,6 +123,33 @@ const whatsappActions: Action[] = [
           title="Impermeabilizaciones"
           description="Título de una sola palabra larga para probar el reflow a 375px."
           level={3}
+        />
+      </div>
+    </section>
+
+    <section class="catalog__group" aria-label="SectionTitle accent">
+      <p class="catalog__group-label">SectionTitle · accent</p>
+      <div class="catalog__narrow">
+        <SectionTitle
+          accent
+          eyebrow="El profesional · Tomas Mooney"
+          title="Experiencia, dedicación y atención personalizada"
+        />
+      </div>
+      <SectionTitle
+        accent
+        align="center"
+        eyebrow="El profesional · Tomas Mooney"
+        title="Experiencia, dedicación y atención personalizada"
+      />
+    </section>
+
+    <section class="catalog__group" aria-label="Quote">
+      <p class="catalog__group-label">Quote</p>
+      <div class="catalog__narrow">
+        <Quote
+          text="Cada trabajo es único. Lo que más valoro es escuchar qué querés y acompañarte para que el resultado sea exactamente el que buscás."
+          author="Tomas Mooney"
         />
       </div>
     </section>
