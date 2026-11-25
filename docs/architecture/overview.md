@@ -80,7 +80,7 @@ The Footer has Compact and Expanded variants. Detailed content contracts and exa
 | Component  | Variants                         | Optional capabilities                                    |
 | ---------- | -------------------------------- | -------------------------------------------------------- |
 | `About`    | Split, Centered, ImageBackground | Image, eyebrow, CTA                                      |
-| `Services` | Grid, List, Featured             | Images/icons, configurable prices, item CTA, section CTA |
+| `Services` | Grid, List, Featured, Catalog    | Images/icons, configurable prices, item CTA, section CTA |
 | `Contact`  | Split, Centered, Form            | Contact channels, configurable form, section CTA         |
 
 **About**
@@ -99,7 +99,9 @@ The Footer has Compact and Expanded variants. Detailed content contracts and exa
 **Services**
 
 - Receives a collection of services.
-- Variants: Grid, List and Featured.
+- Variants: Grid, List, Featured and Catalog.
+- Catalog (`ServiceCatalog.astro`, `src/scripts/service-catalog.ts`) is an interactive tab-style selector: cards (image + title only) and a detail panel. It uses `title`, `description`, `visual` (image), `specs`, `footnote`, `price` and the WhatsApp message `Hola, quiero consultar por {title}.`; `label` and `featured` are not shown and the section receives no `description` or `action`. `ServiceLabels` requires `previous` and `next`.
+- Catalog semantics: cards are `button role="tab"` inside a `tablist` (`aria-selected`, `aria-controls`, roving `tabindex`); every panel is server-rendered as `role="tabpanel"` and the selection toggles visibility, so the first service shows without JS. The arrows and ← → move the selection in an endless loop; Home/End jump to the first/last. The script is bundled by Astro (no inline CSP hash) and respects `prefers-reduced-motion`.
 - Each service has an ID, title and description; image, icon, price, label and CTA are optional.
 - Price formats: fixed, starting-at and on-request.
 - Both individual service CTAs and a general section CTA are optional.
