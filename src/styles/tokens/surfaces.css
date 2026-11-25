@@ -1,0 +1,10 @@
+:root {
+  /* Lenguaje visual: superficies. Todo sale de tokens semánticos, sin hex. */
+  --surface-panel-bg: color-mix(in srgb, var(--color-surface) 70%, transparent);
+  --surface-panel-border: var(--color-border-default);
+  --surface-panel-border-hover: var(--color-link);
+
+  /* Filete dorado: mismo trazo que el eyebrow del hero. */
+  --surface-rule-color: var(--color-link);
+  --surface-rule-size: 2rem;
+}

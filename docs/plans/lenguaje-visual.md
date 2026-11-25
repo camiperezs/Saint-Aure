@@ -27,7 +27,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/lenguaje-v
 - **Archivos**: `src/styles/tokens/surfaces.css` (nuevo), `src/styles/utilities/panel.css` (nuevo), `src/styles/global.css`, `src/components/sections/CallToAction/CallToAction.css`, `src/dev/Catalog.astro` y `src/dev/catalog.css` (muestra del panel).
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`; catálogo `/dev/components` a 375 y 1280 px, claro y oscuro, tres presets; el CTA badge se ve igual que antes.
 - **Modelo sugerido**: Opus (decisión de tokens y contraste del dorado sobre fondo translúcido).
-- **Estado**: Pendiente.
+- **Estado**: Implementada.
 
 ### Etapa 2: Stats `ruled` y valores textuales
 

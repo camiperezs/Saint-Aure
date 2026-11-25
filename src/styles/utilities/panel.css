@@ -1,0 +1,24 @@
+.panel {
+  position: relative;
+  background-color: var(--surface-panel-bg);
+  border: var(--border-width-default) solid var(--surface-panel-border);
+  border-radius: var(--preset-card-radius);
+  transition: border-color var(--duration-normal) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .panel:hover {
+    border-color: var(--surface-panel-border-hover);
+  }
+}
+
+/* Filete de 2rem arriba, igual al del eyebrow del hero. */
+.panel--ruled::before {
+  content: "";
+  position: absolute;
+  inset-block-start: calc(var(--border-width-default) * -1);
+  inset-inline-start: var(--space-fluid-md, var(--space-6));
+  inline-size: var(--surface-rule-size);
+  block-size: var(--border-width-default);
+  background-color: var(--surface-rule-color);
+}

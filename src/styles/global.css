@@ -12,6 +12,7 @@
 @import "./tokens/borders.css" layer(tokens);
 @import "./tokens/motion.css" layer(tokens);
 @import "./tokens/interaction.css" layer(tokens);
+@import "./tokens/surfaces.css" layer(tokens);
 
 /* Themes */
 @import "./themes/light.css" layer(themes);
@@ -28,6 +29,7 @@
 @import "./utilities/accessibility.css" layer(utilities);
 @import "./utilities/overlay.css" layer(utilities);
 @import "./utilities/prose.css" layer(utilities);
+@import "./utilities/panel.css" layer(utilities);
 
 /* Visual Presets */
 @import "./presets/editorial.css" layer(presets);

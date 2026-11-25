@@ -35,8 +35,8 @@
     justify-items: center;
     padding: var(--space-fluid-md);
     text-align: center;
-    background-color: color-mix(in srgb, var(--color-surface) 70%, transparent);
-    border-color: var(--color-border-default);
+    background-color: var(--surface-panel-bg);
+    border-color: var(--surface-panel-border);
     box-shadow: var(--shadow-default);
   }
 
