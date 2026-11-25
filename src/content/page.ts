@@ -1,5 +1,4 @@
 import type { Page } from "@/types/page";
-import type { GalleryItem } from "@/types/gallery";
 import type { Service } from "@/types/services";
 import hero from "@/assets/images/hero.webp";
 import about from "@/assets/images/about.webp";
@@ -101,14 +100,6 @@ const services: Service[] = [
   },
 ];
 
-const portrait = (alt: string): GalleryItem => ({
-  image: { src: "/placeholders/portrait.svg", width: 800, height: 1100, alt },
-});
-
-const landscape = (alt: string): GalleryItem => ({
-  image: { src: "/placeholders/landscape.svg", width: 1600, height: 1000, alt },
-});
-
 export const page = {
   hero: {
     variant: "split",
@@ -166,57 +157,119 @@ export const page = {
     },
     {
       type: "gallery",
-      variant: "masonry",
-      eyebrow: "Trabajos",
-      title: "Galería",
+      variant: "portfolio",
+      eyebrow: "Portfolio",
+      title: "El trabajo habla solo",
+      description: "Click en cualquier imagen para expandir en alta resolución editorial.",
       lightbox: true,
       images: [
         {
-          ...portrait("Peinado de novia con iluminación cálida editorial"),
-          title: "Novia editorial",
-          description:
-            "Recogido alto con iluminación cálida y detalles naturales",
+          image: {
+            src: "/works/peinado.webp",
+            width: 1279,
+            height: 1600,
+            alt: "Recogido con ondas sueltas visto desde atrás",
+          },
+          aspectRatio: "4/5",
         },
         {
-          ...landscape("Close-up balayage rubio miel"),
-          title: "Balayage miel",
-          description: "Degradé a mano alzada en castaño dorado",
+          image: {
+            src: "/works/total-blond/total-blond.webp",
+            width: 1088,
+            height: 1600,
+            alt: "Rubio total liso, visto desde atrás",
+          },
+          aspectRatio: "4/5",
         },
         {
-          ...portrait("Peinado fiesta semirrecogido"),
-          title: "Fiesta semirrecogido",
-          description: "Ondas sueltas con trenza lateral para gala",
+          image: {
+            src: "/works/corte/corte.webp",
+            width: 1281,
+            height: 1600,
+            alt: "Corte en capas con color cobrizo, visto desde atrás",
+          },
+          aspectRatio: "4/5",
         },
         {
-          ...portrait("Mechas californianas castaño oscuro"),
-          title: "Mechas californianas",
-          description: "Iluminación suave sobre base castaño oscuro",
+          image: {
+            src: "/works/corte/corte-02.webp",
+            width: 1284,
+            height: 1590,
+            alt: "Corte en capas y ondas largas, visto desde atrás",
+          },
+          aspectRatio: "4/5",
         },
         {
-          ...landscape("Novia de perfil con ondas naturales"),
-          title: "Novia ondas",
-          description: "Ondas naturales sueltas para ceremonia civil",
+          image: {
+            src: "/works/balayge/balayage.webp",
+            width: 1284,
+            height: 1586,
+            alt: "Balayage rubio con ondas, visto desde atrás",
+          },
+          aspectRatio: "4/5",
         },
         {
-          ...portrait("Colorimetría raíz a puntas"),
-          title: "Colorimetría integral",
-          description:
-            "Coloración pareja en tono personalizado de raíz a puntas",
+          image: {
+            src: "/works/balayge/balayage-02.webp",
+            width: 1284,
+            height: 1585,
+            alt: "Balayage dorado con ondas, visto desde atrás",
+          },
+          aspectRatio: "4/5",
         },
         {
-          ...landscape("Peinado recogido bajo elegante"),
-          title: "Recogido bajo",
-          description: "Moño bajo estructurado para noche de gala",
+          image: {
+            src: "/works/balayge/balayage-04.webp",
+            width: 1284,
+            height: 1586,
+            alt: "Balayage con ondas largas, visto desde atrás",
+          },
+          aspectRatio: "4/5",
         },
         {
-          ...portrait("Balayage rubio plateado natural"),
-          title: "Rubio plateado",
-          description: "Aclarado progresivo con resultado frío y luminoso",
+          image: {
+            src: "/works/balayge/balayage-05.webp",
+            width: 1284,
+            height: 1595,
+            alt: "Balayage luminoso con ondas, visto desde atrás",
+          },
+          aspectRatio: "4/5",
         },
         {
-          ...portrait("Trenza lateral novia"),
-          title: "Trenza lateral",
-          description: "Trenza lateral romántica con volumen y adornos",
+          image: {
+            src: "/works/balayge/balayage-06.webp",
+            width: 1284,
+            height: 1593,
+            alt: "Balayage rubio claro con ondas, visto desde atrás",
+          },
+          aspectRatio: "4/5",
+        },
+        {
+          image: {
+            src: "/works/balayge/balayage-08.webp",
+            width: 1122,
+            height: 1402,
+            alt: "Balayage con reflejos dorados, visto desde atrás",
+          },
+          aspectRatio: "4/5",
+        },
+        {
+          image: {
+            src: "/works/balayge/balayage-bronde.webp",
+            width: 1086,
+            height: 1448,
+            alt: "Balayage bronde con ondas, visto desde atrás",
+          },
+          aspectRatio: "4/5",
+        },
+        {
+          image: {
+            src: "/works/ojo-de-tigre/ojo-de-tigre.webp",
+            width: 1086,
+            height: 1448,
+            alt: "Ojo de tigre con reflejos cálidos, visto desde atrás",
+          },
+          aspectRatio: "4/5",
         },
       ],
     },

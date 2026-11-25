@@ -13,6 +13,7 @@ interface Props {
   description?: string;
   action?: Action;
   size?: "narrow" | "standard" | "wide";
+  theme?: "dark";
 }
 
 const {
@@ -23,12 +24,18 @@ const {
   description,
   action,
   size = "standard",
+  theme,
 } = Astro.props;
 
 const titleId = `${id}-title`;
 ---
 
-<section id={id} aria-labelledby={titleId} class:list={["section", className]}>
+<section
+  id={id}
+  aria-labelledby={titleId}
+  class:list={["section", className]}
+  data-theme={theme}
+>
   <Container size={size} class="section-shell">
     <SectionTitle
       id={titleId}

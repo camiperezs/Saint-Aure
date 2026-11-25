@@ -36,6 +36,7 @@ const fullSource = (src: Gallery["images"][number]["image"]["src"]) =>
   title={title}
   description={description}
   action={action}
+  theme={variant === "portfolio" ? "dark" : undefined}
 >
   <div data-gallery={lightbox ? "" : undefined}>
     <ul class="gallery__items" role="list">

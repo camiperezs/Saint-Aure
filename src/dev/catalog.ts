@@ -114,7 +114,7 @@ export const catalog: CatalogEntry[] = [
   ...variants("process", ["steps", "timeline"]),
   ...sectionsOf("video").map((section) => ({ label: "video", section })),
   ...variants("testimonials", ["cards", "carousel"]),
-  ...variants("gallery", ["grid", "masonry"]),
+  ...variants("gallery", ["grid", "masonry", "portfolio"]),
   ...variants("faq", ["accordion", "grid"]),
   ...variants("location", ["map", "information"]),
   ...variants("contact", ["split", "centered", "form"]),

@@ -5,7 +5,7 @@ export interface GalleryItem {
   image: Image;
   title?: string;
   description?: string;
-  aspectRatio?: "1/1" | "4/3" | "3/4" | "16/9";
+  aspectRatio?: "1/1" | "4/5" | "4/3" | "3/4" | "16/9";
 }
 
 export interface GalleryLabels {
@@ -17,7 +17,7 @@ export interface GalleryLabels {
 
 export interface Gallery {
   type: "gallery";
-  variant: "grid" | "masonry";
+  variant: "grid" | "masonry" | "portfolio";
   eyebrow?: string;
   title: string;
   description?: string;

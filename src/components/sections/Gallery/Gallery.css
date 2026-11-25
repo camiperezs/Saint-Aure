@@ -10,6 +10,27 @@
     gap: var(--preset-grid-gap);
   }
 
+  .gallery--portfolio {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+  }
+
+  .gallery--portfolio .gallery__items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 40rem) {
+    .gallery--portfolio .gallery__items {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .gallery--portfolio .gallery__image {
+    aspect-ratio: 4 / 5;
+  }
+
   .gallery--masonry .gallery__items {
     columns: 16rem 3;
     column-gap: var(--preset-grid-gap);
@@ -45,6 +66,10 @@
 
   .gallery .gallery__image--ratio-1-1 {
     aspect-ratio: 1;
+  }
+
+  .gallery .gallery__image--ratio-4-5 {
+    aspect-ratio: 4 / 5;
   }
 
   .gallery .gallery__image--ratio-4-3 {
