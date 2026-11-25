@@ -1,6 +1,7 @@
 ---
 import type { CTA } from "@/types/cta";
 import Actions from "@/components/ui/Actions/Actions.astro";
+import Icon from "@/components/ui/Icon/Icon.astro";
 import Container from "@/components/ui/Container/Container.astro";
 import Media from "@/components/ui/Media/Media.astro";
 import { imageSizes } from "@/utils/image-sizes";
@@ -16,6 +17,7 @@ const {
   title,
   description,
   image,
+  details,
   primaryAction,
   secondaryAction,
 } = Astro.props;
@@ -49,6 +51,17 @@ const showBadge = variant === "badge" && image;
           description={description}
           align={variant === "split" ? "start" : "center"}
         />
+        {details && details.length > 0 && (
+          <ul class="cta__details" role="list">
+            {details.map((detail) => (
+              <li class="cta__detail">
+                <Icon name={detail.icon} />
+                <h3 class="cta__detail-title">{detail.title}</h3>
+                <p class="cta__detail-desc">{detail.description}</p>
+              </li>
+            ))}
+          </ul>
+        )}
         <Actions actions={actions} class="cta__actions" />
       </div>
       {showImage && (

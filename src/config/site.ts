@@ -85,8 +85,6 @@ export const site: SiteConfig = {
         tracking: "tighter",
       },
       eyebrow: "uppercase",
-      // Variable fonts (latin subset): one file covers both weights,
-      // so the browser downloads each family once.
       fonts: [
         {
           family: "Playfair Display",
@@ -193,7 +191,7 @@ export const site: SiteConfig = {
     { label: "Servicios", href: "/#services" },
     { label: "Sobre mí", href: "/#about" },
     { label: "Trabajos", href: "/#gallery" },
-    { label: "Contacto", href: "/#contact" },
+    { label: "Contacto", href: "/#cta" },
   ],
 
   header: {

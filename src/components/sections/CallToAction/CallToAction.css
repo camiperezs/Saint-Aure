@@ -57,6 +57,55 @@
     border-radius: var(--radius-pill);
   }
 
+  .cta__details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    inline-size: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: start;
+  }
+
+  .cta__detail {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--space-3);
+    row-gap: var(--space-1);
+    padding: var(--space-4);
+    border: var(--border-width-default) solid var(--color-border-subtle);
+    border-radius: var(--preset-card-radius);
+  }
+
+  .cta__detail .icon {
+    grid-row: 1 / 3;
+    align-self: center;
+    font-size: 1.5rem;
+    color: var(--color-action-primary);
+  }
+
+  .cta__detail-title,
+  .cta__detail-desc {
+    margin: 0;
+    font-size: var(--text-body-sm);
+  }
+
+  .cta__detail-title {
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .cta__detail-desc {
+    color: var(--color-text-secondary);
+  }
+
+  @media (min-width: 48rem) {
+    .cta__details {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
   @media (min-width: 64rem) {
     .cta__panel--with-image {
       grid-template-columns: 1fr 1fr;

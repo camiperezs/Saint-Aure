@@ -28,8 +28,7 @@ const services: Service[] = [
       800,
       1000,
     ),
-    action: { label: "Consultar", href: "#contact", variant: "outline" },
-    // Placeholder — confirmar con la clienta antes del deploy
+    action: { label: "Consultar", href: "#cta", variant: "outline" },
     specs: [
       { icon: "clock", label: "Duración", value: "2–3 hs" },
       {
@@ -50,9 +49,9 @@ const services: Service[] = [
       800,
       1000,
     ),
-    action: { label: "Consultar", href: "#contact", variant: "outline" },
+    action: { label: "Consultar", href: "#cta", variant: "outline" },
     price,
-    footnote: "Diagnóstico previo incluido", // Placeholder — confirmar con la clienta
+    footnote: "Diagnóstico previo incluido",
   },
   {
     title: "Peinados para eventos",
@@ -64,9 +63,8 @@ const services: Service[] = [
       800,
       1000,
     ),
-    action: { label: "Consultar", href: "#contact", variant: "outline" },
+    action: { label: "Consultar", href: "#cta", variant: "outline" },
     price,
-    // Placeholder — confirmar con la clienta
     specs: [{ icon: "clock", label: "Duración", value: "60–90 min" }],
   },
   {
@@ -79,9 +77,9 @@ const services: Service[] = [
       800,
       1000,
     ),
-    action: { label: "Consultar", href: "#contact", variant: "outline" },
+    action: { label: "Consultar", href: "#cta", variant: "outline" },
     price,
-    footnote: "Incluye diagnóstico de tono", // Placeholder — confirmar con la clienta
+    footnote: "Incluye diagnóstico de tono",
   },
   {
     title: "Alisados",
@@ -93,9 +91,8 @@ const services: Service[] = [
       800,
       1000,
     ),
-    action: { label: "Consultar", href: "#contact", variant: "outline" },
+    action: { label: "Consultar", href: "#cta", variant: "outline" },
     price,
-    // Placeholder — confirmar con la clienta
     specs: [{ icon: "clock", label: "Duración", value: "2–4 hs según largo" }],
   },
 ];
@@ -275,26 +272,6 @@ export const page = {
       ],
     },
     {
-      type: "cta",
-      variant: "badge",
-      title: "¿Tenés algo en mente para tu cabello?",
-      description:
-        "Contame qué estás buscando y te asesoro sin compromiso para planificar tu próxima cita o evento especial.",
-      // Placeholder — confirmar con la clienta
-      image: {
-        src: "/placeholders/portrait.svg",
-        alt: "Saint Aure",
-        width: 120,
-        height: 120,
-      },
-      primaryAction: {
-        label: "Consultar por WhatsApp",
-        icon: "whatsapp",
-        iconPosition: "start",
-        whatsapp: { message: whatsappMessage },
-      },
-    },
-    {
       type: "stats",
       variant: "ruled",
       eyebrow: "Saint Aure en números",
@@ -319,48 +296,18 @@ export const page = {
       ],
     },
     {
-      type: "testimonials",
-      variant: "cards",
-      eyebrow: "Testimonios",
-      title: "Lo que dicen las clientas",
-      // Placeholders: reemplazar solo por testimonios reales antes de publicar.
-      items: [
-        {
-          name: "Clienta de ejemplo",
-          role: "Novia — casamiento diciembre 2024",
-          quote:
-            "Testimonio de ejemplo: el peinado duró impecable toda la noche y la prueba previa me dio mucha tranquilidad.",
-          identity: { type: "initials", value: "CE" },
-          rating: 5,
-        },
-        {
-          name: "Clienta de ejemplo",
-          role: "Cliente de balayage",
-          quote:
-            "Testimonio de ejemplo: logró exactamente el rubio que quería, natural y sin dañar el cabello.",
-          identity: { type: "initials", value: "CE" },
-          rating: 5,
-        },
-        {
-          name: "Clienta de ejemplo",
-          role: "Servicio a domicilio",
-          quote:
-            "Testimonio de ejemplo: vino a casa el día del evento, puntual y con todo lo necesario.",
-          identity: { type: "initials", value: "CE" },
-          rating: 5,
-        },
-      ],
-    },
-    {
-      type: "contact",
-      variant: "split",
-      eyebrow: "Contacto",
-      title: "Escribime por WhatsApp",
+      type: "cta",
+      variant: "badge",
+      title: "¿Tenés algo en mente para tu cabello?",
       description:
-        "Atención presencial en Rosario y a domicilio en Rosario y Roldán. WhatsApp: +54 9 341 000-0000.",
-      whatsapp: { message: whatsappMessage },
-      // Placeholder values — confirm icon availability and copy with client
-      modalityBlocks: [
+        "Contame qué estás buscando y te asesoro sin compromiso para planificar tu próxima cita o evento especial.",
+      image: {
+        src: "/placeholders/portrait.svg",
+        alt: "Saint Aure",
+        width: 120,
+        height: 120,
+      },
+      details: [
         {
           icon: "shield",
           title: "Atención Presencial",
@@ -373,40 +320,11 @@ export const page = {
             "Me traslado a Rosario y Roldán para que estés cómoda en tu hogar.",
         },
       ],
-      form: {
-        provider: "netlify",
-        name: "contact",
-        action: "/thank-you",
-        submitLabel: "Enviar consulta",
-        fields: [
-          {
-            name: "name",
-            label: "Nombre",
-            type: "text",
-            required: true,
-            autocomplete: "name",
-          },
-          {
-            name: "service",
-            label: "Servicio de interés",
-            type: "select",
-            placeholder: "Elegí una opción",
-            options: services.map((service) => service.title),
-          },
-          {
-            name: "modality",
-            label: "Preferencia de atención",
-            type: "select",
-            placeholder: "Elegí una opción",
-            options: ["Presencial en atelier", "A domicilio"],
-          },
-          {
-            name: "message",
-            label: "Mensaje",
-            type: "textarea",
-            required: true,
-          },
-        ],
+      primaryAction: {
+        label: "Consultar por WhatsApp",
+        icon: "whatsapp",
+        iconPosition: "start",
+        whatsapp: { message: whatsappMessage },
       },
     },
   ],
