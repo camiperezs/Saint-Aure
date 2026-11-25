@@ -16,11 +16,33 @@
     align-items: center;
   }
 
+  .about__description {
+    max-inline-size: 65ch;
+    margin: 0;
+    color: var(--color-text-secondary);
+    text-wrap: pretty;
+  }
+
+  .about--centered .about__description {
+    text-align: center;
+  }
+
   .about__image-wrap {
     position: relative;
   }
 
+  .about__image-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(calc(var(--space-3) * -1), var(--space-3));
+    border: 1px solid
+      color-mix(in srgb, var(--color-accent-text) 30%, transparent);
+    pointer-events: none;
+  }
+
   .about__image {
+    position: relative;
     inline-size: 100%;
     block-size: 100%;
     object-fit: cover;
@@ -29,37 +51,88 @@
 
   .about__badge {
     position: absolute;
-    inset-block-end: 1rem;
-    inset-inline-start: 1rem;
+    inset-block-end: var(--space-4);
+    inset-inline-end: calc(var(--space-4) * -1);
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-1);
-    padding: var(--space-3) var(--space-4);
-    background: var(--color-surface);
-    border: 1px solid var(--color-primary-300);
-    border-radius: var(--radius-pill);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5);
+    background: color-mix(
+      in srgb,
+      var(--color-surface-raised) 92%,
+      transparent
+    );
+    border: 1px solid
+      color-mix(in srgb, var(--color-accent-text) 45%, transparent);
+    border-radius: var(--preset-badge-radius);
+    box-shadow: var(--shadow-default);
   }
 
-  .about__badge .icon {
-    color: var(--color-primary-500);
-    block-size: 1rem;
-    inline-size: 1rem;
+  @supports (backdrop-filter: blur(1px)) {
+    .about__badge {
+      backdrop-filter: blur(0.5rem);
+    }
   }
 
   .about__badge-value {
     font-family: var(--font-heading);
     font-size: var(--text-display-sm, 2rem);
-    font-weight: var(--font-medium);
+    font-weight: var(--font-light, 300);
     line-height: 1;
-    color: var(--color-text-primary);
+    color: var(--color-accent-text);
   }
 
   .about__badge-label {
+    padding-block-start: var(--space-2);
+    border-block-start: 1px solid
+      color-mix(in srgb, var(--color-accent-text) 55%, transparent);
     font-size: var(--text-ui);
+    letter-spacing: var(--eyebrow-tracking);
+    text-transform: uppercase;
     color: var(--color-text-secondary);
     white-space: nowrap;
+  }
+
+  @media (max-width: 22rem) {
+    .about__badge {
+      position: static;
+      margin-block-start: var(--space-4);
+    }
+
+    .about__image-wrap::before {
+      display: none;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .about__badge {
+      border-color: var(--color-accent-text);
+      backdrop-filter: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .about__badge {
+      border-color: CanvasText;
+      background: Canvas;
+      color: CanvasText;
+      backdrop-filter: none;
+    }
+
+    .about__badge-value,
+    .about__badge-label {
+      color: CanvasText;
+    }
+
+    .about__badge-label {
+      border-color: CanvasText;
+    }
+
+    .about__image-wrap::before {
+      border-color: ButtonText;
+    }
   }
 
   .about--image-background {
@@ -84,6 +157,10 @@
   @media (min-width: 64rem) {
     .about--split.about--with-image .about__inner {
       grid-template-columns: 1fr 1fr;
+    }
+
+    .about--split.about--with-image .about__image-wrap {
+      order: -1;
     }
   }
 }

@@ -2,6 +2,7 @@ import type { Page } from "@/types/page";
 import type { GalleryItem } from "@/types/gallery";
 import type { Service } from "@/types/services";
 import hero from "@/assets/images/hero.webp";
+import about from "@/assets/images/about.webp";
 
 // Placeholders hasta recibir las fotos reales (D9).
 const whatsappMessage = "Hola, quiero consultar un turno.";
@@ -110,22 +111,24 @@ export const page = {
     {
       type: "about",
       variant: "split",
-      eyebrow: "La profesional",
+      eyebrow: "El profesional — Tomas Mooney",
       title: "Experiencia, dedicación y atención personalizada",
+      quote:
+        "Cada trabajo es único. Lo que más valoro es escuchar qué querés y acompañarte para que el resultado sea exactamente el que buscás.",
       description:
-        "Con más de 16 años de experiencia en peinados, color y tratamientos, cada servicio empieza escuchando lo que buscás. Trabajo con turnos personalizados, en mi espacio de Rosario o a domicilio en Rosario y Roldán, para que llegues a tu día especial sin apuros.",
+        "Desde la elección minuciosa de cada matiz hasta la arquitectura de peinados que deben resistir horas de emoción y movimiento, cada sesión se concibe como una obra a medida. Trabajamos bajo un estándar de hospitalidad serena, asegurando que tu momento de preparación sea tan placentero como el resultado final.",
       image: {
-        src: "/placeholders/portrait.svg",
-        alt: "Imagen de ejemplo, se reemplaza por una foto de la profesional trabajando",
-        width: 800,
-        height: 1100,
+        src: about,
+        alt: "Cabello largo con ondas balayage y reflejos dorados, visto desde atrás",
       },
       action: {
-        label: "Escribime por WhatsApp",
+        label: "Escribir por WhatsApp",
         whatsapp: { message: whatsappMessage },
-        variant: "ghost",
+        variant: "link",
+        icon: "arrow-right",
+        iconPosition: "end",
       },
-      badge: { value: "16+", label: "años de experiencia", icon: "check" },
+      badge: { value: "16+", label: "años de experiencia" },
     },
     {
       type: "services",

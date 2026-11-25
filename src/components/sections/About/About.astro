@@ -3,8 +3,8 @@ import type { About } from "@/types/about";
 import BackgroundMedia from "@/components/ui/BackgroundMedia/BackgroundMedia.astro";
 import ActionButton from "@/components/ui/ActionButton/ActionButton.astro";
 import Container from "@/components/ui/Container/Container.astro";
-import Icon from "@/components/ui/Icon/Icon.astro";
 import Media from "@/components/ui/Media/Media.astro";
+import Quote from "@/components/ui/Quote/Quote.astro";
 import SectionTitle from "@/components/ui/SectionTitle/SectionTitle.astro";
 import { imageSizes } from "@/utils/image-sizes";
 import "./About.css";
@@ -17,10 +17,13 @@ const { id = "about", variant, eyebrow, title, description, action } = about;
 const isBackground = about.variant === "image-background";
 const position = isBackground ? (about.contentPosition ?? "start") : undefined;
 const centered = variant === "centered" || position === "center";
+const quote = about.variant === "image-background" ? undefined : about.quote;
+const titleId = `${id}-title`;
 ---
 
 <section
   id={id}
+  aria-labelledby={titleId}
   class:list={[
     "section",
     "about",
@@ -42,11 +45,14 @@ const centered = variant === "centered" || position === "center";
   >
     <div class="about__content">
       <SectionTitle
+        id={titleId}
         eyebrow={eyebrow}
         title={title}
-        description={description}
         align={centered ? "center" : "start"}
+        accent
       />
+      {quote && <Quote text={quote} author={eyebrow} />}
+      <p class="about__description">{description}</p>
       {action && <ActionButton action={action} />}
     </div>
     {about.variant !== "image-background" && about.image && (
@@ -58,7 +64,6 @@ const centered = variant === "centered" || position === "center";
         />
         {about.variant === "split" && about.badge && (
           <div class="about__badge">
-            {about.badge.icon && <Icon name={about.badge.icon} />}
             <span class="about__badge-value">{about.badge.value}</span>
             {about.badge.label && (
               <span class="about__badge-label">{about.badge.label}</span>

@@ -158,7 +158,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/about-edit
   - Imagen: `src/assets/images/about.webp` y `public/works/about/about.webp` (ya en el árbol de trabajo, se commitean acá). Evaluar el PNG sin trackear de `public/works/` con Camila antes de incluirlo; por defecto queda afuera.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`; catálogo y home a 375, 768 y 1280 px; claro y oscuro; presets editorial, modern y elegant; zoom al 200 % y 400 % sin pérdida de contenido; texto largo en la cita; navegación con teclado; `npm run build`.
 - **Modelo sugerido**: Opus (composición visual, contrato nuevo, accesibilidad de la card).
-- **Estado**: Pendiente.
+- **Estado**: Implementada (sin revisión visual en navegador: mirar home y catálogo a 375, 768 y 1280 px, ambos temas y los tres presets). Notas: `--text-display-sm` y `--font-light` no existen como tokens, el CSS usa los fallbacks (2rem y 300); el `badge` perdió `icon` del contrato; `Quote` recibe el eyebrow como `author` (figcaption oculto).
 
 ### Etapa 5: Movimiento y modos de accesibilidad
 
