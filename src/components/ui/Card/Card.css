@@ -12,8 +12,8 @@
   }
 
   .card--featured {
-    border-color: rgba(229, 209, 173, 0.45);
+    border-color: var(--color-accent-border-strong);
     border-width: var(--border-width-strong);
-    box-shadow: inset 0 1px 0 rgba(229, 209, 173, 0.3);
+    box-shadow: inset 0 1px 0 var(--color-accent-highlight);
   }
 }

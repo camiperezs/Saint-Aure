@@ -24,7 +24,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/orden-proy
 - **Archivos**: `src/components/forms/ContactForm/ContactForm.css:32`, `src/components/sections/Hero/Hero.css:78`, `src/components/ui/Button/Button.css:122`, `src/components/ui/Card/Card.css:15,17`; token nuevo en `src/styles/tokens/` si hace falta; `src/components/sections/Hero/HeroHairFlow.css` y `src/components/sections/Hero/Hero.css:123` (revisar colores y comentario, según D2).
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`. Catálogo `/dev/components` a 375 y 1280 px, claro y oscuro, los tres presets. Confirmar con grep que no quedan `rgba(197`, `rgba(229` ni `#c5a477` fuera de `site.ts`.
 - **Modelo sugerido**: Opus (decisión de tokens semánticos y contraste).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Tokens nuevos en `surfaces.css`: `--color-accent-soft`, `--color-accent-border`, `--color-accent-border-strong`, `--color-accent-highlight`, `--shadow-glow` (la etapa 3 los reutiliza). `HeroHairFlow.css` no tenía colores fijos. Sin revisión visual en navegador (solo check, lint, contraste y grep). `format:check` falla en 6 archivos previos ajenos a la etapa.
 
 ### Etapa 2: Hero.css sin duplicados ni px
 

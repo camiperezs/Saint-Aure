@@ -10,3 +10,30 @@
   --surface-rule-color: var(--color-link);
   --surface-rule-size: 2rem;
 }
+
+:root {
+  /* Acentos de marca derivados de la paleta del cliente (site.ts): bordes,
+     halos y glows. Nunca escribir el color de un cliente en un componente. */
+  --color-accent-soft: color-mix(
+    in srgb,
+    var(--color-brand-500) 8%,
+    transparent
+  );
+  --color-accent-border: color-mix(
+    in srgb,
+    var(--color-brand-500) 30%,
+    transparent
+  );
+  --color-accent-border-strong: color-mix(
+    in srgb,
+    var(--color-brand-200) 45%,
+    transparent
+  );
+  --color-accent-highlight: color-mix(
+    in srgb,
+    var(--color-brand-200) 30%,
+    transparent
+  );
+  --shadow-glow: 0 0 1.25rem
+    color-mix(in srgb, var(--color-brand-500) 40%, transparent);
+}
