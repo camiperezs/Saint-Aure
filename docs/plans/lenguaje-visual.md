@@ -36,7 +36,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/lenguaje-v
 - **Archivos**: `src/types/stats.ts`, `src/components/sections/Stats/Stats.astro`, `src/components/sections/Stats/Stats.css`, `src/content/page.ts`, `src/dev/Catalog.astro`.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`; catálogo y página real a 320, 375 y 1280 px, claro y oscuro, contenido largo; `npm run build` y el spec e2e que cubra Stats, si existe.
 - **Modelo sugerido**: Opus (diseño visual y contrato nuevo).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Los valores `text` usan `--text-title`; falta revisión visual en navegador (320/375/1280, claro/oscuro).
 
 ### Etapa 3: Documentar y migrar secciones
 

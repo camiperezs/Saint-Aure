@@ -27,7 +27,14 @@ const {
   <ul class="stats__items" role="list">
     {items.map((item) => (
       <li class="stats__item">
-        <p class="stats__value">{item.value}</p>
+        <p
+          class:list={[
+            "stats__value",
+            item.kind === "text" && "stats__value--text",
+          ]}
+        >
+          {item.value}
+        </p>
         <p class="stats__label">{item.label}</p>
         {item.description && (
           <p class="stats__description">{item.description}</p>

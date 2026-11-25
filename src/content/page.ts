@@ -296,7 +296,7 @@ export const page = {
     },
     {
       type: "stats",
-      variant: "cards",
+      variant: "ruled",
       eyebrow: "Saint Aure en números",
       title: "Una trayectoria que respalda cada servicio",
       items: [
@@ -312,6 +312,7 @@ export const page = {
         },
         {
           value: "Rosario & Roldán",
+          kind: "text",
           label: "Presencial y a domicilio",
           description: "En tu espacio o en el nuestro",
         },

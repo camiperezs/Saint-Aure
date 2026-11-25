@@ -108,7 +108,7 @@ export const catalog: CatalogEntry[] = [
   ...variants("logos", ["row", "grid"]),
   ...variants("services", ["grid", "list", "featured"]),
   ...catalogServices(),
-  ...variants("stats", ["row", "cards"]),
+  ...variants("stats", ["row", "cards", "ruled"]),
   ...sectionsOf("pricing").map((section) => ({ label: "pricing", section })),
   ...variants("benefits", ["grid", "horizontal"]),
   ...variants("process", ["steps", "timeline"]),
