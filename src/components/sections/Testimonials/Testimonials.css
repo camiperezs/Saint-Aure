@@ -1,6 +1,10 @@
 @layer components {
   .testimonial-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
     justify-content: space-between;
+    padding: var(--preset-card-padding);
   }
 
   .testimonial-card__rating {

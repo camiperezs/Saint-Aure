@@ -45,10 +45,11 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/lenguaje-v
 - **Archivos**: `docs/architecture/overview.md` (sección Lenguaje visual), los `.css` de las secciones que se migren, `README.md` si cambia la tabla de variantes.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`; catálogo en los dos temas y tres presets; `npm run build` y `npm run test:e2e`.
 - **Modelo sugerido**: Sonnet (sigue el patrón de las etapas 1 y 2), salvo que la auditoría pida rediseño.
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Se migraron las tarjetas de Testimonials a `.panel panel--ruled`; Services, Process y FAQ no cambian (sin motivo visible).
 
 ## Retoques
 
 Ajustes chicos que aparecen durante las etapas y se aplican juntos al final.
 
-(vacío)
+- Preexistente: `accessibility.spec` falla en `/` (tema claro) por `color-contrast` en `.section-title--center > h2` y `.section-title__description`. Ocurre sin los cambios de la etapa 3; identificar qué sección lo causa (probablemente sobre fondo de imagen) y corregirlo.
+- Pendiente de etapa 2: revisión visual en navegador de Stats (320/375/1280, claro/oscuro) y de las tarjetas de Testimonials con `.panel--ruled`.

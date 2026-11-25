@@ -473,6 +473,17 @@ Local WOFF2 font files are the preferred source. Use properly licensed client-pr
 
 Font roles map to the tokens `--font-body`, `--font-heading` and `--font-ui` (UI defaults to body). Display text (Hero title) and section headings use `--font-heading`; paragraphs, buttons and labels use `--font-body`. Eyebrow style is controlled by `--eyebrow-transform` and `--eyebrow-tracking`. Heading tracking and weight are configurable per client through `site.appearance.typography`; `--text-heading-weight` and `--text-display-weight` apply to those elements, and `--text-ui-weight` (semibold) applies to Button and Badge.
 
+### 9.10 Visual language: surfaces, rule and eyebrow
+
+Sections share one vocabulary, defined once as tokens and a utility instead of per-component values:
+
+- **Surface tokens** (`src/styles/tokens/surfaces.css`): `--surface-panel-bg`, `--surface-panel-border`, `--surface-panel-border-hover`, `--surface-rule-color` and `--surface-rule-size`. They derive from semantic tokens, never from hex values.
+- **`.panel`** (`src/styles/utilities/panel.css`): translucent background, 1px border, `--preset-card-radius`, no shadow. The border turns gold on hover only with `(hover: hover) and (pointer: fine)`; no zoom or shadow. `.panel--ruled` adds the 2rem gold rule on top, the same stroke as the Hero eyebrow.
+- **Eyebrow**: uppercase with wide tracking (`--eyebrow-transform`, `--eyebrow-tracking`), gold (`--color-link`), always paired with the rule.
+- **Stats `ruled`**: no box, 1px dividers, gold value, eyebrow-style label. `StatItem.kind: "text"` renders a textual value in the heading font, italic and smaller. `cards` and `row` are unchanged.
+
+Use `.panel` instead of `Card` when the section belongs to this language (Testimonials cards now do). `Card` remains the generic surface driven by the preset (`border`, `shadow`, `flat`). Sections without a justified visual change (Services grid/list, Process, FAQ) keep their current styling; migrate them only when a client needs it, and as an opt-in variant.
+
 ## 10. Responsive behavior and accessibility
 
 Responsive design is part of each component's contract, not a final patch.
