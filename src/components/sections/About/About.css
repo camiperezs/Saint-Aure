@@ -27,6 +27,21 @@
     text-align: center;
   }
 
+  /* Botón liso: sin gradiente metálico ni glow (solo dentro de About). */
+  .about .button--primary,
+  [data-theme="dark"] .about .button--primary {
+    background-image: none;
+    border-radius: var(--preset-button-radius);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .about .button--primary:hover:not(:disabled, [aria-disabled="true"]) {
+      background-color: var(--color-action-primary-hover);
+      filter: none;
+      box-shadow: none;
+    }
+  }
+
   .about__image-wrap {
     position: relative;
   }

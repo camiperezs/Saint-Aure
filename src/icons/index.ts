@@ -13,6 +13,7 @@ import phone from "./phone.svg?raw";
 import play from "./play.svg?raw";
 import shield from "./shield.svg?raw";
 import star from "./star.svg?raw";
+import whatsapp from "./whatsapp.svg?raw";
 
 export const icons = {
   "arrow-left": arrowLeft,
@@ -29,6 +30,7 @@ export const icons = {
   play,
   shield,
   star,
+  whatsapp,
 } satisfies Record<string, string>;
 
 export type IconName = keyof typeof icons;

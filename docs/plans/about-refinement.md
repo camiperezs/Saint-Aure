@@ -100,7 +100,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/about-refi
   - `src/content/page.ts`: `action` con `variant: "primary"`, `icon: "whatsapp"`, sin `iconPosition`.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`; catálogo y home a 375 y 1280 px en ambos temas: el botón de About es liso y el del Hero conserva su gradiente; foco visible; `npm run build`.
 - **Modelo sugerido**: Sonnet (sigue el patrón de iconos y variantes).
-- **Estado**: Pendiente.
+- **Estado**: Implementada.
 
 ### Etapa 3: Foto, marco y tarjeta 16+
 

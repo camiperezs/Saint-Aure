@@ -126,9 +126,8 @@ export const page = {
       action: {
         label: "Escribir por WhatsApp",
         whatsapp: { message: whatsappMessage },
-        variant: "link",
-        icon: "arrow-right",
-        iconPosition: "end",
+        variant: "primary",
+        icon: "whatsapp",
       },
       badge: { value: "16+", label: "años de experiencia" },
     },
