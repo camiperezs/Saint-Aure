@@ -1,0 +1,23 @@
+---
+import type { Image } from "@/types/image";
+import "./BrandLogo.css";
+
+interface Props {
+  logo: Image;
+  class?: string;
+}
+
+const { logo, class: className } = Astro.props;
+const src = typeof logo.src === "string" ? logo.src : logo.src.src;
+const width = "width" in logo ? logo.width : logo.src.width;
+const height = "height" in logo ? logo.height : logo.src.height;
+---
+
+<img
+  class:list={["brand-logo", className]}
+  src={src}
+  alt={logo.alt}
+  width={width}
+  height={height}
+  decoding="async"
+/>

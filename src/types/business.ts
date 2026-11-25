@@ -15,7 +15,6 @@ interface BusinessBase {
   telephone?: string;
   email?: string;
   whatsapp?: string;
-  logo?: string;
   priceRange?: string;
   openingHours?: string[];
 }

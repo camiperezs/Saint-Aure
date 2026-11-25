@@ -1,6 +1,8 @@
 ---
 import type { Action } from "@/types/action";
+import type { Image } from "@/types/image";
 import type { HeaderConfig, NavigationLink } from "@/types/navigation";
+import BrandLogo from "@/components/layout/BrandLogo/BrandLogo.astro";
 import ActionButton from "@/components/ui/ActionButton/ActionButton.astro";
 import Container from "@/components/ui/Container/Container.astro";
 import Icon from "@/components/ui/Icon/Icon.astro";
@@ -9,6 +11,7 @@ import "./Header.css";
 interface Props {
   variant: HeaderConfig["variant"];
   brand: string;
+  logo?: Image;
   brandHref?: string;
   links?: NavigationLink[];
   action?: Action;
@@ -21,6 +24,7 @@ const {
   variant,
   overlay = false,
   brand,
+  logo,
   brandHref = "/",
   links = [],
   action,
@@ -37,7 +41,7 @@ const hasNavigation = variant === "standard" && links.length > 0;
 >
   <Container size="wide" class="header__inner">
     <a class="header__brand" href={brandHref}>
-      {brand}
+      {logo ? <BrandLogo logo={logo} /> : brand}
     </a>
 
     {hasNavigation && (

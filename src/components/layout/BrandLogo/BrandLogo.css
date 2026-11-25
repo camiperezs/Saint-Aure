@@ -1,0 +1,11 @@
+@layer components {
+  /* Alto fijo y ancho automático: el width/height del HTML reserva el
+     espacio (sin CLS) y el CSS mantiene la proporción. */
+  .brand-logo {
+    display: block;
+    inline-size: auto;
+    block-size: var(--brand-logo-height, 2rem);
+    max-inline-size: 100%;
+    object-fit: contain;
+  }
+}

@@ -1,6 +1,8 @@
 ---
 import type { IconName } from "@/icons";
 import type { Action, ActionVariant } from "@/types/action";
+import type { Image } from "@/types/image";
+import BrandLogo from "@/components/layout/BrandLogo/BrandLogo.astro";
 import Actions from "@/components/ui/Actions/Actions.astro";
 import Badge from "@/components/ui/Badge/Badge.astro";
 import Button from "@/components/ui/Button/Button.astro";
@@ -44,6 +46,13 @@ const whatsappActions: Action[] = [
     iconPosition: "end",
   },
 ];
+
+const placeholderLogo: Image = {
+  src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='32'%3E%3Crect width='120' height='32' rx='6' fill='%23888'/%3E%3Ctext x='60' y='21' font-size='14' text-anchor='middle' fill='white' font-family='sans-serif'%3ELOGO%3C/text%3E%3C/svg%3E",
+  alt: "Marca de ejemplo",
+  width: 120,
+  height: 32,
+};
 ---
 
 <div id="ui" class="catalog__entry">
@@ -91,6 +100,13 @@ const whatsappActions: Action[] = [
           <Icon name={name} />
         ))}
         <Icon name="shield" label="Garantía" />
+      </div>
+    </section>
+
+    <section class="catalog__group" aria-label="BrandLogo">
+      <p class="catalog__group-label">BrandLogo (Header y Footer)</p>
+      <div class="cluster">
+        <BrandLogo logo={placeholderLogo} />
       </div>
     </section>
 

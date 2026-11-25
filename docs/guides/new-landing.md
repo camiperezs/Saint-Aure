@@ -49,7 +49,19 @@ Reemplazá también `public/favicon.svg` por el ícono del cliente (un SVG cuadr
 | `email`        | Email de contacto                                                                                                              |
 | `openingHours` | Horarios en formato schema.org: `"Mo-Fr 09:00-18:00"`, `"Sa 10:00-13:00"`                                                      |
 | `priceRange`   | Rango de precios, por ejemplo `"$$"`. Opcional                                                                                 |
-| `logo`         | Ruta del logo en `public/`. Opcional                                                                                           |
+
+### Logo (opcional)
+
+`logo` va en la raíz de `site.ts`, junto a `name`. Reemplaza al nombre en el Header y el Footer, y también va al JSON-LD. Sin `logo` se muestra el nombre como texto.
+
+```ts
+logo: { src: "/logo.svg", alt: "Nombre del negocio", width: 160, height: 40 },
+```
+
+- `src`: ruta en `public/` o un import de `src/assets/images/` (en ese caso sin `width` ni `height`).
+- `alt`: el nombre del negocio, porque el logo reemplaza al texto.
+- `width` y `height`: las medidas reales del archivo; reservan el espacio y evitan saltos de layout. Se muestra a 2rem de alto (`--brand-logo-height`).
+- Un solo archivo para ambos temas: usá un logo que se lea sobre fondo claro y oscuro. En el hero `fullscreen` el header va sobre la imagen, así que conviene un logo claro o neutro.
 
 Las redes de `social` se agregan automáticamente al JSON-LD. Los datos tienen que ser reales y coincidir con lo que se muestra en la página.
 

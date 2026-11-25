@@ -2,6 +2,7 @@ import type { AnalyticsConfig, ConsentLabels } from "./analytics";
 import type { BusinessInfo } from "./business";
 import type { ContactLabels, FloatingWhatsApp } from "./contact";
 import type { GalleryLabels } from "./gallery";
+import type { Image } from "./image";
 import type { LocationLabels } from "./location";
 import type { PricingLabels } from "./pricing";
 import type { VideoLabels } from "./video";
@@ -74,6 +75,8 @@ export interface SiteConfig {
   name: string;
   url: string;
   locale: string;
+  /** Logo opcional. Sin él, Header y Footer muestran el nombre como texto. */
+  logo?: Image;
   seo: SiteSEO;
   business: BusinessInfo;
   appearance: SiteAppearance;

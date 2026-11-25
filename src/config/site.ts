@@ -8,6 +8,9 @@ export const site: SiteConfig = {
   url: "https://saintaure.com.ar",
   locale: "es-AR",
 
+  // Logo opcional (Header, Footer y JSON-LD). Sin logo se muestra el nombre.
+  // logo: { src: "/logo.svg", alt: "Saint Aure", width: 160, height: 40 },
+
   seo: {
     title: "Saint Aure — Peinados y color en Rosario y Roldán",
     description,

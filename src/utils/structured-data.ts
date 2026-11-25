@@ -12,7 +12,9 @@ export function getBusinessStructuredData(site: SiteConfig): string {
     legalName: business.legalName,
     description: business.description,
     url: site.url,
-    logo: absolute(business.logo),
+    logo: absolute(
+      typeof site.logo?.src === "string" ? site.logo.src : site.logo?.src.src,
+    ),
     image: absolute(seo.image?.src),
     telephone: business.telephone,
     email: business.email,

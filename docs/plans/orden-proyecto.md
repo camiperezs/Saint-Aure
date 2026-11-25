@@ -51,7 +51,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/orden-proy
 - **Archivos**: contrato en `src/types/` con el campo opcional del logo; `Header.astro` y `.css`, `Footer.astro` y `.css` (logo con `Media` o `<img>` con dimensiones; texto de marca como fallback y como nombre accesible); `src/utils/structured-data.ts` (usar `business.logo` solo si existe); `src/config/site.ts` (sin logo todavía, dejando un comentario o campo comentado que indique dónde ponerlo); `src/dev/UiPrimitives.astro` o el catálogo con un caso "con logo" usando un SVG o placeholder; actualizar `docs/guides/new-landing.md` con cómo cargar el logo.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`. Catálogo y `npm run dev` a 375 y 1280 px, claro y oscuro, con y sin logo. `npm run build` y `npm run test:e2e` (specs de header y SEO).
 - **Modelo sugerido**: Opus (contrato nuevo, accesibilidad y CLS).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Contrato: `SiteConfig.logo?: Image` (raíz de `site.ts`); reemplaza a `business.logo`, que se eliminó. Componente nuevo `layout/BrandLogo` usado por Header y Footer; el JSON-LD toma `site.logo`. Caso "BrandLogo" agregado a `UiPrimitives` del catálogo. `format:check` falla solo en `gallery.ts` y `overview.md` (previos). Sin revisión visual en navegador; build y e2e `seo` y `layout` pasan.
 
 ### Etapa 5: Assets del cliente y cierre del plan
 
