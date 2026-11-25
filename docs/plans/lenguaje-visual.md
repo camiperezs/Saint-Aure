@@ -50,6 +50,3 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/lenguaje-v
 ## Retoques
 
 Ajustes chicos que aparecen durante las etapas y se aplican juntos al final.
-
-- Preexistente: `accessibility.spec` falla en `/` (tema claro) por `color-contrast` en `.section-title--center > h2` y `.section-title__description`. Ocurre sin los cambios de la etapa 3; identificar qué sección lo causa (probablemente sobre fondo de imagen) y corregirlo.
-- Pendiente de etapa 2: revisión visual en navegador de Stats (320/375/1280, claro/oscuro) y de las tarjetas de Testimonials con `.panel--ruled`.

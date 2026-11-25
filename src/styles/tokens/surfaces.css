@@ -1,5 +1,7 @@
-:root {
-  /* Lenguaje visual: superficies. Todo sale de tokens semánticos, sin hex. */
+:root,
+[data-theme] {
+  /* Lenguaje visual: superficies. Todo sale de tokens semánticos, sin hex.
+     `[data-theme]` los recalcula en secciones con tema propio (p. ej. el CTA badge oscuro). */
   --surface-panel-bg: color-mix(in srgb, var(--color-surface) 70%, transparent);
   --surface-panel-border: var(--color-border-default);
   --surface-panel-border-hover: var(--color-link);

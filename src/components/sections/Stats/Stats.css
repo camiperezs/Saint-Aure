@@ -28,7 +28,7 @@
     line-height: 1.1;
     letter-spacing: var(--text-heading-tracking);
     color: var(--color-action-primary);
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
   }
 
   .stats__value--text {
@@ -41,10 +41,12 @@
   /* ruled: sin caja; separadores de 1px y voz de eyebrow en el label. */
   .stats--ruled .stats__items {
     gap: 0;
+    align-items: stretch;
   }
 
   .stats--ruled .stats__item {
-    padding: var(--space-6) var(--space-6);
+    justify-content: flex-start;
+    padding: var(--space-6) 0;
     border-block-start: 1px solid var(--surface-panel-border);
   }
 
@@ -70,7 +72,7 @@
 
   @media (min-width: 48rem) {
     .stats--ruled .stats__item {
-      padding-block: var(--space-2);
+      padding: var(--space-2) var(--space-6);
       border-block-start: 0;
       border-inline-start: 1px solid var(--surface-panel-border);
     }
