@@ -15,6 +15,24 @@ for (const width of [320, 360, 412, 768, 1024, 1440]) {
   });
 }
 
+for (const width of [320, 360, 768, 1024, 1440]) {
+  test(`About does not overflow its section at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+
+    const overflow = await page.locator("#about").evaluate((section) => {
+      const limit = section.getBoundingClientRect().right;
+      return [...section.querySelectorAll("*")]
+        .filter((element) => element.getBoundingClientRect().right > limit + 1)
+        .map((element) => element.className || element.tagName);
+    });
+
+    expect(overflow).toEqual([]);
+  });
+}
+
 test("skip link moves focus to the main content", async ({
   page,
   isMobile,

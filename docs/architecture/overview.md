@@ -88,7 +88,9 @@ The Footer has Compact and Expanded variants. Detailed content contracts and exa
 - Title and description are required.
 - Image is optional in every variant.
 - Eyebrow and CTA are optional.
-- Split supports image position and composition settings.
+- Split supports image position and composition settings. The image is always shown on the left from 64rem, using CSS `order` only: the DOM keeps the content first, so reading and focus order do not change on mobile.
+- Standard variants accept an optional `quote`, rendered with `Quote`, and Split an optional `badge` (`value` and `label`, no icon) shown as an experience card overlapping the image.
+- The section is labelled by its heading (`aria-labelledby`). The entrance of the quote and the card is CSS only (`animation-timeline: view()`), disabled with `prefers-reduced-motion`.
 - Centered supports a constrained content width and optional image.
 - ImageBackground supports overlay, opacity, content position and image focal point.
 - Uses semantic section markup and a heading hierarchy consistent with the page.
@@ -188,7 +190,8 @@ The Footer has Compact and Expanded variants. Detailed content contracts and exa
 | `SocialLinks`    | Social profile links                                               |
 | `Button`         | Shared link/button presentation                                    |
 | `Container`      | Consistent content width and horizontal spacing                    |
-| `SectionTitle`   | Shared section heading composition                                 |
+| `SectionTitle`   | Shared section heading composition; `accent` adds eyebrow rules    |
+| `Quote`          | Typographic quote (`figure`) with a visually hidden attribution    |
 | `Card`           | Generic visual card where a domain-specific card is unnecessary    |
 | `Badge`          | Small status or category label where appropriate                   |
 
@@ -200,6 +203,8 @@ The Footer has Compact and Expanded variants. Detailed content contracts and exa
 - Supported action types: internal link, external link, WhatsApp, email and phone.
 - Visual styling is controlled by the design system rather than hardcoded per client.
 - Action links should use a shared URL/action resolution strategy where possible.
+- Actions support a `link` variant (no border, uppercase) and `iconPosition: "start" | "end"`; the trailing arrow shifts slightly on hover and focus.
+- `--color-accent-text` is the semantic token for decorative gold text (quotes, display numerals); `check:contrast` validates it at 4.5:1 in both themes.
 
 **WhatsApp**
 

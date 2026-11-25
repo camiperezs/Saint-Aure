@@ -73,6 +73,17 @@ test("embeds load only after an explicit request", async ({ page }) => {
   }
 });
 
+test("About WhatsApp link points to wa.me and opens safely", async ({
+  page,
+}) => {
+  const link = page.locator('#about a[href^="https://wa.me/"]');
+  test.skip((await link.count()) === 0, "No WhatsApp link in About");
+
+  await expect(link).toHaveAttribute("target", "_blank");
+  await expect(link).toHaveAttribute("rel", /noopener/);
+  await expect(link).toHaveAccessibleName(/.+/);
+});
+
 test("external WhatsApp links open safely in a new tab", async ({ page }) => {
   const links = page.locator('main a[href^="https://wa.me/"]');
   const count = await links.count();
