@@ -63,6 +63,18 @@
     }
   }
 
+  /* Se oculta al bajar y vuelve al subir (src/scripts/motion/header.ts). El
+     atributo solo lo pone el script, así que sin movimiento no pasa nada. */
+  @media (prefers-reduced-motion: no-preference) {
+    .has-motion .header--standard {
+      transition: translate var(--duration-slow) var(--ease-out-strong);
+    }
+  }
+
+  .header--standard[data-header-hidden] {
+    translate: 0 -100%;
+  }
+
   .header__brand {
     font-size: var(--text-body);
     font-weight: var(--font-bold);

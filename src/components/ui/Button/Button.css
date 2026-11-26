@@ -22,7 +22,15 @@
     cursor: pointer;
     transition:
       var(--transition-colors),
+      filter var(--duration-normal) var(--ease-standard),
+      box-shadow var(--duration-normal) var(--ease-standard),
       transform var(--duration-fast) var(--ease-out-strong);
+  }
+
+  /* Efecto magnético (src/scripts/motion/cta.ts): `translate` va aparte de
+     `transform`, así convive con el `scale` de :active. */
+  .button[data-magnetic] {
+    translate: calc(var(--mx, 0) * 1px) calc(var(--my, 0) * 1px);
   }
 
   .button:hover {

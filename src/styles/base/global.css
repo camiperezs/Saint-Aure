@@ -64,3 +64,23 @@ textarea {
 [aria-invalid="true"]:focus-visible {
   outline-color: var(--color-status-danger);
 }
+
+/* El header sticky no tapa el foco ni los anclas: el navegador deja este
+   margen al llevar un elemento a la vista. */
+html {
+  scroll-padding-block-start: 5rem;
+}
+
+/* Transición entre documentos (home, thank-you, legales): fundido corto.
+   Solo con movimiento normal; sin soporte el navegador navega como siempre. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--duration-slow);
+    animation-timing-function: var(--ease-out-strong);
+  }
+}

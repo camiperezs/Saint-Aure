@@ -8,7 +8,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { DESKTOP_FINE, MOTION_OK } from "./config";
 import { initAbout } from "./about";
+import { initCta, initMagnetic } from "./cta";
 import { initGallery } from "./gallery";
+import { initHeader } from "./header";
 import { initHero } from "./hero";
 import { initServices } from "./services";
 import { initStats } from "./stats";
@@ -36,6 +38,7 @@ mm.add(MOTION_OK, () => {
 
   // La cortina de la foto (LCP) arranca ya; el titular espera a las fuentes.
   initHero(fontsReady);
+  const cleanupHeader = initHeader();
 
   void fontsReady.then(() => {
     if (cancelled) {
@@ -49,11 +52,13 @@ mm.add(MOTION_OK, () => {
     initAbout();
     initStats();
     initServices();
+    initCta();
     ScrollTrigger.refresh();
   });
 
   return () => {
     cancelled = true;
+    cleanupHeader?.();
     root.classList.remove("has-motion");
   };
 });
@@ -77,3 +82,8 @@ mm.add(`${MOTION_OK} and ${DESKTOP_FINE} and (min-height: 40rem)`, () => {
     cleanup?.();
   };
 });
+
+// Efecto magnético: solo con puntero fino que soporta hover.
+mm.add(`${MOTION_OK} and (hover: hover) and (pointer: fine)`, () =>
+  initMagnetic(),
+);

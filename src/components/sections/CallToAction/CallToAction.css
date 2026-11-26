@@ -57,6 +57,16 @@
     border-radius: var(--radius-pill);
   }
 
+  /* Movimiento (src/scripts/motion/cta.ts): solo con `has-motion`; el
+     failsafe de motion-init.js lo deja visible. */
+  .has-motion .cta--badge .cta__panel {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  .has-motion .cta--badge .cta__badge {
+    opacity: 0;
+  }
+
   .cta__details {
     display: grid;
     grid-template-columns: 1fr;

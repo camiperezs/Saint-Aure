@@ -89,7 +89,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/motion-mod
 - **Archivos**: `CallToAction.astro` y `.css`; `Header.css` y su script de menú si hace falta; `Button.css`; `src/scripts/motion/cta.ts` y `header.ts` (nuevos); `BaseLayout.astro` (`@view-transition`, si la CSP y los scripts empaquetados lo permiten); `src/styles/` solo si hace falta un token.
 - **Verificación**: comandos base; `npm run build` y `npm run test:e2e` (menú móvil, skip link, formulario, redirección a `/thank-you`); navegador: el header con el menú móvil abierto no se oculta; el foco visible nunca queda bajo el header; el efecto magnético no existe sin `(hover: hover)`.
 - **Modelo sugerido**: Sonnet (sigue las recetas y helpers ya existentes).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Se apartó del plan en dos puntos: el fondo del header por scroll (`header-bg`, CSS) se conservó y convive con ocultar/mostrar (`data-header-hidden`, `header.ts`), porque sirve de fallback sin JS; la transición entre páginas es un fundido corto de `root` (sin `view-transition-name` en el header). Se agregó `scroll-padding-block-start: 5rem` en `global.css` para que el foco no quede bajo el header. Chunk de motion: 49 kB gzip.
 
 ### Etapa 7: Auditoría y cierre
 
