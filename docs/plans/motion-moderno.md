@@ -71,7 +71,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/motion-mod
 - **Archivos**: `ServiceCatalog.css`; `src/scripts/service-catalog.ts` (hooks de dirección y transición); `src/scripts/motion/services.ts` (entrada escalonada); `ServiceCatalog.astro` solo si falta un atributo.
 - **Verificación**: comandos base; `npm run build` y `npm run test:e2e` (spec del catálogo y teclado: ← → Home End, primer panel visible sin JS); navegador a 375 y 1280 px en ambos temas; con movimiento reducido, el panel cambia sin desplazamiento.
 - **Modelo sugerido**: Sonnet (modifica un script y un CSS existentes, sin contratos nuevos).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. El cruce del panel usa CSS para el que sale (`--catalog-dir`) y Web Animations para el que entra; las cards entran con GSAP (`motion/services.ts`).
 
 ### Etapa 5: Galería inmersiva
 

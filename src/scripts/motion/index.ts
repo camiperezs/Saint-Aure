@@ -9,6 +9,7 @@ import { SplitText } from "gsap/SplitText";
 import { MOTION_OK } from "./config";
 import { initAbout } from "./about";
 import { initHero } from "./hero";
+import { initServices } from "./services";
 import { initStats } from "./stats";
 import {
   countNumbers,
@@ -46,6 +47,7 @@ mm.add(MOTION_OK, () => {
     countNumbers();
     initAbout();
     initStats();
+    initServices();
     ScrollTrigger.refresh();
   });
 

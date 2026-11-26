@@ -122,8 +122,15 @@
      largo y no cambia al seleccionar otra especialidad. */
   .service-catalog__panels {
     display: grid;
+    /* El desplazamiento del cruce no genera scroll horizontal; el margen deja
+       ver el anillo de foco del botón. */
+    overflow-x: clip;
+    overflow-clip-margin: 0.5rem;
   }
 
+  /* Cruce direccional: `--catalog-dir` (1 o -1) lo fija service-catalog.ts
+     según la tarjeta o flecha elegida. El panel que sale se desplaza hacia el
+     lado contrario; el que entra lo anima el script (Web Animations API). */
   .service-catalog__panel {
     grid-area: 1 / 1;
     display: flex;
@@ -132,6 +139,7 @@
     opacity: 1;
     transition:
       opacity 200ms ease,
+      transform 300ms var(--ease-out-strong, ease),
       visibility 0s;
   }
 
@@ -140,9 +148,17 @@
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
+    transform: translateX(calc(var(--catalog-dir, 1) * -1.5rem));
     transition:
       opacity 200ms ease,
+      transform 300ms var(--ease-out-strong, ease),
       visibility 0s 200ms;
+  }
+
+  /* Estado inicial de la entrada escalonada (src/scripts/motion/services.ts):
+     solo con `has-motion`; el failsafe de motion-init.js lo deja visible. */
+  .has-motion .service-catalog__cards > li {
+    opacity: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -151,6 +167,10 @@
     .service-catalog__card,
     .service-catalog__image {
       transition: none;
+    }
+
+    .service-catalog__panel[hidden] {
+      transform: none;
     }
 
     .service-catalog__card:hover .service-catalog__image {

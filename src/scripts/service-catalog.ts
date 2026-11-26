@@ -17,7 +17,15 @@ export function initServiceCatalog(root: HTMLElement): void {
     tabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true"),
   );
 
-  const select = (index: number, focus = false) => {
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+  /**
+   * `direction` (1 adelante, -1 atrás) orienta el cruce del panel. Sin
+   * dirección (primer render) no se anima. Con movimiento reducido el panel
+   * cambia sin desplazamiento.
+   */
+  const select = (index: number, focus = false, direction = 0) => {
+    const previousIndex = current;
     // Carrusel sin fin: pasado el último vuelve al primero y al revés.
     current = (index + tabs.length) % tabs.length;
 
@@ -28,14 +36,30 @@ export function initServiceCatalog(root: HTMLElement): void {
       tab.tabIndex = isSelected ? 0 : -1;
       tab.toggleAttribute("data-selected", isSelected);
     });
+    root.style.setProperty("--catalog-dir", String(direction || 1));
     panels.forEach((panel, i) => {
       panel.hidden = i !== current;
     });
 
+    if (
+      direction !== 0 &&
+      current !== previousIndex &&
+      !reducedMotion.matches
+    ) {
+      const offset = `${direction * 1.5}rem`;
+      panels[current].animate(
+        [
+          { opacity: 0, transform: `translateX(${offset})` },
+          { opacity: 1, transform: "translateX(0)" },
+        ],
+        { duration: 400, easing: "cubic-bezier(0.16, 1, 0.3, 1)" },
+      );
+    }
+
     // En mobile las cards se desplazan: la elegida queda siempre a la vista.
     const track = tabs[current].closest<HTMLElement>("[data-catalog-track]");
     if (track && track.scrollWidth > track.clientWidth) {
-      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const reduce = reducedMotion.matches;
       const card = tabs[current].parentElement as HTMLElement;
       track.scrollTo({
         left: card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2,
@@ -48,26 +72,29 @@ export function initServiceCatalog(root: HTMLElement): void {
     }
   };
 
-  tabs.forEach((tab, i) => tab.addEventListener("click", () => select(i)));
+  tabs.forEach((tab, i) =>
+    tab.addEventListener("click", () => select(i, false, i > current ? 1 : -1)),
+  );
 
   tabs.forEach((tab) =>
     tab.addEventListener("keydown", (event) => {
-      const keys: Record<string, number> = {
-        ArrowLeft: current - 1,
-        ArrowRight: current + 1,
-        Home: 0,
-        End: tabs.length - 1,
+      const keys: Record<string, [number, number]> = {
+        ArrowLeft: [current - 1, -1],
+        ArrowRight: [current + 1, 1],
+        Home: [0, -1],
+        End: [tabs.length - 1, 1],
       };
 
       if (event.key in keys) {
         event.preventDefault();
-        select(keys[event.key], true);
+        const [index, direction] = keys[event.key];
+        select(index, true, direction);
       }
     }),
   );
 
-  previous?.addEventListener("click", () => select(current - 1));
-  next?.addEventListener("click", () => select(current + 1));
+  previous?.addEventListener("click", () => select(current - 1, false, -1));
+  next?.addEventListener("click", () => select(current + 1, false, 1));
 
   select(current);
 }
