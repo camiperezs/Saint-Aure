@@ -98,7 +98,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/motion-mod
 - **Archivos**: `tests/e2e/motion.spec.ts` (o la carpeta de specs que use el repo): sin JS todo el contenido visible, con `reducedMotion: "reduce"` estado final y sin errores de consola ni CSP, la home tiene `has-motion` solo en `no-preference`; correcciones que salgan de la auditoría; `README.md`.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`, `npm run build`, `npm run test:e2e` completo. `npm run check:launch` seguirá fallando solo por lo que ya figura en el README.
 - **Modelo sugerido**: Sonnet.
-- **Estado**: Pendiente.
+- **Estado**: Implementada. `tests/e2e/motion.spec.ts` cubre sin JS, `reduce` y `no-preference`. La auditoría encontró un bug real del CTA (`clearProps` devolvía el `clip-path` y la opacidad ocultos del CSS; corregido en `cta.ts`) y curva y duración a mano en `service-catalog.ts` (ahora leen los tokens). `accessibility.spec.ts` espera al intro de GSAP del hero para no medir contraste a medias. Chunk: 49 kB gzip.
 
 ## Retoques
 

@@ -1,3 +1,16 @@
+/** Lee un token de `src/styles/tokens/motion.css` para no repetir curvas ni tiempos. */
+function token(name: string, fallback: string): string {
+  return (
+    getComputedStyle(document.documentElement).getPropertyValue(name).trim() ||
+    fallback
+  );
+}
+
+function tokenMs(name: string, fallback: number): number {
+  const value = parseFloat(token(name, `${fallback}ms`));
+  return Number.isFinite(value) ? value : fallback;
+}
+
 export function initServiceCatalog(root: HTMLElement): void {
   const tabs = Array.from(
     root.querySelectorAll<HTMLButtonElement>("[data-catalog-tab]"),
@@ -52,7 +65,10 @@ export function initServiceCatalog(root: HTMLElement): void {
           { opacity: 0, transform: `translateX(${offset})` },
           { opacity: 1, transform: "translateX(0)" },
         ],
-        { duration: 400, easing: "cubic-bezier(0.16, 1, 0.3, 1)" },
+        {
+          duration: tokenMs("--duration-slow", 300),
+          easing: token("--ease-out-strong", "ease-out"),
+        },
       );
     }
 

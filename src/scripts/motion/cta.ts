@@ -16,12 +16,17 @@ export function initCta(): void {
         scrollTrigger: { trigger: panel, start: "top 85%", once: true },
       });
 
-      timeline.from(panel, {
-        clipPath: "inset(0 0 100% 0)",
-        duration: duration.feature,
-        ease: ease.enter,
-        clearProps: "clipPath",
-      });
+      // Valores finales explícitos y sin `clearProps`: al limpiar, el CSS de
+      // `has-motion` (estado inicial oculto) volvería a aplicarse.
+      timeline.fromTo(
+        panel,
+        { clipPath: "inset(0 0 100% 0)" },
+        {
+          clipPath: "inset(0 0 0% 0)",
+          duration: duration.feature,
+          ease: ease.enter,
+        },
+      );
 
       if (badge) {
         timeline.fromTo(
@@ -32,7 +37,6 @@ export function initCta(): void {
             scale: 1,
             duration: duration.reveal,
             ease: ease.enter,
-            clearProps: "opacity,scale",
           },
           0.45,
         );

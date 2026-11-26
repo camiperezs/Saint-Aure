@@ -19,6 +19,15 @@ Este repositorio es la landing de Saint Aure. `npm run check:launch` va a fallar
 - [ ] **Textos legales**: `privacy.md` y `terms.md` tienen los datos de Saint Aure, pero no los revisó un profesional. Hacerlos revisar antes de publicar.
 - [ ] **Indexación**: cambiar `seo.robots` a `"index, follow"` recién al publicar.
 
+## Saint Aure: movimiento
+
+La home usa GSAP (`ScrollTrigger` y `SplitText`) empaquetado en un único módulo, `src/scripts/motion/index.ts`, que solo se carga en la home (unos 49 kB gzip; presupuesto: 60 kB). Es una excepción de Saint Aure: hero, About, Stats, Gallery, catálogo de Services, CTA, Header y Button se reescribieron para esto y van a dar conflicto al traer cambios de la plantilla (se resuelven a favor de Saint Aure).
+
+- `has-motion` en `<html>` lo agrega `src/scripts/inline/motion-init.js` solo con `prefers-reduced-motion: no-preference`; los estados iniciales ocultos viven en CSS bajo esa clase. Sin JS, con movimiento reducido o si el módulo no arranca en 3 s, la página se ve completa y estática.
+- Pin y recorrido horizontal de la galería solo en desktop con hover.
+- `tests/e2e/motion.spec.ts` cubre sin JS, movimiento reducido y movimiento normal. Si se agrega un estado inicial oculto nuevo, sumarlo a `REVEALED` en ese spec.
+- Al animar con GSAP un estado que el CSS oculta bajo `has-motion`, no usar `clearProps` sobre esa propiedad: el CSS volvería a ocultarlo.
+
 ## Requisitos
 
 - Node.js 24
