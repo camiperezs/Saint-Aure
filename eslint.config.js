@@ -23,6 +23,8 @@ export default defineConfig(
         document: "readonly",
         localStorage: "readonly",
         getComputedStyle: "readonly",
+        matchMedia: "readonly",
+        setTimeout: "readonly",
       },
     },
   },

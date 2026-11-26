@@ -10,7 +10,7 @@ import { googleAnalyticsOrigins } from "./src/integrations/analytics/google-anal
 const hash = (code) =>
   `sha256-${createHash("sha256").update(code).digest("base64")}`;
 
-const inlineScripts = ["theme-init", "theme-color"].map((name) =>
+const inlineScripts = ["theme-init", "theme-color", "motion-init"].map((name) =>
   readFileSync(
     new URL(`./src/scripts/inline/${name}.js`, import.meta.url),
     "utf8",

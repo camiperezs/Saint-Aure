@@ -625,6 +625,7 @@ Decisions resolved during implementation:
 | Image contract | Discriminated union in `src/types/image.ts`: `{ src: ImageMetadata; alt }` or `{ src: string; alt; width; height }` — string sources require explicit dimensions |
 | Action contract | Discriminated union in `src/types/action.ts`: `LinkAction` or `WhatsAppAction`; WhatsApp number is sourced from `site.business.whatsapp` via `getWhatsAppUrl` |
 | Icon module | `src/icons/index.ts` exports `icons` (SVG raw map) and `IconName` type; Icon component and all section contracts with icon names use this type; clients register new SVGs in that module |
+| Motion library (Saint Aure only) | Exception to "Client-side libraries: None": `gsap` (ScrollTrigger, SplitText), bundled into one module `src/scripts/motion/` loaded only on the home (`BaseLayout` prop `motion`). Everything runs inside `gsap.matchMedia()` with `prefers-reduced-motion: no-preference`; `has-motion` on `<html>` is set by a hashed inline script with a 3 s failsafe. Not part of the template; see `docs/plans/motion-moderno.md` |
 
 Still open:
 

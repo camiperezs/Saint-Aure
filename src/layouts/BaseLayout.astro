@@ -15,11 +15,14 @@ import { THEME_STORAGE_KEY } from "@/scripts/theme";
 import { getHeadStyles } from "@/utils/appearance";
 import themeColorScript from "@/scripts/inline/theme-color.js?raw";
 import themeInitScript from "@/scripts/inline/theme-init.js?raw";
+import motionInitScript from "@/scripts/inline/motion-init.js?raw";
 
 interface Props {
   title?: string;
   description?: string;
   headerOverlay?: boolean;
+  /** Carga el movimiento (GSAP). Solo la home; ver docs/plans/motion-moderno.md. */
+  motion?: boolean;
   robots?: SiteSEO["robots"];
 }
 
@@ -27,6 +30,7 @@ const {
   title = site.seo.title,
   description = site.seo.description,
   headerOverlay = false,
+  motion = false,
   robots = site.seo.robots,
 } = Astro.props;
 
@@ -61,6 +65,7 @@ if (site.analytics) {
     <style is:inline set:html={headStyles} />
 
     <script is:inline set:html={themeInitScript} />
+    {motion && <script is:inline set:html={motionInitScript} />}
     <slot name="head" />
   </head>
 
@@ -126,5 +131,8 @@ if (site.analytics) {
     {site.analytics && (
       <CookieConsent config={site.analytics} labels={labels.consent} />
     )}
+    {motion && <script>
+      import "@/scripts/motion";
+    </script>}
   </body>
 </html>

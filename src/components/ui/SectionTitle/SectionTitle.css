@@ -93,6 +93,48 @@
     margin-inline: auto;
   }
 
+  /* Movimiento (src/scripts/motion): solo con `has-motion`. El título espera a
+     SplitText para no mostrarse entero y luego subir; los filetes se dibujan
+     con --rule. Sin `has-motion` nada de esto aplica. */
+  .has-motion .section-title__heading[data-reveal="lines"] {
+    text-wrap: wrap;
+  }
+
+  .has-motion
+    .section-title__heading[data-reveal="lines"]:not(
+      [data-reveal-state="ready"]
+    ) {
+    visibility: hidden;
+  }
+
+  .motion-line-mask {
+    padding-block-end: 0.14em;
+    margin-block-end: -0.14em;
+  }
+
+  .has-motion .section-title[data-reveal-rule] {
+    --rule: 0;
+  }
+
+  .has-motion .section-title--accent .section-title__eyebrow::before,
+  .has-motion .section-title--accent .section-title__heading::after {
+    transform: scaleX(var(--rule, 1));
+    transform-origin: left center;
+  }
+
+  .has-motion
+    .section-title--accent.section-title--center
+    .section-title__eyebrow::after {
+    transform: scaleX(var(--rule, 1));
+    transform-origin: right center;
+  }
+
+  .has-motion
+    .section-title--accent.section-title--center
+    .section-title__heading::after {
+    transform-origin: center;
+  }
+
   @media (forced-colors: active) {
     .section-title--accent {
       --section-title-line: CanvasText;

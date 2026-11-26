@@ -9,7 +9,7 @@ import { getBusinessStructuredData } from "@/utils/structured-data";
 const heroVariant: string | undefined = page.hero?.variant;
 ---
 
-<BaseLayout headerOverlay={heroVariant === "fullscreen"}>
+<BaseLayout headerOverlay={heroVariant === "fullscreen"} motion>
   <script
     slot="head"
     type="application/ld+json"

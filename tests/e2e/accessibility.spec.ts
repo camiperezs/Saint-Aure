@@ -66,7 +66,17 @@ for (const theme of themes) {
     const headingId = await heading.getAttribute("id");
     await expect(about).toHaveAttribute("aria-labelledby", headingId ?? "");
     await expect(about.locator("figure blockquote")).toHaveCount(1);
-    await expect(heading.locator("em")).toHaveText("atención personalizada");
+    // SplitText parte el <em> en uno por línea: se compara el texto unido.
+    await expect
+      .poll(() =>
+        heading.locator("em").evaluateAll((ems) =>
+          ems
+            .map((em) => em.textContent?.trim())
+            .filter(Boolean)
+            .join(" "),
+        ),
+      )
+      .toBe("atención personalizada");
     await expect(about.locator("figure figcaption")).toHaveText("Tomas Mooney");
 
     const results = await new AxeBuilder({ page })

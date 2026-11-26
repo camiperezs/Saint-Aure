@@ -44,9 +44,14 @@ const after =
     accent && "section-title--accent",
     className,
   ]}
+  data-reveal-rule={accent ? "" : undefined}
 >
   {eyebrow && <p class="section-title__eyebrow">{eyebrow}</p>}
-  <Heading id={id} class="section-title__heading text-reflow">
+  <Heading
+    id={id}
+    class="section-title__heading text-reflow"
+    data-reveal="lines"
+  >
     {before}
     {emphasis && <em class="section-title__em">{emphasis}</em>}
     {after}
