@@ -53,7 +53,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/motion-mod
 - **Archivos**: `Hero.astro`, `Hero.css`; borrar `HeroHairFlow.astro`, `HeroHairFlow.css`, `src/scripts/hair-flow.ts`; `src/types/hero.ts` (quitar `hairFlow`, ajustar contrato); `src/content/page.ts` (hero); `src/scripts/motion/hero.ts` (nuevo, llamado desde `index.ts`).
 - **Verificación**: comandos base; `npm run check:contrast` si cambia el overlay; `npm run build` y `npm run test:e2e` (specs de hero, desborde y a11y); navegador a 375 y 1280 px, temas claro y oscuro: LCP sin parpadeo, H1 legible durante la animación, scroll del hero sin saltos, movimiento reducido emulado muestra el estado final.
 - **Modelo sugerido**: Opus (rediseño visual, LCP, contrato nuevo).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. El hero usa la variante `fullscreen` (se agregó `titleAccent` a `HeroFullScreen`); `hairFlow` y el movimiento `hero-*` del split se eliminaron (la variante split queda estática). Motion en `src/scripts/motion/hero.ts`.
 
 ### Etapa 3: About y Stats
 
@@ -104,4 +104,4 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/motion-mod
 
 Ajustes chicos que aparecen durante las etapas y se aplican juntos al final.
 
-_Lista vacía._
+- Hero móvil: la línea editorial queda tapada en parte por el botón flotante de WhatsApp (375 px).

@@ -47,38 +47,103 @@
     font-weight: var(--font-medium);
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-text-secondary);
-    opacity: 0.6;
+    color: color-mix(in srgb, var(--color-text-secondary) 85%, transparent);
     padding-block: var(--space-4);
     border-block-start: 1px solid currentColor;
     margin-block-start: var(--space-4);
   }
 
-  /* Full screen */
+  /* Full screen. Composición a pantalla completa: la foto es el fondo
+     (marco con cortina y compresión por scroll, ver src/scripts/motion/hero.ts),
+     titular grande en serif y una línea editorial al pie. */
   .hero--fullscreen {
+    --hero-accent: var(--color-text-on-overlay);
+
+    position: relative;
+    isolation: isolate;
     display: grid;
-    align-items: center;
+    align-items: end;
     min-block-size: 100svh;
     overflow: clip;
-    padding-block: calc(4rem + var(--space-fluid-lg)) var(--space-fluid-lg);
+    padding-block: calc(4rem + var(--space-fluid-lg)) var(--space-fluid-md);
+  }
+
+  .hero__frame {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero--fullscreen .hero__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-fluid-md);
   }
 
   .hero--fullscreen .hero__content {
-    max-inline-size: 48rem;
-    position: relative;
+    max-inline-size: 64rem;
+    gap: var(--space-6);
   }
 
-  .hero--fullscreen .hero__content::before {
+  .hero--fullscreen .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 0.6875rem;
+  }
+
+  .hero--fullscreen .hero__eyebrow::before {
     content: "";
-    position: absolute;
-    inset: -40%;
-    pointer-events: none;
-    background: radial-gradient(
-      ellipse 60% 60% at 20% 50%,
-      var(--color-accent-soft) 0%,
-      transparent 70%
-    );
-    filter: blur(48px);
+    flex: none;
+    inline-size: 2.5rem;
+    block-size: 1px;
+    background: currentColor;
+    transform: scaleX(var(--rule, 1));
+    transform-origin: left center;
+  }
+
+  .hero--fullscreen .hero__title {
+    font-size: clamp(2.75rem, 8.5vw, 8rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    text-wrap: wrap;
+  }
+
+  .hero--fullscreen .hero__title-accent {
+    font-style: italic;
+    font-weight: var(--font-regular);
+    color: var(--hero-accent);
+  }
+
+  .hero--fullscreen .hero__description {
+    font-size: var(--text-lg, 1.125rem);
+    font-weight: 300;
+  }
+
+  .hero--fullscreen .hero__editorial {
+    margin-block-start: 0;
+    transform-origin: left center;
+  }
+
+  /* Estado inicial del movimiento: solo con `has-motion` (el failsafe de
+     motion-init.js lo quita si el módulo no arranca). El H1 espera a SplitText
+     igual que los títulos de sección; la foto se descubre con clip-path. */
+  .has-motion .hero--fullscreen .hero__title:not([data-reveal-state="ready"]) {
+    visibility: hidden;
+  }
+
+  .has-motion .hero--fullscreen [data-hero-in] {
+    opacity: 0;
+  }
+
+  .has-motion .hero--fullscreen .background-media {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  .has-motion .hero--fullscreen {
+    --rule: 0;
   }
 
   .hero--align-center .hero__content {
@@ -161,7 +226,6 @@
     transform: scale(1);
     transition: transform var(--duration-reveal)
       var(--ease-out-strong, ease-out);
-    animation: hero-photo-in 1100ms var(--ease-out-strong, ease-out) backwards;
   }
 
   /* Hover real solamente: zoom discreto, sin tocar el contenedor ni los
@@ -169,152 +233,6 @@
   @media (hover: hover) and (pointer: fine) {
     .hero--split .hero__media:hover .hero__image {
       transform: scale(1.025);
-    }
-  }
-
-  /* Entrada. Los tiempos del escalonado son propios del hero y no usan los
-     tokens de duración. Las animaciones usan fill-mode backwards: una vez terminadas, el
-     elemento vuelve a su estilo normal, y si no corren el contenido ya es
-     visible. Los CTA solo cambian de opacidad y no dejan de ser clicables. */
-  @keyframes hero-photo-in {
-    from {
-      opacity: 0;
-      transform: scale(1.05);
-    }
-  }
-
-  @keyframes hero-rise {
-    from {
-      opacity: 0;
-      transform: translateY(0.45em);
-    }
-  }
-
-  @keyframes hero-fade {
-    from {
-      opacity: 0;
-    }
-  }
-
-  @keyframes hero-line {
-    from {
-      transform: scaleX(0);
-    }
-  }
-
-  .hero--split .hero__eyebrow {
-    animation: hero-fade 600ms ease-out 100ms backwards;
-  }
-
-  .hero--split .hero__eyebrow::before {
-    transform-origin: left center;
-    animation: hero-line 700ms var(--ease-out-strong, ease-out) 150ms backwards;
-  }
-
-  .hero--split .hero__word {
-    display: inline-block;
-    animation: hero-rise 700ms var(--ease-out-strong, ease-out) backwards;
-    animation-delay: calc(250ms + var(--i, 0) * 55ms);
-  }
-
-  /* Índice de cada palabra para el escalonado (sin estilos en línea: CSP). */
-  .hero--split .hero__word:nth-child(1) {
-    --i: 0;
-  }
-
-  .hero--split .hero__word:nth-child(2) {
-    --i: 1;
-  }
-
-  .hero--split .hero__word:nth-child(3) {
-    --i: 2;
-  }
-
-  .hero--split .hero__word:nth-child(4) {
-    --i: 3;
-  }
-
-  .hero--split .hero__word:nth-child(5) {
-    --i: 4;
-  }
-
-  .hero--split .hero__word:nth-child(6) {
-    --i: 5;
-  }
-
-  .hero--split .hero__word:nth-child(7) {
-    --i: 6;
-  }
-
-  .hero--split .hero__word:nth-child(8) {
-    --i: 7;
-  }
-
-  .hero--split .hero__word:nth-child(9) {
-    --i: 8;
-  }
-
-  .hero--split .hero__word:nth-child(10) {
-    --i: 9;
-  }
-
-  .hero--split .hero__word:nth-child(11) {
-    --i: 10;
-  }
-
-  .hero--split .hero__word:nth-child(12) {
-    --i: 11;
-  }
-
-  .hero--split .hero__word:nth-child(13) {
-    --i: 12;
-  }
-
-  .hero--split .hero__word:nth-child(14) {
-    --i: 13;
-  }
-
-  .hero--split .hero__word:nth-child(15) {
-    --i: 14;
-  }
-
-  .hero--split .hero__word:nth-child(16) {
-    --i: 15;
-  }
-
-  .hero--split .hero__title-accent {
-    animation-delay: calc(250ms + var(--i, 0) * 55ms + 250ms);
-  }
-
-  .hero--split .hero__description {
-    animation: hero-rise 700ms ease-out 900ms backwards;
-  }
-
-  .hero--split .hero__actions .button {
-    animation: hero-rise var(--duration-reveal) ease-out 1100ms backwards;
-  }
-
-  .hero--split .hero__actions .button:nth-child(2) {
-    animation-delay: 1200ms;
-  }
-
-  /* Sin movimiento: nada de zoom ni desplazamientos; solo aparición simple. */
-  @media (prefers-reduced-motion: reduce) {
-    .hero--split .hero__image,
-    .hero--split .hero__media:hover .hero__image {
-      transform: none;
-      transition: none;
-    }
-
-    .hero--split .hero__image {
-      animation: hero-fade 400ms ease-out backwards;
-    }
-
-    .hero--split .hero__eyebrow::before,
-    .hero--split .hero__word,
-    .hero--split .hero__description,
-    .hero--split .hero__actions .button {
-      animation: none;
     }
   }
 

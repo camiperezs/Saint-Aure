@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { MOTION_OK } from "./config";
+import { initHero } from "./hero";
 import {
   drawRules,
   revealImages,
@@ -26,8 +27,12 @@ const mm = gsap.matchMedia();
 mm.add(MOTION_OK, () => {
   root.classList.add("has-motion");
   let cancelled = false;
+  const fontsReady = whenFontsReady();
 
-  void whenFontsReady().then(() => {
+  // La cortina de la foto (LCP) arranca ya; el titular espera a las fuentes.
+  initHero(fontsReady);
+
+  void fontsReady.then(() => {
     if (cancelled) {
       return;
     }

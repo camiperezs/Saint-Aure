@@ -99,19 +99,20 @@ const services: Service[] = [
 
 export const page = {
   hero: {
-    variant: "split",
+    variant: "fullscreen",
     eyebrow: "Saint Aure",
     title: "El cabello que imaginaste, en las manos que lo hacen realidad",
+    titleAccent: "imaginaste,",
     description:
       "16 años de experiencia. Atención presencial y a domicilio en Rosario y Roldán.",
     image: {
       src: hero,
       alt: "Cabello largo con ondas y reflejos balayage, visto desde atrás",
     },
-    imagePosition: "right",
-    ratio: "image",
-    titleAccent: "imaginaste,",
-    hairFlow: "normal",
+    overlay: "medium",
+    focalPoint: "center",
+    alignment: "left",
+    editorial: "Peluquería de autor · Rosario y Roldán",
     actions: [
       {
         label: "Consultar por WhatsApp",

@@ -3,7 +3,6 @@ import type { Hero } from "@/types/hero";
 import Actions from "@/components/ui/Actions/Actions.astro";
 import BackgroundMedia from "@/components/ui/BackgroundMedia/BackgroundMedia.astro";
 import Container from "@/components/ui/Container/Container.astro";
-import HeroHairFlow from "./HeroHairFlow.astro";
 import Media from "@/components/ui/Media/Media.astro";
 import { imageSizes } from "@/utils/image-sizes";
 import "./Hero.css";
@@ -12,25 +11,14 @@ type Props = Hero;
 
 const hero = Astro.props;
 const { eyebrow, title, description, actions = [] } = hero;
-// El título se divide en palabras para revelarlas de a una (solo CSS). La
-// palabra destacada conserva su <em> y entra un poco después.
-const titleParts =
-  hero.variant === "split" &&
+// El fragmento destacado conserva su <em> (serif cursiva y color de acento).
+const accent =
+  (hero.variant === "split" || hero.variant === "fullscreen") &&
   hero.titleAccent &&
   title.includes(hero.titleAccent)
-    ? title.split(hero.titleAccent)
+    ? hero.titleAccent
     : null;
-const toWords = (text: string) => text.split(/\s+/).filter(Boolean);
-const titleWords = titleParts
-  ? [
-      ...toWords(titleParts[0]).map((text) => ({ text, accent: false })),
-      {
-        text: hero.variant === "split" ? (hero.titleAccent ?? "") : "",
-        accent: true,
-      },
-      ...toWords(titleParts[1]).map((text) => ({ text, accent: false })),
-    ]
-  : toWords(title).map((text) => ({ text, accent: false }));
+const titleParts = accent ? title.split(accent) : null;
 ---
 
 {hero.variant === "fullscreen" && (
@@ -41,21 +29,48 @@ const titleWords = titleParts
       "on-overlay",
       `hero--align-${hero.alignment ?? "left"}`,
     ]}
+    data-hero
   >
-    <BackgroundMedia
-      image={hero.image}
-      overlay={hero.overlay}
-      focalPoint={hero.focalPoint}
-      priority
-    />
+    <div class="hero__frame" data-hero-frame>
+      <BackgroundMedia
+        image={hero.image}
+        overlay={hero.overlay}
+        focalPoint={hero.focalPoint}
+        priority
+      />
+    </div>
     <Container size="wide" class="hero__inner">
-      <div class="hero__content">
-        {eyebrow && <p class="hero__eyebrow">{eyebrow}</p>}
-        <h1 class="hero__title text-reflow">{title}</h1>
-        {description && <p class="hero__description">{description}</p>}
-        <Actions actions={actions} class="hero__actions" />
+      <div class="hero__content" data-hero-content>
+        {eyebrow && (
+          <p class="hero__eyebrow" data-hero-in>
+            {eyebrow}
+          </p>
+        )}
+        <h1 class="hero__title text-reflow" data-hero-title>
+          {titleParts ? (
+            <>
+              {titleParts[0]}
+              <em class="hero__title-accent">{accent}</em>
+              {titleParts[1]}
+            </>
+          ) : (
+            title
+          )}
+        </h1>
+        {description && (
+          <p class="hero__description" data-hero-in>
+            {description}
+          </p>
+        )}
+        <div class="hero__actions" data-hero-in>
+          <Actions actions={actions} />
+        </div>
       </div>
-      {hero.editorial && <p class="hero__editorial">{hero.editorial}</p>}
+      {hero.editorial && (
+        <p class="hero__editorial" data-hero-in data-hero-editorial>
+          {hero.editorial}
+        </p>
+      )}
     </Container>
   </section>
 )}
@@ -90,20 +105,19 @@ const titleWords = titleParts
       `hero--ratio-${hero.ratio ?? "balanced"}`,
     ]}
   >
-    {hero.hairFlow && <HeroHairFlow intensity={hero.hairFlow} />}
     <Container size="wide" class="hero__inner">
       <div class="hero__content">
         {eyebrow && <p class="hero__eyebrow">{eyebrow}</p>}
         <h1 class="hero__title text-reflow">
-          {titleWords.map((word) => (
+          {titleParts ? (
             <>
-              {word.accent ? (
-                <em class="hero__word hero__title-accent">{word.text}</em>
-              ) : (
-                <span class="hero__word">{word.text}</span>
-              )}{" "}
+              {titleParts[0]}
+              <em class="hero__title-accent">{accent}</em>
+              {titleParts[1]}
             </>
-          ))}
+          ) : (
+            title
+          )}
         </h1>
         {description && <p class="hero__description">{description}</p>}
         <Actions actions={actions} class="hero__actions" />
