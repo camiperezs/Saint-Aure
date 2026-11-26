@@ -272,6 +272,8 @@ Within a client repository:
 - `src/assets/images/` holds local images. They participate in Astro's image pipeline (modern formats and responsive `srcset`).
 - `public/` is reserved for files that need stable public paths or cannot use the asset pipeline: favicon, social preview image and fonts.
 - External image URLs may be used when the source is trusted; they should declare `width` and `height`.
+- The brand logo is optional (`SiteConfig.logo`, an `Image`). Header, Footer and the JSON-LD use it when present and fall back to the brand text otherwise; `width` and `height` are required to avoid layout shift.
+- Known exception: `ServiceCatalog` (Services `catalog` variant) lives in the template but is used by a single client (Saint Aure). It is not generalized.
 
 The step-by-step workflow is documented in [Create a new landing](../guides/new-landing.md).
 
@@ -372,6 +374,8 @@ Use CSS custom properties for:
 - Focus indicators and interaction states.
 
 Components consume semantic tokens and must not hardcode client brand colors. Client theme configuration remains separate from component markup.
+
+No `#hex` or `rgba()` value is written outside `tokens/`, `themes/`, `presets/` and the palette in `site.ts`. Accent halos, borders and glows use the semantic tokens in `src/styles/tokens/surfaces.css` (`--color-accent-soft`, `--color-accent-border`, `--color-accent-border-strong`, `--color-accent-highlight`, `--shadow-glow`, `--color-scrim`) or `color-mix()` over existing tokens. Unused scale tokens (spacing, elevation, easing, radius) are kept as template scale on purpose.
 
 #### Client appearance configuration
 
