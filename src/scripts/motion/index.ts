@@ -7,8 +7,11 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { MOTION_OK } from "./config";
+import { initAbout } from "./about";
 import { initHero } from "./hero";
+import { initStats } from "./stats";
 import {
+  countNumbers,
   drawRules,
   revealImages,
   revealLines,
@@ -40,6 +43,9 @@ mm.add(MOTION_OK, () => {
     revealLines();
     drawRules();
     revealImages();
+    countNumbers();
+    initAbout();
+    initStats();
     ScrollTrigger.refresh();
   });
 

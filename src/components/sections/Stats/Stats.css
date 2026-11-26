@@ -92,4 +92,42 @@
     font-size: var(--text-ui);
     color: var(--color-text-secondary);
   }
+
+  /* Movimiento (src/scripts/motion/stats.ts): solo con `has-motion`. Las cifras
+     y textos esperan su entrada; los separadores del variante ruled pasan de
+     borde a pseudo-elemento para poder dibujarse con --rule. */
+  .has-motion .stats__value,
+  .has-motion .stats__label,
+  .has-motion .stats__description {
+    opacity: 0;
+  }
+
+  .has-motion .stats--ruled .stats__item {
+    --rule: 0;
+
+    position: relative;
+    border-color: transparent;
+  }
+
+  .has-motion .stats--ruled .stats__item:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: 1px;
+    background: var(--surface-panel-border);
+    transform: scaleX(var(--rule));
+    transform-origin: left center;
+  }
+
+  @media (min-width: 48rem) {
+    .has-motion .stats--ruled .stats__item:not(:first-child)::before {
+      inset-block: 0;
+      inset-inline: 0 auto;
+      block-size: auto;
+      inline-size: 1px;
+      transform: scaleY(var(--rule));
+      transform-origin: center top;
+    }
+  }
 }

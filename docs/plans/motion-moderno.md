@@ -62,7 +62,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/motion-mod
 - **Archivos**: `About.astro`, `About.css`, `Stats.astro`, `Stats.css`; `src/scripts/motion/about.ts` y `stats.ts` (nuevos, registrados en `index.ts`); `page.ts` solo si cambia el contrato del badge.
 - **Verificación**: comandos base; `npm run build` y `npm run test:e2e`; navegador a 375 y 1280 px en ambos temas: las cifras no textuales (`16+`, `5`) cuentan y terminan en el valor exacto; la cifra de texto (`Rosario & Roldán`) no cuenta, solo revela; con movimiento reducido las cifras salen ya en su valor final.
 - **Modelo sugerido**: Sonnet (sigue los helpers de la etapa 1; el diseño del lenguaje ya está en D4).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. El marco `.about__frame` (revelado + parallax con `scale` CSS individual de margen) envuelve la foto; `countNumbers` en `helpers.ts` cuenta cualquier `[data-count]`; los filetes de Stats ruled son pseudo-elementos con `--rule` bajo `has-motion`.
 
 ### Etapa 4: Servicios (catálogo)
 

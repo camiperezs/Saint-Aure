@@ -62,14 +62,18 @@ const titleId = `${id}-title`;
     </div>
     {about.variant !== "image-background" && about.image && (
       <div class="about__image-wrap">
-        <Media
-          image={about.image}
-          class="about__image"
-          sizes={imageSizes.half}
-        />
+        <div class="about__frame" data-reveal="image" data-parallax>
+          <Media
+            image={about.image}
+            class="about__image"
+            sizes={imageSizes.half}
+          />
+        </div>
         {about.variant === "split" && about.badge && (
-          <div class="about__badge">
-            <span class="about__badge-value">{about.badge.value}</span>
+          <div class="about__badge" data-about-badge>
+            <span class="about__badge-value" data-count>
+              {about.badge.value}
+            </span>
             {about.badge.label && (
               <span class="about__badge-label">{about.badge.label}</span>
             )}

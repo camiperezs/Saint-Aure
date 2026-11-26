@@ -93,3 +93,38 @@ export function whenFontsReady(timeoutMs = 1500): Promise<void> {
     new Promise<void>((resolve) => setTimeout(resolve, timeoutMs)),
   ]);
 }
+
+/**
+ * Cifras: cuentan hasta el valor. Marcado: `data-count` en el elemento cuyo
+ * texto es el valor final (`16+`, `5`). Solo cuenta si el texto es prefijo +
+ * entero + sufijo; cualquier otro texto se deja intacto. Al terminar se
+ * restaura el texto original exacto.
+ */
+export function countNumbers(scope: ParentNode = SCOPE_DEFAULT): void {
+  scope.querySelectorAll<HTMLElement>("[data-count]").forEach((element) => {
+    const final = element.textContent ?? "";
+    const match = final.match(/^(\D*)(\d+)(\D*)$/);
+
+    if (!match) {
+      return;
+    }
+
+    const [, prefix, digits, suffix] = match;
+    const state = { value: 0 };
+    element.textContent = `${prefix}0${suffix}`;
+
+    gsap.to(state, {
+      value: Number(digits),
+      duration: duration.feature * 1.2,
+      ease: "power2.out",
+      snap: { value: 1 },
+      scrollTrigger: { trigger: element, start: "top 90%", once: true },
+      onUpdate() {
+        element.textContent = `${prefix}${state.value}${suffix}`;
+      },
+      onComplete() {
+        element.textContent = final;
+      },
+    });
+  });
+}
