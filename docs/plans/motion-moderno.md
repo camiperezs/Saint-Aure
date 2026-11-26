@@ -80,7 +80,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/motion-mod
 - **Archivos**: `Gallery.astro`, `Gallery.css`; `src/scripts/motion/gallery.ts` (nuevo); `src/scripts/lightbox.ts` si hay que reabrir/cerrar sin perder la posición del scroll; `page.ts` solo si cambia el contenido.
 - **Verificación**: comandos base; `npm run build` y `npm run test:e2e` (lightbox con Escape, desborde 320 a 1440 px, axe); a mano: Tab recorre todas las imágenes y cada una queda a la vista (D7), `ScrollTrigger.refresh()` tras cargar imágenes, sin salto al salir del pin; probar a 1280 px y a 375 px.
 - **Modelo sugerido**: Opus (pin con scrub, accesibilidad no trivial, interacción con el lightbox).
-- **Estado**: Pendiente.
+- **Estado**: Implementada. El recorrido se activa con `matchMedia` (`MOTION_OK` + `DESKTOP_FINE` + `min-height: 40rem`), agrega `is-horizontal` a la sección y se deshace solo al salir de la condición. Con Tab sobre una imagen fuera de vista (`:focus-visible`) el script lleva el scroll al punto donde aparece (D7). Incluye una línea de progreso con scrub.
 
 ### Etapa 6: CTA, header, botones y transición entre páginas
 

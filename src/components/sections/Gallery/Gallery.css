@@ -31,6 +31,57 @@
     aspect-ratio: 4 / 5;
   }
 
+  /* Recorrido horizontal (src/scripts/motion/gallery.ts): solo desktop con
+     movimiento. El script agrega `is-horizontal` a la sección; sin esa clase
+     el layout es la grilla de arriba. */
+  .gallery__progress {
+    display: none;
+  }
+
+  .gallery--portfolio.is-horizontal {
+    display: grid;
+    align-content: center;
+    box-sizing: border-box;
+    min-block-size: 100svh;
+    overflow-x: clip;
+  }
+
+  .gallery--portfolio.is-horizontal .gallery__viewport {
+    margin-inline: calc(50% - 50vw);
+    overflow: clip;
+  }
+
+  .gallery--portfolio.is-horizontal .gallery__items {
+    position: relative;
+    display: flex;
+    inline-size: max-content;
+    padding-inline: max(var(--layout-gutter), calc(50vw - 36rem));
+    gap: var(--space-5);
+  }
+
+  .gallery--portfolio.is-horizontal .gallery__items > li {
+    flex: none;
+  }
+
+  .gallery--portfolio.is-horizontal .gallery__trigger {
+    overflow: hidden;
+  }
+
+  .gallery--portfolio.is-horizontal .gallery__image {
+    inline-size: auto;
+    block-size: clamp(16rem, calc(100svh - 24rem), 36rem);
+    aspect-ratio: 4 / 5;
+  }
+
+  .gallery--portfolio.is-horizontal .gallery__progress {
+    display: block;
+    block-size: 1px;
+    margin-block-start: var(--space-5);
+    background-color: var(--color-accent-text);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
   .gallery--masonry .gallery__items {
     columns: 16rem 3;
     column-gap: var(--preset-grid-gap);

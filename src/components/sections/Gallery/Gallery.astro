@@ -39,49 +39,58 @@ const fullSource = (src: Gallery["images"][number]["image"]["src"]) =>
   theme={variant === "portfolio" ? "dark" : undefined}
 >
   <div data-gallery={lightbox ? "" : undefined}>
-    <ul class="gallery__items" role="list">
-      {images.map((item, index) => {
-        const caption = [item.title, item.description]
-          .filter(Boolean)
-          .join(" — ");
+    <div class="gallery__viewport" data-gallery-viewport>
+      <ul class="gallery__items" role="list">
+        {images.map((item, index) => {
+          const caption = [item.title, item.description]
+            .filter(Boolean)
+            .join(" — ");
 
-        return (
-          <li>
-            <figure class="gallery__item">
-              {lightbox ? (
-                <a
-                  class="gallery__trigger"
-                  href={fullSource(item.image.src)}
-                  data-lightbox-index={index}
-                  data-caption={caption}
-                >
-                  <span class="visually-hidden">{labels.open}:</span>
+          return (
+            <li>
+              <figure class="gallery__item">
+                {lightbox ? (
+                  <a
+                    class="gallery__trigger"
+                    href={fullSource(item.image.src)}
+                    data-lightbox-index={index}
+                    data-caption={caption}
+                  >
+                    <span class="visually-hidden">{labels.open}:</span>
+                    <Media
+                      image={item.image}
+                      class={imageClass(item.aspectRatio)}
+                      sizes={imageSizes.column}
+                    />
+                  </a>
+                ) : (
                   <Media
                     image={item.image}
                     class={imageClass(item.aspectRatio)}
                     sizes={imageSizes.column}
                   />
-                </a>
-              ) : (
-                <Media
-                  image={item.image}
-                  class={imageClass(item.aspectRatio)}
-                  sizes={imageSizes.column}
-                />
-              )}
-              {(item.title || item.description) && (
-                <figcaption class="gallery__caption">
-                  {item.title && (
-                    <span class="gallery__title">{item.title}</span>
-                  )}
-                  {item.description && <span>{item.description}</span>}
-                </figcaption>
-              )}
-            </figure>
-          </li>
-        );
-      })}
-    </ul>
+                )}
+                {(item.title || item.description) && (
+                  <figcaption class="gallery__caption">
+                    {item.title && (
+                      <span class="gallery__title">{item.title}</span>
+                    )}
+                    {item.description && <span>{item.description}</span>}
+                  </figcaption>
+                )}
+              </figure>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+    {variant === "portfolio" && (
+      <span
+        class="gallery__progress"
+        data-gallery-progress
+        aria-hidden="true"
+      />
+    )}
 
     {lightbox && (
       <dialog class="lightbox" aria-label={title} data-lightbox>

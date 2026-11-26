@@ -6,8 +6,9 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import { MOTION_OK } from "./config";
+import { DESKTOP_FINE, MOTION_OK } from "./config";
 import { initAbout } from "./about";
+import { initGallery } from "./gallery";
 import { initHero } from "./hero";
 import { initServices } from "./services";
 import { initStats } from "./stats";
@@ -54,5 +55,25 @@ mm.add(MOTION_OK, () => {
   return () => {
     cancelled = true;
     root.classList.remove("has-motion");
+  };
+});
+
+// Recorrido horizontal fijado: solo desktop con puntero fino, altura suficiente
+// y movimiento normal. Se registra aparte para que se deshaga al cambiar de
+// tamaño sin tocar el resto del movimiento.
+mm.add(`${MOTION_OK} and ${DESKTOP_FINE} and (min-height: 40rem)`, () => {
+  let cleanup: (() => void) | undefined;
+  let cancelled = false;
+
+  void whenFontsReady().then(() => {
+    if (!cancelled) {
+      cleanup = initGallery();
+      ScrollTrigger.refresh();
+    }
+  });
+
+  return () => {
+    cancelled = true;
+    cleanup?.();
   };
 });
