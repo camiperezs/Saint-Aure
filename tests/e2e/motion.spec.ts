@@ -2,7 +2,7 @@ import type { Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
 
 /**
- * Contrato de accesibilidad del movimiento (docs/plans/motion-moderno.md, D5 y D6):
+ * Contrato de accesibilidad del movimiento (README, Saint Aure: movimiento):
  * `has-motion` solo existe con `prefers-reduced-motion: no-preference` y con JS;
  * en cualquier otro caso la home se ve completa y estática.
  */
