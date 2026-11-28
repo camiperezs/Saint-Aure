@@ -13,7 +13,7 @@ Este repositorio es la landing de Saint Aure. `npm run check:launch` va a fallar
 - [ ] **Dirección**: calle, número y código postal (`business.address`, hoy solo "Rosario, Santa Fe" y `S2000`). Si atiende solo a domicilio, confirmarlo y dejar la ciudad.
 - [ ] **Dominio**: `url` en `site.ts` (hoy `https://saintaure.com.ar`, sin confirmar).
 - [ ] **Texto y foto de About**: la cita, la descripción, el nombre del profesional ("Tomas Mooney"), los "16+ años de experiencia" y la foto `about.webp` son provisorios. Confirmarlos con la clienta.
-- [ ] **Fotos**: hero (hoy `sample.webp`), la galería (hoy `/placeholders/`). Van en `src/assets/images/`, con `alt` descriptivo.
+- [ ] **Fotos**: la galería (hoy `/placeholders/`). Van en `src/assets/images/`, con `alt` descriptivo. El hero ya usa `hero-stage.webp` (ver abajo).
 - [ ] **Testimonios reales**: reemplazar los 3 "Clienta de ejemplo", con permiso de cada clienta.
 - [ ] **Logo**: SVG cuadrado para `public/favicon.svg`.
 - [ ] **Textos legales**: `privacy.md` y `terms.md` tienen los datos de Saint Aure, pero no los revisó un profesional. Hacerlos revisar antes de publicar.
@@ -27,6 +27,17 @@ La home usa GSAP (`ScrollTrigger` y `SplitText`) empaquetado en un único módul
 - Pin y recorrido horizontal de la galería solo en desktop con hover.
 - `tests/e2e/motion.spec.ts` cubre sin JS, movimiento reducido y movimiento normal. Si se agrega un estado inicial oculto nuevo, sumarlo a `REVEALED` en ese spec.
 - Al animar con GSAP un estado que el CSS oculta bajo `has-motion`, no usar `clearProps` sobre esa propiedad: el CSS volvería a ocultarlo.
+
+## Saint Aure: hero y header propios
+
+El hero de la home y el estilo del header son exclusivos de Saint Aure y viven en `src/client/`, una carpeta que la plantilla no tiene.
+
+- **Archivos de la plantilla que se tocaron**: `src/pages/index.astro` (renderiza `HeroStage` en lugar de `Hero` y activa `headerOverlay`) y `src/layouts/BaseLayout.astro` (importa `src/client/header-stage.css`). Al traer cambios de la plantilla, esos dos archivos pueden dar conflicto: se resuelven conservando esas líneas.
+- **Componentes**: `HeroStage` arma piezas chicas (`Eyebrow`, `StageTitle`, `StageButton`, `StageOrbit`, `StagePhoto`, `StageDust`, `MotionPause`), cada una en su carpeta con su `.astro`, su `.css` y, si tiene comportamiento, su `.ts`. Cada pieza define su aspecto y su movimiento; `HeroStage.css` solo las ubica. La paleta compartida de ambos temas está en `src/client/stage-tokens.css`. No llevan comentarios: el porqué de cada decisión está acá y en el historial de git.
+- **Contenido**: `src/client/hero-stage.ts` (el tipo `Hero` de la plantilla no tiene esta variante). `page.hero` sigue en `page.ts` solo porque el catálogo `/dev/components` lo usa.
+- **Movimiento**: todo en CSS dentro de `prefers-reduced-motion: no-preference`, sin `data-hero` ni GSAP, así que la entrada también corre sin JS. Las motas son un canvas (`StageDust/stage-dust.ts`, script bundleado, sin hash de CSP) que se detiene fuera de pantalla y con la pestaña oculta. Como la órbita, el brillo y las motas duran más de 5 s, hay un botón de pausa (WCAG 2.2.2) que pone `data-paused` en el ancestro `[data-motion-scope]` y guarda la elección en `localStorage` (`saint-aure:stage-motion`). Con movimiento reducido o sin JS el botón no aparece. Lo cubre `tests/e2e/hero-stage.spec.ts`.
+- **Header**: solo el isotipo, navegación centrada, contacto como texto subrayado (sin ícono ni caja) y una línea inferior con rombo dorado. Se logra con CSS sobre las clases de `Header`, sin editar `Header.astro`.
+- **Imágenes**: la foto del hero es `src/assets/images/hero-stage.webp`, hecha a partir de `public/works/hero-v2.png` con un fundido en el borde inferior. El logo es `public/brand/logo.webp` (256 px, con alfa, recortado del PNG con fondo blanco que mandó la clienta). Está en `public/` y no en `src/assets/` porque los scripts `check:contrast` y `check:launch` importan `site.ts` con node plano, y node no puede importar una imagen. Si llega un PNG con transparencia real, conviene volver a generarlo desde ahí.
 
 ## Requisitos
 

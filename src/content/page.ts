@@ -104,7 +104,7 @@ export const page = {
     title: "El cabello que imaginaste, en las manos que lo hacen realidad",
     titleAccent: "imaginaste,",
     description:
-      "16 años de experiencia. Atención presencial y a domicilio en Rosario y Roldán.",
+      "16 años de experiencia. Atención presencial y a domicilio en Rosario, Roldán y Baigorria.",
     image: {
       src: hero,
       alt: "Cabello largo con ondas y reflejos balayage, visto desde atrás",
@@ -112,7 +112,7 @@ export const page = {
     overlay: "medium",
     focalPoint: "center",
     alignment: "left",
-    editorial: "Peluquería de autor · Rosario y Roldán",
+    editorial: "Peluquería de autor · Rosario, Roldán y Baigorria",
     actions: [
       {
         label: "Consultar por WhatsApp",
@@ -289,7 +289,7 @@ export const page = {
           description: "Peinado, color, tratamientos y más",
         },
         {
-          value: "Rosario & Roldán",
+          value: "Rosario, Roldán y Baigorria",
           kind: "text",
           label: "Presencial y a domicilio",
           description: "En tu espacio o en el nuestro",
@@ -318,7 +318,7 @@ export const page = {
           icon: "map-pin",
           title: "Servicio a Domicilio",
           description:
-            "Me traslado a Rosario y Roldán para que estés cómoda en tu hogar.",
+            "Me traslado a Rosario, Roldán y Baigorria para que estés cómoda en tu hogar.",
         },
       ],
       primaryAction: {

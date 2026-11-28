@@ -1,8 +1,7 @@
 import type { SiteConfig } from "@/types/site";
-import logo from "@/assets/images/logo.webp";
 
 const description =
-  "Peinados para novias, balayage, colorimetría y alisados en Rosario y Roldán. 16 años de experiencia, atención presencial y a domicilio.";
+  "Peinados para novias, balayage, colorimetría y alisados en Rosario, Roldán y Baigorria. 16 años de experiencia, atención presencial y a domicilio.";
 
 export const site: SiteConfig = {
   name: "Saint Aure",
@@ -10,10 +9,15 @@ export const site: SiteConfig = {
   locale: "es-AR",
 
   // Logo opcional (Header, Footer y JSON-LD). Sin logo se muestra el nombre.
-  logo: { src: logo, alt: "Saint Aure" },
+  logo: {
+    src: "/brand/logo.webp",
+    alt: "Saint Aure",
+    width: 256,
+    height: 256,
+  },
 
   seo: {
-    title: "Saint Aure — Peinados y color en Rosario y Roldán",
+    title: "Saint Aure — Peinados y color en Rosario, Roldán y Baigorria",
     description,
     robots: "noindex, nofollow",
   },
@@ -209,7 +213,7 @@ export const site: SiteConfig = {
   footer: {
     variant: "expanded",
     description:
-      "Peinados, color y alisados con 16 años de experiencia. Atención presencial y a domicilio en Rosario y Roldán.",
+      "Peinados, color y alisados con 16 años de experiencia. Atención presencial y a domicilio en Rosario, Roldán y Baigorria.",
     legal: [
       { label: "Política de privacidad", href: "/legal/privacy" },
       { label: "Términos y condiciones", href: "/legal/terms" },

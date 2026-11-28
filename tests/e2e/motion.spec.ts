@@ -17,11 +17,28 @@ const REVEALED = [
   ".about__badge",
   ".cta__panel",
   ".background-media",
-  "[data-hero-in]",
+  ".hero-stage__copy > *",
+  ".hero-stage__photo",
 ];
+
+const PLACES = "Rosario, Roldán y Baigorria";
 
 /** Elementos del contenido que quedan invisibles (opacidad, visibilidad o clip-path). */
 async function hiddenContent(page: Page) {
+  // La entrada del hero es CSS y corre también sin JS: se mide al terminar.
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter(
+          (a) =>
+            a.timeline instanceof DocumentTimeline &&
+            a.effect?.getComputedTiming().iterations !== Infinity,
+        )
+        .map((a) => a.finished),
+    ),
+  );
+
   return page.evaluate((selectors) => {
     const hidden: string[] = [];
 
@@ -67,7 +84,7 @@ test.describe("sin JavaScript", () => {
     await expect(page.locator("html")).not.toHaveClass(/has-motion/);
     expect(await hiddenContent(page)).toEqual([]);
     expect((await stats(page)).map((value) => value.trim())).toEqual(
-      expect.arrayContaining(["16+", "5", "Rosario & Roldán"]),
+      expect.arrayContaining(["16+", "5", PLACES]),
     );
   });
 });
@@ -84,7 +101,7 @@ test.describe("movimiento reducido", () => {
     await expect(page.locator("html")).not.toHaveClass(/has-motion/);
     expect(await hiddenContent(page)).toEqual([]);
     expect((await stats(page)).map((value) => value.trim())).toEqual(
-      expect.arrayContaining(["16+", "5", "Rosario & Roldán"]),
+      expect.arrayContaining(["16+", "5", PLACES]),
     );
 
     // Sin pin ni scrub: ningún ScrollTrigger deja un espaciador en el DOM.
@@ -144,8 +161,7 @@ test.describe("movimiento normal", () => {
     });
     await page.waitForTimeout(1500);
 
-    // Al volver arriba el hero (que se comprime con el scroll) se descomprime:
-    // todo el contenido tiene que quedar visible.
+    // Al volver arriba, todo el contenido (también el hero) tiene que quedar visible.
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(1500);
 
@@ -160,7 +176,7 @@ test.describe("movimiento normal", () => {
     await page.waitForTimeout(3000);
 
     expect((await stats(page)).map((value) => value.trim())).toEqual(
-      expect.arrayContaining(["16+", "5", "Rosario & Roldán"]),
+      expect.arrayContaining(["16+", "5", PLACES]),
     );
   });
 

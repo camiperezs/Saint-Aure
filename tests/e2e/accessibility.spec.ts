@@ -26,14 +26,6 @@ for (const theme of themes) {
         ),
       );
 
-      // El intro del hero (GSAP) no es una animación del navegador: esperar a
-      // que sus elementos terminen de aparecer.
-      await page.waitForFunction(() =>
-        [...document.querySelectorAll("[data-hero-in]")].every(
-          (element) => getComputedStyle(element).opacity === "1",
-        ),
-      );
-
       const results = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
         .analyze();
