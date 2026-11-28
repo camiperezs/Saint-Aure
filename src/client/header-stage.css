@@ -110,10 +110,15 @@
     text-decoration-color var(--duration-normal) var(--ease-standard);
 }
 
-.header .button.header__action:hover,
-.header .header__menu-action .button:hover {
+.header .button.header__action:hover:not(:disabled, [aria-disabled="true"]),
+.header
+  .header__menu-action
+  .button:hover:not(:disabled, [aria-disabled="true"]) {
   color: var(--color-accent-text);
   background: transparent;
+  box-shadow: none;
+  filter: none;
+  transform: none;
 }
 
 .header .button.header__action .icon,
