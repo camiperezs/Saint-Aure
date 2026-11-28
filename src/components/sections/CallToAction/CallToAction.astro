@@ -29,11 +29,7 @@ const showImage = variant === "split" && image;
 const showBadge = variant === "badge" && image;
 ---
 
-<section
-  id={id}
-  class:list={["section", "cta", `cta--${variant}`]}
-  data-theme={variant === "badge" ? "dark" : undefined}
->
+<section id={id} class:list={["section", "cta", `cta--${variant}`]}>
   <Container>
     <div class:list={["cta__panel", { "cta__panel--with-image": showImage }]}>
       <div class="cta__content">
