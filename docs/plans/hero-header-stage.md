@@ -38,7 +38,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/hero-heade
 - **Archivos**: crea `src/client/header-stage.css`; toca `src/layouts/BaseLayout.astro` (import del CSS) o `src/pages/index.astro`; ajusta `site.ts` (`header`) solo si hace falta configuración.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`; en `npm run dev`, mirar la home a 375 y 1280 px en ambos temas, con el menú móvil abierto y haciendo scroll (ocultar/mostrar).
 - **Modelo sugerido**: Opus (diseño visual y accesibilidad del menú).
-- **Estado**: Pendiente.
+- **Estado**: Implementada.
 
 ### Etapa 3: Hero stage (estructura y estilos estáticos)
 
@@ -72,3 +72,5 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/hero-heade
 Ajustes chicos que aparecen durante las etapas y se aplican juntos al final.
 
 - Header (etapa 2): el botón de contactar va sin el logo de WhatsApp, solo texto subrayado (ya reflejado en D11). Al implementar la etapa 3, confirmar si el botón de WhatsApp del hero conserva el ícono o también va solo texto.
+- Etapa 2 → etapa 3: el CSS del header (`src/client/header-stage.css`) hace que el texto del header siga el tema también con `header--overlay`. Mientras la home siga con el hero fullscreen viejo (siempre oscuro), en tema claro el texto del header se lee mal sobre la foto; se resuelve solo al reemplazar el hero en la etapa 3 (fondo durazno en claro). Al activar `headerOverlay` en `index.astro`, comprobar que el header (sticky con ocultar al bajar vs. `header--overlay` absoluto) se comporta como se quiere.
+- Etapa 5: `npm run check:contrast` (y probablemente `check:launch`) falla porque `scripts/*.ts` importa `site.ts` con node plano y `site.ts` ahora importa `@/assets/images/logo.webp` (etapa 1). Con el import reemplazado a mano el contraste pasa (172 combinaciones). Resolver en la etapa 5 (por ejemplo `site.logo` con ruta en `public/` o un loader en los scripts). También `format:check` avisa de `docs/plans/hero-header-stage/reference.html` (se borra al cerrar el plan).
