@@ -1,7 +1,8 @@
 /*
  * Hero "stage" de Saint Aure (docs/plans/hero-header-stage.md, D1 a D9).
- * Solo de este cliente. Etapa 3: composición estática; el movimiento
- * (entrada, partículas, giro del arco) llega en la etapa 4.
+ * Solo de este cliente. Composición estática arriba; el movimiento (D6, D8)
+ * vive al final, dentro de `prefers-reduced-motion: no-preference`. Las
+ * partículas las dibuja `src/client/stage-particles.ts` (D7).
  */
 
 @layer components {
@@ -250,6 +251,7 @@
 
   .hero-stage__line {
     display: block;
+    overflow: hidden;
     padding-block-end: 0.14em;
     margin-block-end: -0.14em;
     padding-inline-end: 0.08em;
@@ -463,6 +465,159 @@
 
     .hero-stage__copy {
       max-inline-size: 36rem;
+    }
+  }
+
+  /*
+   * ---- Movimiento (D6, D8). Solo CSS y una sola vez por visita, salvo el
+   * ambiente (arco, brillo del acento, respiración del fondo). Con movimiento
+   * reducido nada de esto se aplica y el hero queda en su estado final.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    /* Entrada: el titular sube línea por línea detrás de su máscara. */
+    .hero-stage__line > span {
+      animation: stage-rise 1.2s var(--ease-out-expo) both;
+    }
+
+    .hero-stage__line:nth-child(1) > span {
+      animation-delay: 0.12s;
+    }
+
+    .hero-stage__line:nth-child(2) > span {
+      animation-delay: 0.24s;
+    }
+
+    .hero-stage__line:nth-child(3) > span {
+      animation-delay: 0.36s;
+    }
+
+    .hero-stage__line:nth-child(4) > span {
+      animation-delay: 0.48s;
+    }
+
+    .hero-stage__line:nth-child(5) > span {
+      animation-delay: 0.6s;
+    }
+
+    .hero-stage__eyebrow,
+    .hero-stage__lead,
+    .hero-stage__actions,
+    .hero-stage__card {
+      animation: stage-up 1s var(--ease-out-expo) both;
+    }
+
+    .hero-stage__eyebrow {
+      animation-delay: 0.05s;
+    }
+
+    .hero-stage__lead {
+      animation-delay: 0.85s;
+    }
+
+    .hero-stage__actions {
+      animation-delay: 1s;
+    }
+
+    .hero-stage__card {
+      animation-delay: 1.3s;
+    }
+
+    .hero-stage__photo {
+      animation: stage-reveal 1.8s var(--ease-out-expo) 0.1s both;
+    }
+
+    /* Órbita: el anillo aparece y el arco da una vuelta cada 64 s; la foto
+       no se mueve. */
+    .hero-stage__orbit {
+      animation: stage-fade 2s var(--ease-standard) 0.6s both;
+    }
+
+    .hero-stage__arc {
+      animation: stage-orbit 64s linear infinite;
+    }
+
+    /* Brillo del acento dorado: un reflejo lento que cruza la palabra. */
+    .hero-stage__title em {
+      color: transparent;
+      background: linear-gradient(
+          100deg,
+          var(--color-accent-text) 25%,
+          var(--stage-gold-hi) 46%,
+          var(--color-accent-text) 68%
+        )
+        100% 0 / 260% 100%;
+      background-clip: text;
+      animation: stage-shine 7s ease-in-out 2s infinite;
+    }
+
+    /* Fondo que respira. */
+    .hero-stage__glow {
+      animation: stage-breathe 16s ease-in-out infinite alternate;
+    }
+
+    .hero-stage__band {
+      animation: stage-drift 24s ease-in-out infinite alternate;
+    }
+  }
+
+  @keyframes stage-rise {
+    from {
+      transform: translateY(108%);
+    }
+  }
+
+  @keyframes stage-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+
+  @keyframes stage-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+
+  @keyframes stage-fade {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes stage-orbit {
+    to {
+      rotate: 310deg;
+    }
+  }
+
+  @keyframes stage-shine {
+    0%,
+    100% {
+      background-position: 100% 0;
+    }
+
+    50% {
+      background-position: 0 0;
+    }
+  }
+
+  @keyframes stage-breathe {
+    from {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1.06);
+    }
+  }
+
+  @keyframes stage-drift {
+    to {
+      transform: translateX(-5%);
     }
   }
 }

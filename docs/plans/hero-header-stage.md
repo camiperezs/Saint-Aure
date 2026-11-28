@@ -56,7 +56,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/hero-heade
 - **Archivos**: crea `src/client/stage-particles.ts`; toca `src/client/HeroStage/HeroStage.astro` y `.css`.
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`; en el navegador, ver las partículas subir despacio, el arco recorrer la órbita sin moverse la foto, cambiar el tema (el color de las partículas cambia) y activar reduced motion (todo quieto y bien compuesto).
 - **Modelo sugerido**: Opus.
-- **Estado**: Pendiente.
+- **Estado**: Implementada. Entrada, órbita, brillo del acento y respiración del fondo en `HeroStage.css`, todo dentro de `prefers-reduced-motion: no-preference` (con reducido el hero queda en su estado final). `stage-particles.ts` se carga con un `<script>` procesado de Astro en `HeroStage.astro`; ajusta la cantidad de motas al área (18 a 72), relee el color al cambiar `data-theme` y se detiene fuera de pantalla o con la pestaña oculta. Las líneas del titular llevan `overflow: hidden` para la máscara de la entrada.
 
 ### Etapa 5: Integración, textos, tests y cierre
 
@@ -74,3 +74,4 @@ Ajustes chicos que aparecen durante las etapas y se aplican juntos al final.
 - Header (etapa 2): el botón de contactar va sin el logo de WhatsApp, solo texto subrayado (ya reflejado en D11). Etapa 3: el botón de WhatsApp del hero conserva el ícono (como el artifact); cambiarlo si Camila prefiere solo texto.
 - Etapa 2 → etapa 3: el CSS del header (`src/client/header-stage.css`) hace que el texto del header siga el tema también con `header--overlay`. Mientras la home siga con el hero fullscreen viejo (siempre oscuro), en tema claro el texto del header se lee mal sobre la foto; se resuelve solo al reemplazar el hero en la etapa 3 (fondo durazno en claro). Al activar `headerOverlay` en `index.astro`, comprobar que el header (sticky con ocultar al bajar vs. `header--overlay` absoluto) se comporta como se quiere.
 - Etapa 5: `npm run check:contrast` (y probablemente `check:launch`) falla porque `scripts/*.ts` importa `site.ts` con node plano y `site.ts` ahora importa `@/assets/images/logo.webp` (etapa 1). Con el import reemplazado a mano el contraste pasa (172 combinaciones). Resolver en la etapa 5 (por ejemplo `site.logo` con ruta en `public/` o un loader en los scripts). También `format:check` avisa de `docs/plans/hero-header-stage/reference.html` (se borra al cerrar el plan).
+- Etapa 4: el arco orbital, el brillo del acento y las motas son movimiento automático de más de 5 s sin control de pausa (WCAG 2.2.2). Se detienen con movimiento reducido y las motas fuera de pantalla; decidir con Camila si alcanza o si se agrega un control de pausa. `format:check` ya pasa (se formatearon el plan y `reference.html`).
