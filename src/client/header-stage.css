@@ -1,6 +1,6 @@
 .header {
   --header-rule: color-mix(in srgb, var(--color-accent-text) 30%, transparent);
-  --header-ink: var(--color-text-primary);
+  --header-ink: var(--stage-header-ink, var(--color-text-primary));
   --brand-logo-height: 3.25rem;
 }
 

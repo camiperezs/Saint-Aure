@@ -1,5 +1,6 @@
 @layer components {
   :root {
+    --stage-bg: var(--color-background);
     --stage-glow-1: rgba(176, 114, 50, 0.34);
     --stage-glow-2: rgba(212, 170, 106, 0.11);
     --stage-brown: rgba(176, 108, 44, 0.42);
@@ -19,20 +20,22 @@
   }
 
   :root[data-theme="light"] {
-    --stage-glow-1: rgba(255, 243, 226, 0.95);
-    --stage-glow-2: rgba(214, 166, 112, 0.34);
-    --stage-brown: rgba(255, 248, 236, 1);
-    --stage-band: rgba(255, 214, 170, 0.7);
-    --stage-amb: rgba(214, 160, 104, 0.35);
-    --stage-gold-hi: #b78a45;
-    --stage-ring: rgba(138, 100, 40, 0.2);
-    --stage-cta-bg: linear-gradient(180deg, #3b2e23, #251b13);
-    --stage-cta-fg: #f7eadd;
-    --stage-cta-bd: rgba(42, 32, 24, 0.9);
-    --stage-cta-hi: rgba(255, 235, 210, 0.22);
-    --stage-cta-sh: rgba(60, 36, 16, 0.6);
-    --stage-photo-fx: drop-shadow(0 26px 34px rgba(92, 48, 16, 0.26));
+    --stage-bg: #f3dfc7;
+    --stage-glow-1: rgba(255, 226, 184, 0.9);
+    --stage-glow-2: rgba(222, 160, 98, 0.42);
+    --stage-brown: rgba(247, 190, 128, 0.62);
+    --stage-band: rgba(255, 196, 132, 0.5);
+    --stage-amb: rgba(204, 138, 78, 0.34);
+    --stage-gold-hi: #a8731f;
+    --stage-ring: rgba(138, 94, 36, 0.4);
+    --stage-cta-bg: linear-gradient(180deg, #efd6a8, #c9995a);
+    --stage-cta-fg: #2a1c10;
+    --stage-cta-bd: rgba(150, 104, 48, 0.55);
+    --stage-cta-hi: rgba(255, 248, 230, 0.7);
+    --stage-cta-sh: rgba(140, 84, 28, 0.55);
+    --stage-photo-fx: drop-shadow(0 28px 38px rgba(110, 56, 18, 0.34));
     --stage-dust: 150, 100, 40;
     --stage-dust-k: 0.85;
+    --stage-header-ink: #33241a;
   }
 }

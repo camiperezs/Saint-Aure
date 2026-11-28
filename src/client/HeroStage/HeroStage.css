@@ -9,7 +9,7 @@
     isolation: isolate;
     block-size: var(--hh);
     color: var(--color-text-primary);
-    background-color: var(--color-background);
+    background-color: var(--stage-bg);
   }
 
   .hero-stage__bg {
