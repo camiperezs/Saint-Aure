@@ -17,7 +17,6 @@ interface HeroStageContent {
   titleLines: TitleSegment[][];
   description: string;
   image: { src: ImageMetadata; alt: string };
-  card: { value: string; label: string };
   primaryAction: Action;
   secondaryAction: Action;
 }
@@ -38,7 +37,6 @@ export const heroStage: HeroStageContent = {
     src: heroPhoto,
     alt: "Mujer de espaldas con cabello largo ondulado y reflejos caramelo",
   },
-  card: { value: "16", label: "años de experiencia" },
   primaryAction: {
     label: "Consultar por WhatsApp",
     whatsapp: { message: whatsappMessage },

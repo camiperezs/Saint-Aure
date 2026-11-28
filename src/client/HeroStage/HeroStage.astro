@@ -30,11 +30,6 @@ const secondary = resolveAction(content.secondaryAction);
         loading="eager"
         fetchpriority="high"
       />
-      <div class="hero-stage__card">
-        <b>{content.card.value}</b>
-        <i aria-hidden="true"></i>
-        <span>{content.card.label}</span>
-      </div>
     </div>
 
     <div class="hero-stage__copy">
@@ -70,8 +65,19 @@ const secondary = resolveAction(content.secondaryAction);
   </div>
 
   <canvas class="hero-stage__dust" aria-hidden="true" data-stage-dust></canvas>
+
+  <button
+    class="hero-stage__pause"
+    type="button"
+    aria-pressed="false"
+    hidden
+    data-stage-pause
+  >
+    <span class="visually-hidden">Pausar animaciones</span>
+  </button>
 </section>
 
 <script>
+  import "../stage-motion";
   import "../stage-particles";
 </script>

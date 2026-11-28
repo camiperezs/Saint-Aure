@@ -2,8 +2,8 @@
  * Motas de luz del hero "stage" de Saint Aure (docs/plans/hero-header-stage.md, D7).
  * Canvas bundleado (sin inline, sin hash de CSP). Densidad por área, ascenso
  * lento, color desde `--stage-dust` / `--stage-dust-k` del tema. Con movimiento
- * reducido se dibuja un solo cuadro estático; fuera de pantalla o con la
- * pestaña oculta el bucle se detiene.
+ * reducido se dibuja un solo cuadro estático; fuera de pantalla, con la
+ * pestaña oculta o con el hero en pausa (`data-paused`) el bucle se detiene.
  */
 
 interface Mote {
@@ -116,7 +116,10 @@ function initStageDust(canvas: HTMLCanvasElement): void {
 
   const update = () => {
     const running =
-      !reduced.matches && visible && document.visibilityState === "visible";
+      !reduced.matches &&
+      visible &&
+      !hero.hasAttribute("data-paused") &&
+      document.visibilityState === "visible";
 
     if (running && !frame) {
       frame = requestAnimationFrame(tick);
@@ -154,6 +157,12 @@ function initStageDust(canvas: HTMLCanvasElement): void {
   }).observe(document.documentElement, {
     attributes: true,
     attributeFilter: ["data-theme"],
+  });
+
+  // El botón de pausa (stage-motion.ts) pone o quita `data-paused` en el hero.
+  new MutationObserver(update).observe(hero, {
+    attributes: true,
+    attributeFilter: ["data-paused"],
   });
 
   document.addEventListener("visibilitychange", update);

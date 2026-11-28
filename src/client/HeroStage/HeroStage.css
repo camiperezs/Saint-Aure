@@ -15,8 +15,6 @@
     --stage-amb: rgba(212, 170, 106, 0.1);
     --stage-gold-hi: #f2d9b2;
     --stage-ring: rgba(212, 170, 106, 0.16);
-    --stage-card-bg: rgba(20, 15, 12, 0.9);
-    --stage-card-bd: rgba(212, 170, 106, 0.32);
     --stage-cta-bg: linear-gradient(180deg, #ead3a6, #cdaa72);
     --stage-cta-fg: #1c1612;
     --stage-cta-bd: rgba(255, 236, 200, 0.35);
@@ -47,8 +45,6 @@
     --stage-amb: rgba(214, 160, 104, 0.35);
     --stage-gold-hi: #b78a45;
     --stage-ring: rgba(138, 100, 40, 0.2);
-    --stage-card-bg: rgba(255, 248, 238, 0.92);
-    --stage-card-bd: rgba(42, 32, 24, 0.18);
     --stage-cta-bg: linear-gradient(180deg, #3b2e23, #251b13);
     --stage-cta-fg: #f7eadd;
     --stage-cta-bd: rgba(42, 32, 24, 0.9);
@@ -174,41 +170,55 @@
     box-shadow: 0 0 9px 1px var(--stage-gold-hi);
   }
 
-  /* ---- Tarjeta de experiencia (D9): opaca, solapa el borde de la foto. */
-  .hero-stage__card {
+  /* ---- Control de pausa (D12, WCAG 2.2.2): el script lo muestra. */
+  .hero-stage__pause {
     position: absolute;
     z-index: 4;
-    inset-inline-start: calc(100% - 135 * var(--u));
-    inset-block-start: 22%;
-    inline-size: max(9.5rem, calc(215 * var(--u)));
-    padding: 1.15rem 1.3rem 1.2rem;
-    background: var(--stage-card-bg);
-    border: 1px solid var(--stage-card-bd);
-    border-radius: var(--stage-radius);
-    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.55);
-  }
-
-  .hero-stage__card b {
-    display: block;
-    font: 400 max(3.4rem, calc(72 * var(--u))) / 0.95 var(--font-heading);
-    color: var(--color-accent-text);
-    letter-spacing: -0.03em;
-  }
-
-  .hero-stage__card i {
-    display: block;
-    inline-size: 2rem;
-    block-size: 1px;
-    margin: 0.75rem 0 0.7rem;
-    background: var(--color-accent-text);
-  }
-
-  .hero-stage__card span {
-    display: block;
-    font: 500 0.7rem / 1.5 var(--font-body);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    inset-inline-end: var(--layout-gutter);
+    inset-block-end: 1.25rem;
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--stage-ring);
+    border-radius: 50%;
     color: var(--color-text-secondary);
+    background: transparent;
+    cursor: pointer;
+    transition:
+      color var(--duration-normal) var(--ease-standard),
+      border-color var(--duration-normal) var(--ease-standard);
+  }
+
+  .hero-stage__pause[hidden] {
+    display: none;
+  }
+
+  /* Glifo de pausa (dos barras) o de reproducir (triángulo), en CSS. */
+  .hero-stage__pause::before {
+    content: "";
+    inline-size: 0.6rem;
+    block-size: 0.75rem;
+    border-inline: 0.2rem solid currentcolor;
+  }
+
+  .hero-stage__pause[aria-pressed="true"]::before {
+    inline-size: 0.7rem;
+    border: 0;
+    margin-inline-start: 0.15rem;
+    background: currentcolor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+
+  .hero-stage__pause:hover {
+    color: var(--color-accent-text);
+    border-color: var(--color-accent-text);
+  }
+
+  .hero-stage__pause:focus-visible {
+    outline: 2px solid var(--color-accent-text);
+    outline-offset: 3px;
   }
 
   /* ---- Texto. */
@@ -394,33 +404,13 @@
       inline-size: 112%;
     }
 
-    .hero-stage__card {
-      inset-inline-start: auto;
-      inset-inline-end: -9vw;
-      inset-block-start: 20%;
-      inline-size: 7.4rem;
-      padding: 0.8rem 0.9rem 0.85rem;
-    }
-
-    .hero-stage__card b {
-      font-size: 2.8rem;
-    }
-
-    .hero-stage__card i {
-      margin: 0.5rem 0;
-    }
-
-    .hero-stage__card span {
-      font-size: 0.58rem;
-      letter-spacing: 0.16em;
-    }
-
     .hero-stage__copy {
       position: relative;
       inset: auto;
       inline-size: auto;
       margin: -1.5rem 0 0;
-      padding: 0 var(--layout-gutter) 2.6rem;
+      /* Deja lugar abajo para el botón de pausa sin pisar los botones. */
+      padding: 0 var(--layout-gutter) 4.75rem;
     }
 
     .hero-stage__bg {
@@ -457,10 +447,6 @@
   @media (40rem <= width < 64rem) {
     .hero-stage__stage {
       inline-size: min(56vw, 31rem);
-    }
-
-    .hero-stage__card {
-      inset-inline-end: -6vw;
     }
 
     .hero-stage__copy {
@@ -502,7 +488,7 @@
     .hero-stage__eyebrow,
     .hero-stage__lead,
     .hero-stage__actions,
-    .hero-stage__card {
+    .hero-stage__pause {
       animation: stage-up 1s var(--ease-out-expo) both;
     }
 
@@ -518,7 +504,7 @@
       animation-delay: 1s;
     }
 
-    .hero-stage__card {
+    .hero-stage__pause {
       animation-delay: 1.3s;
     }
 
@@ -557,6 +543,24 @@
 
     .hero-stage__band {
       animation: stage-drift 24s ease-in-out infinite alternate;
+    }
+
+    /* Pausa (D12): se congela el ambiente donde está, sin saltos. */
+    .hero-stage[data-paused]
+      :is(
+        .hero-stage__arc,
+        .hero-stage__glow,
+        .hero-stage__band,
+        .hero-stage__title em
+      ) {
+      animation-play-state: paused;
+    }
+  }
+
+  /* Con movimiento reducido no hay nada que pausar. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-stage__pause {
+      display: none;
     }
   }
 
