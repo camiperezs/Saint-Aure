@@ -81,7 +81,7 @@
   .hero-stage__pause {
     position: absolute;
     z-index: 4;
-    inset-inline-end: var(--layout-gutter);
+    inset-inline-start: var(--layout-gutter);
     inset-block-end: 1.25rem;
   }
 
