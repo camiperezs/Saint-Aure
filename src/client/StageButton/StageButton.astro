@@ -1,0 +1,33 @@
+---
+import Icon from "@/components/ui/Icon/Icon.astro";
+import type { Action } from "@/types/action";
+import { resolveAction } from "@/utils/action";
+import "../stage-tokens.css";
+import "./StageButton.css";
+
+interface Props {
+  action: Action;
+  variant?: "satin" | "underline";
+  class?: string;
+}
+
+const { action, variant = "satin", class: className } = Astro.props;
+const resolved = resolveAction(action);
+const rel =
+  resolved.rel ??
+  (resolved.target === "_blank" ? "noopener noreferrer" : undefined);
+const trailingIcon =
+  variant === "underline" ? (resolved.icon ?? "arrow-right") : undefined;
+const leadingIcon = variant === "satin" ? resolved.icon : undefined;
+---
+
+<a
+  class:list={["stage-button", `stage-button--${variant}`, className]}
+  href={resolved.href}
+  target={resolved.target}
+  rel={rel}
+>
+  {leadingIcon && <Icon name={leadingIcon} />}
+  {resolved.label}
+  {trailingIcon && <Icon name={trailingIcon} />}
+</a>

@@ -1,11 +1,3 @@
-/**
- * Motas de luz del hero "stage" de Saint Aure (docs/plans/hero-header-stage.md, D7).
- * Canvas bundleado (sin inline, sin hash de CSP). Densidad por área, ascenso
- * lento, color desde `--stage-dust` / `--stage-dust-k` del tema. Con movimiento
- * reducido se dibuja un solo cuadro estático; fuera de pantalla, con la
- * pestaña oculta o con el hero en pausa (`data-paused`) el bucle se detiene.
- */
-
 interface Mote {
   x: number;
   y: number;
@@ -15,10 +7,11 @@ interface Mote {
   phase: number;
 }
 
-/** ~48 motas en 1440×900 (D7). */
 const DENSITY = 48 / (1440 * 900);
 const MIN_MOTES = 18;
 const MAX_MOTES = 72;
+const FRAME_MS = 16;
+const MAX_STEP_MS = 48;
 
 function createMote(y = Math.random()): Mote {
   return {
@@ -32,13 +25,14 @@ function createMote(y = Math.random()): Mote {
 }
 
 function initStageDust(canvas: HTMLCanvasElement): void {
-  const hero = canvas.parentElement;
+  const area = canvas.parentElement;
   const ctx = canvas.getContext("2d");
 
-  if (!hero || !ctx) {
+  if (!area || !ctx) {
     return;
   }
 
+  const scope = canvas.closest<HTMLElement>("[data-motion-scope]") ?? area;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const motes: Mote[] = [];
   let width = 0;
@@ -51,7 +45,7 @@ function initStageDust(canvas: HTMLCanvasElement): void {
   let last = 0;
 
   const readColor = () => {
-    const styles = getComputedStyle(hero);
+    const styles = getComputedStyle(canvas);
     rgb = styles.getPropertyValue("--stage-dust").trim() || rgb;
     strength =
       Number.parseFloat(styles.getPropertyValue("--stage-dust-k")) || 1;
@@ -61,7 +55,7 @@ function initStageDust(canvas: HTMLCanvasElement): void {
     const target = Math.round(
       Math.min(
         MAX_MOTES,
-        Math.max(MIN_MOTES, hero.clientWidth * hero.clientHeight * DENSITY),
+        Math.max(MIN_MOTES, area.clientWidth * area.clientHeight * DENSITY),
       ),
     );
 
@@ -100,9 +94,14 @@ function initStageDust(canvas: HTMLCanvasElement): void {
     ctx.globalAlpha = 1;
   };
 
+  const drawStill = () => {
+    if (!frame) {
+      draw(0, 0);
+    }
+  };
+
   const tick = (time: number) => {
-    // Paso normalizado a 60 fps (16 ms), acotado para no saltar al volver.
-    const step = last ? Math.min(time - last, 48) : 16;
+    const step = last ? Math.min(time - last, MAX_STEP_MS) : FRAME_MS;
     last = time;
     draw(time, step);
     frame = requestAnimationFrame(tick);
@@ -118,7 +117,7 @@ function initStageDust(canvas: HTMLCanvasElement): void {
     const running =
       !reduced.matches &&
       visible &&
-      !hero.hasAttribute("data-paused") &&
+      !scope.hasAttribute("data-paused") &&
       document.visibilityState === "visible";
 
     if (running && !frame) {
@@ -131,36 +130,28 @@ function initStageDust(canvas: HTMLCanvasElement): void {
 
   const resize = () => {
     dpr = Math.min(devicePixelRatio || 1, 2);
-    width = canvas.width = Math.round(hero.clientWidth * dpr);
-    height = canvas.height = Math.round(hero.clientHeight * dpr);
+    width = canvas.width = Math.round(area.clientWidth * dpr);
+    height = canvas.height = Math.round(area.clientHeight * dpr);
     fitCount();
-
-    if (!frame) {
-      draw(0, 0);
-    }
+    drawStill();
   };
 
-  new ResizeObserver(resize).observe(hero);
+  new ResizeObserver(resize).observe(area);
 
   new IntersectionObserver(([entry]) => {
     visible = entry?.isIntersecting ?? true;
     update();
-  }).observe(hero);
+  }).observe(area);
 
-  // El tema cambia `data-theme` en <html>: se relee el color de las motas.
   new MutationObserver(() => {
     readColor();
-
-    if (!frame) {
-      draw(0, 0);
-    }
+    drawStill();
   }).observe(document.documentElement, {
     attributes: true,
     attributeFilter: ["data-theme"],
   });
 
-  // El botón de pausa (stage-motion.ts) pone o quita `data-paused` en el hero.
-  new MutationObserver(update).observe(hero, {
+  new MutationObserver(update).observe(scope, {
     attributes: true,
     attributeFilter: ["data-paused"],
   });

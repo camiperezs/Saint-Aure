@@ -1,0 +1,19 @@
+@layer components {
+  .stage-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+    font: 500 0.72rem / 1.2 var(--font-body);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .stage-eyebrow::before {
+    content: "";
+    inline-size: 2.6rem;
+    block-size: 1px;
+    background: var(--color-accent-text);
+  }
+}

@@ -1,0 +1,24 @@
+---
+import type { TitleLine } from "./types";
+import "../stage-tokens.css";
+import "./StageTitle.css";
+
+interface Props {
+  lines: TitleLine[];
+  as?: "h1" | "h2";
+  id?: string;
+  class?: string;
+}
+
+const { lines, as: Tag = "h1", id, class: className } = Astro.props;
+---
+
+<Tag class:list={["stage-title", className]} id={id}>
+  {lines.map((line) => (
+    <span class="stage-title__line">
+      <span>
+        {line.map((part) => (part.accent ? <em>{part.text}</em> : part.text))}
+      </span>
+    </span>
+  ))}
+</Tag>

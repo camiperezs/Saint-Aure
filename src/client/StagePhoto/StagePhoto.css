@@ -1,0 +1,21 @@
+@layer components {
+  .stage-photo {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    filter: var(--stage-photo-fx);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .stage-photo {
+      animation: stage-reveal 1.8s var(--ease-out-expo) 0.1s both;
+    }
+  }
+
+  @keyframes stage-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+}

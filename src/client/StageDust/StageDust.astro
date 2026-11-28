@@ -1,0 +1,20 @@
+---
+import "../stage-tokens.css";
+import "./StageDust.css";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<canvas
+  class:list={["stage-dust", className]}
+  aria-hidden="true"
+  data-stage-dust
+></canvas>
+
+<script>
+  import "./stage-dust";
+</script>

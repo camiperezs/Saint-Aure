@@ -1,0 +1,87 @@
+@layer components {
+  .stage-title {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--color-text-primary);
+    text-wrap: balance;
+  }
+
+  .stage-title__line {
+    display: block;
+    overflow: hidden;
+    padding-block-end: 0.14em;
+    margin-block-end: -0.14em;
+    padding-inline-end: 0.08em;
+  }
+
+  .stage-title__line > span {
+    display: block;
+  }
+
+  .stage-title em {
+    font-style: italic;
+    color: var(--color-accent-text);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .stage-title__line > span {
+      animation: stage-rise 1.2s var(--ease-out-expo) both;
+    }
+
+    .stage-title__line:nth-child(1) > span {
+      animation-delay: 0.12s;
+    }
+
+    .stage-title__line:nth-child(2) > span {
+      animation-delay: 0.24s;
+    }
+
+    .stage-title__line:nth-child(3) > span {
+      animation-delay: 0.36s;
+    }
+
+    .stage-title__line:nth-child(4) > span {
+      animation-delay: 0.48s;
+    }
+
+    .stage-title__line:nth-child(5) > span {
+      animation-delay: 0.6s;
+    }
+
+    .stage-title em {
+      color: transparent;
+      background: linear-gradient(
+          100deg,
+          var(--color-accent-text) 25%,
+          var(--stage-gold-hi) 46%,
+          var(--color-accent-text) 68%
+        )
+        100% 0 / 260% 100%;
+      background-clip: text;
+      animation: stage-shine 7s ease-in-out 2s infinite;
+    }
+
+    [data-paused] .stage-title em {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes stage-rise {
+    from {
+      transform: translateY(108%);
+    }
+  }
+
+  @keyframes stage-shine {
+    0%,
+    100% {
+      background-position: 100% 0;
+    }
+
+    50% {
+      background-position: 0 0;
+    }
+  }
+}

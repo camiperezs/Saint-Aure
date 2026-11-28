@@ -1,20 +1,10 @@
 import type { Action } from "@/types/action";
+import type { TitleLine } from "./StageTitle/types";
 import heroPhoto from "@/assets/images/hero-stage.webp";
 
-/**
- * Contenido del hero "stage" de Saint Aure (docs/plans/hero-header-stage.md,
- * D2). El tipo `Hero` de la plantilla no tiene esta variante, por eso vive acá.
- */
-
-interface TitleSegment {
-  text: string;
-  accent?: boolean;
-}
-
-interface HeroStageContent {
+export interface HeroStageContent {
   eyebrow: string;
-  /** Una entrada por línea del título; el acento va en dorado cursiva. */
-  titleLines: TitleSegment[][];
+  titleLines: TitleLine[];
   description: string;
   image: { src: ImageMetadata; alt: string };
   primaryAction: Action;

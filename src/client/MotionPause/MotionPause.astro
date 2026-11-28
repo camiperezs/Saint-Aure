@@ -1,0 +1,32 @@
+---
+import "../stage-tokens.css";
+import "./MotionPause.css";
+
+interface Props {
+  pauseLabel?: string;
+  resumeLabel?: string;
+  class?: string;
+}
+
+const {
+  pauseLabel = "Pausar animaciones",
+  resumeLabel = "Reanudar animaciones",
+  class: className,
+} = Astro.props;
+---
+
+<button
+  class:list={["motion-pause", className]}
+  type="button"
+  aria-pressed="false"
+  hidden
+  data-motion-pause
+  data-label-pause={pauseLabel}
+  data-label-resume={resumeLabel}
+>
+  <span class="visually-hidden">{pauseLabel}</span>
+</button>
+
+<script>
+  import "./motion-pause";
+</script>

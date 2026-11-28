@@ -1,15 +1,24 @@
 ---
-import { Image } from "astro:assets";
-import Icon from "@/components/ui/Icon/Icon.astro";
-import { resolveAction } from "@/utils/action";
-import { heroStage as content } from "../hero-stage";
+import Eyebrow from "../Eyebrow/Eyebrow.astro";
+import MotionPause from "../MotionPause/MotionPause.astro";
+import StageButton from "../StageButton/StageButton.astro";
+import StageDust from "../StageDust/StageDust.astro";
+import StageOrbit from "../StageOrbit/StageOrbit.astro";
+import StagePhoto from "../StagePhoto/StagePhoto.astro";
+import StageTitle from "../StageTitle/StageTitle.astro";
+import type { HeroStageContent } from "../hero-stage";
+import "../stage-tokens.css";
 import "./HeroStage.css";
 
-const primary = resolveAction(content.primaryAction);
-const secondary = resolveAction(content.secondaryAction);
+interface Props {
+  content: HeroStageContent;
+}
+
+const { content } = Astro.props;
+const titleId = "hero-stage-title";
 ---
 
-<section class="hero-stage" aria-labelledby="hero-stage-title">
+<section class="hero-stage" aria-labelledby={titleId} data-motion-scope>
   <div class="hero-stage__bg" aria-hidden="true">
     <div class="hero-stage__amb"></div>
     <div class="hero-stage__glow"></div>
@@ -18,66 +27,32 @@ const secondary = resolveAction(content.secondaryAction);
 
   <div class="hero-stage__comp">
     <div class="hero-stage__stage">
-      <div class="hero-stage__orbit" aria-hidden="true">
-        <div class="hero-stage__arc"></div>
-      </div>
-      <Image
+      <StageOrbit />
+      <StagePhoto
         class="hero-stage__photo"
         src={content.image.src}
         alt={content.image.alt}
         widths={[480, 800, 1132]}
         sizes="(min-width: 64rem) 45vw, 80vw"
-        loading="eager"
-        fetchpriority="high"
+        priority
       />
     </div>
 
     <div class="hero-stage__copy">
-      <p class="hero-stage__eyebrow">{content.eyebrow}</p>
-      <h1 class="hero-stage__title" id="hero-stage-title">
-        {content.titleLines.map((line) => (
-          <span class="hero-stage__line">
-            <span>
-              {line.map((part) =>
-                part.accent ? <em>{part.text}</em> : part.text,
-              )}
-            </span>
-          </span>
-        ))}
-      </h1>
+      <Eyebrow class="hero-stage__eyebrow">{content.eyebrow}</Eyebrow>
+      <StageTitle
+        class="hero-stage__title"
+        id={titleId}
+        lines={content.titleLines}
+      />
       <p class="hero-stage__lead">{content.description}</p>
       <div class="hero-stage__actions">
-        <a
-          class="hero-stage__cta"
-          href={primary.href}
-          target={primary.target}
-          rel={primary.target === "_blank" ? "noopener noreferrer" : undefined}
-        >
-          {primary.icon && <Icon name={primary.icon} />}
-          {primary.label}
-        </a>
-        <a class="hero-stage__sec" href={secondary.href}>
-          {secondary.label}
-          <Icon name="arrow-right" />
-        </a>
+        <StageButton action={content.primaryAction} variant="satin" />
+        <StageButton action={content.secondaryAction} variant="underline" />
       </div>
     </div>
   </div>
 
-  <canvas class="hero-stage__dust" aria-hidden="true" data-stage-dust></canvas>
-
-  <button
-    class="hero-stage__pause"
-    type="button"
-    aria-pressed="false"
-    hidden
-    data-stage-pause
-  >
-    <span class="visually-hidden">Pausar animaciones</span>
-  </button>
+  <StageDust class="hero-stage__dust" />
+  <MotionPause class="hero-stage__pause" />
 </section>
-
-<script>
-  import "../stage-motion";
-  import "../stage-particles";
-</script>

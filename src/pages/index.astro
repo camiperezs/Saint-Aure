@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import HeroStage from "@/client/HeroStage/HeroStage.astro";
+import { heroStage } from "@/client/hero-stage";
 import PageSections from "@/components/sections/PageSections.astro";
 import { site } from "@/config/site";
 import { page } from "@/content/page";
@@ -14,7 +15,7 @@ import { getBusinessStructuredData } from "@/utils/structured-data";
     is:inline
     set:html={getBusinessStructuredData(site)}
   />
-  <HeroStage />
+  <HeroStage content={heroStage} />
   <PageSections
     sections={page.sections}
     labels={site.labels}

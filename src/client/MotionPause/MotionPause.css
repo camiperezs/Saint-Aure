@@ -1,0 +1,52 @@
+@layer components {
+  .motion-pause {
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--stage-ring);
+    border-radius: 50%;
+    color: var(--color-text-secondary);
+    background: transparent;
+    cursor: pointer;
+    transition:
+      color var(--duration-normal) var(--ease-standard),
+      border-color var(--duration-normal) var(--ease-standard);
+  }
+
+  .motion-pause[hidden] {
+    display: none;
+  }
+
+  .motion-pause::before {
+    content: "";
+    inline-size: 0.6rem;
+    block-size: 0.75rem;
+    border-inline: 0.2rem solid currentcolor;
+  }
+
+  .motion-pause[aria-pressed="true"]::before {
+    inline-size: 0.7rem;
+    border: 0;
+    margin-inline-start: 0.15rem;
+    background: currentcolor;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+
+  .motion-pause:hover {
+    color: var(--color-accent-text);
+    border-color: var(--color-accent-text);
+  }
+
+  .motion-pause:focus-visible {
+    outline: 2px solid var(--color-accent-text);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motion-pause {
+      display: none;
+    }
+  }
+}

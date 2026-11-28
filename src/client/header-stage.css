@@ -1,19 +1,9 @@
-/*
- * Header "stage" de Saint Aure (docs/plans/hero-header-stage.md, D1 y D11).
- *
- * Solo de este cliente: se apoya en las clases de `Header` sin editarlo. Va
- * fuera de `@layer` a propósito para ganarle a `Header.css` y a
- * `ThemeToggle.css` sin depender del orden de los bundles. Puede dar conflicto
- * al hacer merge de la plantilla si cambian esas clases.
- */
-
 .header {
   --header-rule: color-mix(in srgb, var(--color-accent-text) 30%, transparent);
   --header-ink: var(--color-text-primary);
   --brand-logo-height: 3.25rem;
 }
 
-/* Sobre el hero el texto sigue al tema (el fondo del hero también). */
 .header--overlay .header__brand,
 .header--overlay .header__link,
 .header--overlay .header__link:hover,
@@ -25,7 +15,6 @@
   border-color: var(--header-rule);
 }
 
-/* ---- Línea inferior con rombo, alineado al borde izquierdo del contenido. */
 .header::after {
   content: "";
   position: absolute;
@@ -59,7 +48,6 @@
   pointer-events: none;
 }
 
-/* ---- Estructura. */
 .header__inner {
   min-block-size: 4.5rem;
   padding-block: var(--space-2);
@@ -71,7 +59,6 @@
   border-radius: 50%;
 }
 
-/* ---- Enlaces: subrayado dorado que crece. */
 .header__link {
   position: relative;
   padding-block: var(--space-1);
@@ -105,7 +92,6 @@
   transform: scaleX(1);
 }
 
-/* ---- Contacto: solo texto subrayado, sin caja ni ícono (D11). */
 .header .button.header__action,
 .header .header__menu-action .button {
   min-block-size: 0;
@@ -135,7 +121,6 @@
   display: none;
 }
 
-/* ---- Botones circulares: tema y menú. */
 .header .theme-toggle,
 .header .header__menu-button {
   inline-size: 2.6rem;
@@ -160,7 +145,6 @@
   border-color: var(--color-accent-text);
 }
 
-/* El menú muestra solo el ícono; el texto queda para lectores de pantalla. */
 .header .header__menu-button {
   font-size: 0;
 }
@@ -170,7 +154,6 @@
   block-size: 1.1rem;
 }
 
-/* Ícono de tema dibujado con máscara (en vez de los glifos ☀ ☾). */
 .header .theme-toggle__sun,
 .header .theme-toggle__moon,
 [data-theme="dark"] .header .theme-toggle__moon {
@@ -192,7 +175,6 @@
   --theme-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z'/%3E%3C/svg%3E");
 }
 
-/* ---- Móvil y tablet: panel del menú con borde y esquinas redondeadas. */
 @media (width < 64rem) {
   .header[data-menu-ready][data-menu-open] .header__nav {
     inset-inline: var(--layout-gutter);
@@ -221,7 +203,6 @@
     padding-block: var(--space-4);
   }
 
-  /* En el panel el subrayado animado sobra: ya hay separadores. */
   .header__link::after {
     display: none;
   }
@@ -231,7 +212,6 @@
   }
 }
 
-/* ---- Escritorio: isotipo | navegación centrada | acciones. */
 @media (width >= 64rem) {
   .header__inner {
     display: grid;
