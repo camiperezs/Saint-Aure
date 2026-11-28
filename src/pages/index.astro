@@ -1,22 +1,20 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Hero from "@/components/sections/Hero/Hero.astro";
+import HeroStage from "@/client/HeroStage/HeroStage.astro";
 import PageSections from "@/components/sections/PageSections.astro";
 import { site } from "@/config/site";
 import { page } from "@/content/page";
 import { getBusinessStructuredData } from "@/utils/structured-data";
-
-const heroVariant: string | undefined = page.hero?.variant;
 ---
 
-<BaseLayout headerOverlay={heroVariant === "fullscreen"} motion>
+<BaseLayout headerOverlay motion>
   <script
     slot="head"
     type="application/ld+json"
     is:inline
     set:html={getBusinessStructuredData(site)}
   />
-  {page.hero && <Hero {...page.hero} />}
+  <HeroStage />
   <PageSections
     sections={page.sections}
     labels={site.labels}

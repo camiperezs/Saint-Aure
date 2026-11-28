@@ -1,0 +1,73 @@
+---
+import { Image } from "astro:assets";
+import Icon from "@/components/ui/Icon/Icon.astro";
+import { resolveAction } from "@/utils/action";
+import { heroStage as content } from "../hero-stage";
+import "./HeroStage.css";
+
+const primary = resolveAction(content.primaryAction);
+const secondary = resolveAction(content.secondaryAction);
+---
+
+<section class="hero-stage" aria-labelledby="hero-stage-title">
+  <div class="hero-stage__bg" aria-hidden="true">
+    <div class="hero-stage__amb"></div>
+    <div class="hero-stage__glow"></div>
+    <div class="hero-stage__band"></div>
+  </div>
+
+  <div class="hero-stage__comp">
+    <div class="hero-stage__stage">
+      <div class="hero-stage__orbit" aria-hidden="true">
+        <div class="hero-stage__arc"></div>
+      </div>
+      <Image
+        class="hero-stage__photo"
+        src={content.image.src}
+        alt={content.image.alt}
+        widths={[480, 800, 1132]}
+        sizes="(min-width: 64rem) 45vw, 80vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="hero-stage__card">
+        <b>{content.card.value}</b>
+        <i aria-hidden="true"></i>
+        <span>{content.card.label}</span>
+      </div>
+    </div>
+
+    <div class="hero-stage__copy">
+      <p class="hero-stage__eyebrow">{content.eyebrow}</p>
+      <h1 class="hero-stage__title" id="hero-stage-title">
+        {content.titleLines.map((line) => (
+          <span class="hero-stage__line">
+            <span>
+              {line.map((part) =>
+                part.accent ? <em>{part.text}</em> : part.text,
+              )}
+            </span>
+          </span>
+        ))}
+      </h1>
+      <p class="hero-stage__lead">{content.description}</p>
+      <div class="hero-stage__actions">
+        <a
+          class="hero-stage__cta"
+          href={primary.href}
+          target={primary.target}
+          rel={primary.target === "_blank" ? "noopener noreferrer" : undefined}
+        >
+          {primary.icon && <Icon name={primary.icon} />}
+          {primary.label}
+        </a>
+        <a class="hero-stage__sec" href={secondary.href}>
+          {secondary.label}
+          <Icon name="arrow-right" />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <canvas class="hero-stage__dust" aria-hidden="true" data-stage-dust></canvas>
+</section>

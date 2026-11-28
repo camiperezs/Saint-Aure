@@ -47,7 +47,7 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/hero-heade
 - **Archivos**: crea `src/client/HeroStage/HeroStage.astro`, `src/client/HeroStage/HeroStage.css`, `src/client/hero-stage.ts`; toca `src/pages/index.astro`, `src/content/page.ts` (quitar `hero` si D2 lo permite).
 - **Verificación**: `npm run check`, `npm run lint`, `npm run format:check`, `npm run check:contrast`; en `npm run dev`, comparar lado a lado con el artifact a 375, 768, 1280 y 1920 px, oscuro y claro. Los botones tienen que seguir abriendo WhatsApp y llevando a `#gallery`.
 - **Modelo sugerido**: Opus.
-- **Estado**: Pendiente.
+- **Estado**: Implementada. `page.hero` se conservó en `page.ts` porque el catálogo `/dev/components` lo usa para las variantes de `Hero`; `index.astro` ya no lo renderiza. El botón de WhatsApp del hero conserva el ícono (como el artifact). El `<canvas data-stage-dust>` ya está en el markup para la etapa 4.
 
 ### Etapa 4: Movimiento y partículas
 
@@ -71,6 +71,6 @@ Cada etapa se implementa en una sesión nueva con `/etapas docs/plans/hero-heade
 
 Ajustes chicos que aparecen durante las etapas y se aplican juntos al final.
 
-- Header (etapa 2): el botón de contactar va sin el logo de WhatsApp, solo texto subrayado (ya reflejado en D11). Al implementar la etapa 3, confirmar si el botón de WhatsApp del hero conserva el ícono o también va solo texto.
+- Header (etapa 2): el botón de contactar va sin el logo de WhatsApp, solo texto subrayado (ya reflejado en D11). Etapa 3: el botón de WhatsApp del hero conserva el ícono (como el artifact); cambiarlo si Camila prefiere solo texto.
 - Etapa 2 → etapa 3: el CSS del header (`src/client/header-stage.css`) hace que el texto del header siga el tema también con `header--overlay`. Mientras la home siga con el hero fullscreen viejo (siempre oscuro), en tema claro el texto del header se lee mal sobre la foto; se resuelve solo al reemplazar el hero en la etapa 3 (fondo durazno en claro). Al activar `headerOverlay` en `index.astro`, comprobar que el header (sticky con ocultar al bajar vs. `header--overlay` absoluto) se comporta como se quiere.
 - Etapa 5: `npm run check:contrast` (y probablemente `check:launch`) falla porque `scripts/*.ts` importa `site.ts` con node plano y `site.ts` ahora importa `@/assets/images/logo.webp` (etapa 1). Con el import reemplazado a mano el contraste pasa (172 combinaciones). Resolver en la etapa 5 (por ejemplo `site.logo` con ruta en `public/` o un loader en los scripts). También `format:check` avisa de `docs/plans/hero-header-stage/reference.html` (se borra al cerrar el plan).
