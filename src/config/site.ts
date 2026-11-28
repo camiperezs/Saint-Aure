@@ -1,4 +1,5 @@
 import type { SiteConfig } from "@/types/site";
+import logo from "@/assets/images/logo.webp";
 
 const description =
   "Peinados para novias, balayage, colorimetría y alisados en Rosario y Roldán. 16 años de experiencia, atención presencial y a domicilio.";
@@ -9,7 +10,7 @@ export const site: SiteConfig = {
   locale: "es-AR",
 
   // Logo opcional (Header, Footer y JSON-LD). Sin logo se muestra el nombre.
-  // logo: { src: "/logo.svg", alt: "Saint Aure", width: 160, height: 40 },
+  logo: { src: logo, alt: "Saint Aure" },
 
   seo: {
     title: "Saint Aure — Peinados y color en Rosario y Roldán",
