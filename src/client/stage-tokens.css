@@ -20,7 +20,7 @@
   }
 
   :root[data-theme="light"] {
-    --stage-bg: #f3dfc7;
+    --stage-bg: var(--color-background);
     --stage-glow-1: rgba(255, 226, 184, 0.9);
     --stage-glow-2: rgba(222, 160, 98, 0.42);
     --stage-brown: rgba(247, 190, 128, 0.62);
